@@ -1,0 +1,31 @@
+# Credentials — NEVER commit
+.env
+*.key
+*.pem
+
+# Lock file (bot stopped by -10 % drawdown circuit breaker)
+.regime_trader.lock
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+dist/
+build/
+
+# Data & logs
+logs/
+*.csv
+*.parquet
+*.h5
+
+# Environments
+.venv/
+venv/
+env/
+
+# macOS
+.DS_Store

@@ -1,0 +1,21 @@
+# Core ML / data
+numpy>=1.26
+pandas>=2.2
+scikit-learn>=1.4
+hmmlearn>=0.3
+
+# Broker
+alpaca-trade-api>=3.1
+alpaca-py>=0.26
+
+# Dashboard
+streamlit>=1.35
+rich>=13.7
+
+# Utilities
+python-dotenv>=1.0
+scipy>=1.13
+
+# Testing
+pytest>=8.2
+pytest-cov>=5.0
