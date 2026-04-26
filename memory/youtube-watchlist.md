@@ -12,6 +12,9 @@ Last updated: 2026-04-25
 | 2 | Bravos Research | https://www.youtube.com/channel/UCOHxDwCcOzBaLkeTazanwcw | UCOHxDwCcOzBaLkeTazanwcw | EN | macro, market-signal, trade-ideas | — | never |
 | 3 | Finary | https://www.youtube.com/@Finary | UCRCCAnVyzDTcqNYh0pDcq7Q | FR | wealth-mgmt, portfolio, budgeting | — | never |
 | 4 | Investing Simplified (Prof G) | https://www.youtube.com/channel/UCr4XXQznhlgfzo4mwOgkF8w | UCr4XXQznhlgfzo4mwOgkF8w | EN | ETF, stocks, retirement, crypto | — | never |
+| 5 | George Gammon | https://www.youtube.com/channel/UCpvyOqtEc86X8w8_Se0t4-w | UCpvyOqtEc86X8w8_Se0t4-w | EN | macro, credit-cycles, monetary-policy, trade-ideas | ★★★ | never |
+| 6 | IG France (Alexandre Baradez) | https://www.youtube.com/channel/UCQ0A2MqahcnKlToIJ_giSEg | UCQ0A2MqahcnKlToIJ_giSEg | FR | macro, technical-analysis, market-daily | ★★★ | never |
+| 7 | Real Vision Presents | https://www.youtube.com/channel/UCBH5VZE_Y4F3CMcPIzPEB5A | UCBH5VZE_Y4F3CMcPIzPEB5A | EN | macro, institutional, liquidity-cycles, commodities | ★★★ | never |
 
 ## Signal Score Legend
 - ★★★ Highly actionable (generated 2+ good trade ideas)

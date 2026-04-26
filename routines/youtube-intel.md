@@ -25,7 +25,6 @@ STEP 3 — Analyze transcripts with regime_trader lens:
 
   B. WEALTH MANAGEMENT (same as trading-bot):
      - Portfolio allocation advice, tax strategies, asset recommendations
-     - Flag UEMOA/African market content as priority
 
 STEP 4 — Generate reports:
   REPORT A: Append to memory/RESEARCH-LOG.md:
