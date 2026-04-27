@@ -32,3 +32,7 @@ Format:
 
 ### Decision
 TRADE or HOLD
+
+## 2026-04-27 — YouTube Intel
+- No new videos across 7 monitored channels (Oseille TV, Bravos Research, Finary, Investing Simplified (Prof G), George Gammon, IG France (Alexandre Baradez), Real Vision Presents)
+- Note: feedparser RSS fetch failed (missing sgmllib3k wheel) — channels marked as never-checked; timestamps will update on next successful run
