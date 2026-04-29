@@ -155,12 +155,14 @@ class OrderExecutor:
             logger.error("BUY submit failed | %s | %s", ticker, exc)
             return None
 
+        filled_qty   = raw.get("filled_qty") or size.shares
+        filled_price = raw.get("filled_avg_price") or size.entry_price
         result = OrderResult(
             order_id     = raw["id"],
             ticker       = ticker,
             side         = "buy",
-            qty          = raw.get("filled_qty", size.shares),
-            filled_price = raw.get("filled_avg_price", size.entry_price),
+            qty          = filled_qty,
+            filled_price = filled_price,
             status       = raw.get("status", "pending"),
         )
 
