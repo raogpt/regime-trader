@@ -53,3 +53,10 @@ TRADE or HOLD
 - Catalyst gate active: False
 - Sizing modifier: 1.0
 - Regime gate: OPEN
+
+### Anomalies / HMM Warnings
+- CRASH regime at 100% confidence — HIGH_VOL_LABELS group, maps to HighVolDefensiveStrategy
+- consecutive_bars=1; regime NOT confirmed (needs 3 stable bars before acting)
+- Decision: HOLD — await 2 more confirming bars before any position entry
+- No retrain triggered (model fresh, loaded from disk)
+- Session fixes applied: data feed switched to IEX (SIP subscription blocked); FeatureEngineer API corrected (compute_features→build_feature_dataframe); n_bars raised 60→250 (sma200 requires ≥100 bars)
