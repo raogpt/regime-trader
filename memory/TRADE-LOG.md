@@ -13,3 +13,5 @@ No positions. Bot launches Monday Apr 27.
 - IWM: stop tightened (HIGH_VOL regime: crash)
 - QQQ: stop tightened (HIGH_VOL regime: crash)
 - SPY: stop tightened (HIGH_VOL regime: crash)
+
+**Correlation risk check:** regime_trader flat (no open positions) — drawdown N/A. trading-bot log inaccessible. No cross-bot drawdown correlation to flag today.
