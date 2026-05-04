@@ -142,6 +142,7 @@ def fetch_daily_bars(ticker: str, n_days: int) -> pd.DataFrame:
         timeframe=TimeFrame.Day,
         start=start,
         end=end,
+        feed="iex",
     )
 
     def _fetch():
@@ -198,7 +199,7 @@ def load_or_train_hmm(n_bars: int = 60) -> tuple[HMMEngine, np.ndarray]:
     """
     engineer = FeatureEngineer()
     bars = fetch_daily_bars(settings.PRIMARY_TICKER, n_bars)
-    features = engineer.compute_features(bars)
+    features = engineer.build_feature_dataframe(bars)
     features_clean = features.dropna().values
 
     if _model_is_fresh():
@@ -220,7 +221,7 @@ def retrain_hmm_full() -> tuple[HMMEngine, np.ndarray]:
     """Full retrain using HMM_TRAINING_DAYS bars (for weekly mode)."""
     engineer = FeatureEngineer()
     bars = fetch_daily_bars(settings.PRIMARY_TICKER, settings.HMM_TRAINING_DAYS)
-    features = engineer.compute_features(bars).dropna().values
+    features = engineer.build_feature_dataframe(bars).dropna().values
     logger.info("Full retrain on %d bars …", len(features))
     engine = HMMEngine(config=_hmm_config())
     engine.fit(features)
@@ -385,7 +386,7 @@ def run_market_open() -> None:
         logger.info("Market is closed — exiting")
         return
 
-    engine, features = load_or_train_hmm(n_bars=60)
+    engine, features = load_or_train_hmm(n_bars=300)
     regime = predict_regime(engine, features)
     confidence = regime.probability
     is_high_vol = regime.label in HIGH_VOL_LABELS
@@ -409,22 +410,29 @@ def run_market_open() -> None:
         return
 
     acct = with_retry(broker.get_account)
-    risk_manager = RiskManager()
-    risk_manager.update_account(acct.equity, acct.equity)
-
-    cb_result = risk_manager.check_circuit_breakers()
-    if cb_result and cb_result.halt_trading:
+    risk_manager = RiskManager(portfolio_value=float(acct.equity))
+    cb_result = risk_manager.update_portfolio_value(float(acct.equity), regime.label)
+    if cb_result and not cb_result.trading_allowed:
         logger.warning("Circuit breaker triggered — halting: %s", cb_result)
         git_commit_memory("market-open")
         return
 
     regime_info = engine.get_regime_info(regime.label)
-    orchestrator = StrategyOrchestrator(engine)
+    all_regime_infos = [engine.get_regime_info(lbl) for lbl in engine.regime_labels]
+    orchestrator = StrategyOrchestrator(all_regime_infos)
+
+    ticker_bars: dict[str, pd.DataFrame] = {}
+    for ticker in settings.TICKERS:
+        try:
+            ticker_bars[ticker] = fetch_daily_bars(ticker, 300)
+        except Exception as exc:
+            logger.warning("Failed to fetch bars for %s: %s", ticker, exc)
+
     signals = orchestrator.generate_signals(
+        symbols=settings.TICKERS,
+        bars=ticker_bars,
         regime_state=regime,
-        regime_info=regime_info,
-        tickers=settings.TICKERS,
-        account_value=acct.equity,
+        is_flickering=engine.is_flickering,
     )
 
     order_executor = OrderExecutor(broker=broker, risk_manager=risk_manager)
@@ -438,10 +446,10 @@ def run_market_open() -> None:
         # Apply cross-enrichment sizing modifier
         effective_confidence = signal.confidence * sizing_modifier
 
-        size_result = risk_manager.compute_position_size(
-            portfolio_value=acct.equity,
-            entry_price=signal.entry_price,
-            stop_price=signal.stop_loss,
+        size_result = risk_manager.calculate_position_size(
+            ticker=signal.symbol,
+            entry=signal.entry_price,
+            stop=signal.stop_loss,
             regime_max_pct=regime_info.max_position_size_pct,
         )
 
