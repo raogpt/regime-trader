@@ -5,6 +5,7 @@ Weekly side-by-side performance tracking.
 | Week | trading-bot | regime_trader | S&P 500 | Winner |
 |------|------------|---------------|---------|--------|
 | 2026-04-27 | TBD | TBD | TBD | TBD |
+| 2026-05-04 | TBD | +$1,315.74 (+1.32%) — 3 ETFs (SPY/QQQ/IWM) | TBD | TBD |
 
 ## Notes
 - trading-bot: discretionary swing, individual stocks, Claude-driven
