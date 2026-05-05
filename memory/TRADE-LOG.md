@@ -13,3 +13,6 @@ No positions. Bot launches Monday Apr 27.
 - IWM: stop tightened (HIGH_VOL regime: crash)
 - QQQ: stop tightened (HIGH_VOL regime: crash)
 - SPY: stop tightened (HIGH_VOL regime: crash)
+
+**Correlation Risk — Step 3:**
+- Regime: CRASH @ 100% confidence. Both regime_trader (SPY/QQQ/IWM long) and trading-bot (sector ETFs) are exposed to same broad-market sell-off. Cross-bot drawdown correlation assumed HIGH. Sizing discipline critical — do not add to any position until regime clears CRASH.
