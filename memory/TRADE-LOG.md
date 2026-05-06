@@ -13,3 +13,8 @@ No positions. Bot launches Monday Apr 27.
 - IWM: stop tightened (HIGH_VOL regime: crash)
 - QQQ: stop tightened (HIGH_VOL regime: crash)
 - SPY: stop tightened (HIGH_VOL regime: crash)
+
+**Correlation Risk Note:**
+- HMM regime = CRASH (100% confidence). All three ETF positions (SPY/QQQ/IWM) are highly correlated in crash regimes.
+- trading-bot P&L unavailable, but CRASH regime implies both bots likely in drawdown simultaneously if either holds long ETF exposure.
+- Action: circuit breakers active; sizing already reduced via stop-tightening. Monitor for -7% stop triggers.
