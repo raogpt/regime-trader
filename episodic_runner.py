@@ -137,12 +137,22 @@ def fetch_daily_bars(ticker: str, n_days: int) -> pd.DataFrame:
     # Fetch extra days to account for weekends / holidays
     start = end - timedelta(days=int(n_days * 1.5))
 
-    req = StockBarsRequest(
+    from alpaca.data.requests import StockBarsRequest as _SBR
+    try:
+        from alpaca.data.enums import DataFeed
+        _feed = DataFeed.IEX
+    except Exception:
+        _feed = None
+
+    _req_kwargs = dict(
         symbol_or_symbols=ticker,
         timeframe=TimeFrame.Day,
         start=start,
         end=end,
     )
+    if _feed is not None:
+        _req_kwargs["feed"] = _feed
+    req = _SBR(**_req_kwargs)
 
     def _fetch():
         return client.get_stock_bars(req).df
@@ -198,7 +208,7 @@ def load_or_train_hmm(n_bars: int = 60) -> tuple[HMMEngine, np.ndarray]:
     """
     engineer = FeatureEngineer()
     bars = fetch_daily_bars(settings.PRIMARY_TICKER, n_bars)
-    features = engineer.compute_features(bars)
+    features = engineer.build_feature_dataframe(bars)
     features_clean = features.dropna().values
 
     if _model_is_fresh():
@@ -220,7 +230,7 @@ def retrain_hmm_full() -> tuple[HMMEngine, np.ndarray]:
     """Full retrain using HMM_TRAINING_DAYS bars (for weekly mode)."""
     engineer = FeatureEngineer()
     bars = fetch_daily_bars(settings.PRIMARY_TICKER, settings.HMM_TRAINING_DAYS)
-    features = engineer.compute_features(bars).dropna().values
+    features = engineer.build_feature_dataframe(bars).dropna().values
     logger.info("Full retrain on %d bars …", len(features))
     engine = HMMEngine(config=_hmm_config())
     engine.fit(features)
@@ -339,7 +349,7 @@ def run_pre_market() -> None:
     logger.info("Account | equity=%.2f cash=%.2f status=%s",
                 acct.equity, acct.cash, acct.status)
 
-    engine, features = load_or_train_hmm(n_bars=60)
+    engine, features = load_or_train_hmm(n_bars=400)
     regime = predict_regime(engine, features)
     logger.info("Regime: %s | confidence=%.2f | confirmed=%s",
                 regime.label, regime.probability, regime.is_confirmed)
@@ -385,7 +395,7 @@ def run_market_open() -> None:
         logger.info("Market is closed — exiting")
         return
 
-    engine, features = load_or_train_hmm(n_bars=60)
+    engine, features = load_or_train_hmm(n_bars=400)
     regime = predict_regime(engine, features)
     confidence = regime.probability
     is_high_vol = regime.label in HIGH_VOL_LABELS
@@ -409,22 +419,27 @@ def run_market_open() -> None:
         return
 
     acct = with_retry(broker.get_account)
-    risk_manager = RiskManager()
-    risk_manager.update_account(acct.equity, acct.equity)
+    risk_manager = RiskManager(portfolio_value=float(acct.equity))
+    cb_result = risk_manager.update_portfolio_value(float(acct.equity), regime.label)
 
-    cb_result = risk_manager.check_circuit_breakers()
-    if cb_result and cb_result.halt_trading:
+    if cb_result and not cb_result.trading_allowed:
         logger.warning("Circuit breaker triggered — halting: %s", cb_result)
         git_commit_memory("market-open")
         return
 
-    regime_info = engine.get_regime_info(regime.label)
-    orchestrator = StrategyOrchestrator(engine)
+    regime_infos = [engine.get_regime_info(label) for label in engine.regime_labels]
+    orchestrator = StrategyOrchestrator(regime_infos)
+
+    bars_dict: dict[str, pd.DataFrame] = {}
+    for ticker in settings.TICKERS:
+        bars_dict[ticker] = fetch_daily_bars(ticker, 400)
+
+    is_flickering = not regime.is_confirmed or regime.consecutive_bars < 3
     signals = orchestrator.generate_signals(
+        symbols=list(settings.TICKERS),
+        bars=bars_dict,
         regime_state=regime,
-        regime_info=regime_info,
-        tickers=settings.TICKERS,
-        account_value=acct.equity,
+        is_flickering=is_flickering,
     )
 
     order_executor = OrderExecutor(broker=broker, risk_manager=risk_manager)
@@ -436,21 +451,11 @@ def run_market_open() -> None:
             continue
 
         # Apply cross-enrichment sizing modifier
+        signal.position_size_pct *= sizing_modifier
         effective_confidence = signal.confidence * sizing_modifier
 
-        size_result = risk_manager.compute_position_size(
-            portfolio_value=acct.equity,
-            entry_price=signal.entry_price,
-            stop_price=signal.stop_loss,
-            regime_max_pct=regime_info.max_position_size_pct,
-        )
-
-        if size_result.shares <= 0:
-            logger.info("Zero shares for %s after sizing — skipping", signal.symbol)
-            continue
-
         try:
-            results = order_executor.rebalance(signal, acct.equity)
+            results = order_executor.rebalance(signal, float(acct.equity))
             for r in results:
                 logger.info("Order | %s %s x%d @ %.2f | id=%s",
                             r.side, r.ticker, r.qty, r.filled_price, r.order_id)
@@ -493,7 +498,7 @@ def run_midday() -> None:
         git_commit_memory("midday")
         return
 
-    engine, features = load_or_train_hmm(n_bars=60)
+    engine, features = load_or_train_hmm(n_bars=400)
     regime = predict_regime(engine, features)
     is_high_vol = regime.label in HIGH_VOL_LABELS
 

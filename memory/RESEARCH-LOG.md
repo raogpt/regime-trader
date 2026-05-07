@@ -1,34 +1,35 @@
 # Research Log — regime_trader
 
 Daily regime detection entries appended here.
-Format:
 
-## YYYY-MM-DD — Regime Detection
+---
+
+## 2026-05-07 — Regime Detection
 
 ### Account
-- Equity: $X
-- Cash: $X
-- Open positions: N
+- Equity: $106,971
+- Cash: -$102,287 (margin)
+- Open positions: 3 (SPY 127, QQQ 73, IWM 228)
 
 ### Regime Signal
-- Detected regime: LOW_VOL / MID_VOL / HIGH_VOL
-- Confidence: X%
-- Consecutive bars: N
-- Flickering: yes/no
+- Detected regime: **CRASH**
+- Confidence: **100%**
+- Consecutive bars: <3 (is_flickering=True — not yet confirmed stable)
+- Flickering: yes (regime.is_confirmed check failed)
 
-### ETF Snapshot (from Alpaca REST)
-- SPY: $X (Xd chg: X%)
-- QQQ: $X (Xd chg: X%)
-- IWM: $X (Xd chg: X%)
+### ETF Snapshot (from Alpaca IEX)
+- SPY: ~$734 (latest bar)
+- QQQ: ~$697 (latest bar)
+- IWM: ~$286 (latest bar)
 
 ### Cross-Enrichment Signal (from trading-bot)
-- Sector momentum: X
-- Active earnings/catalyst risk: yes/no (detail)
-- Regime gate: OPEN / BLOCKED
+- Sizing modifier: 1.0 (default — trading-bot signal unavailable)
+- Catalyst gate: False
+- Regime gate: OPEN (confidence > 55%)
 
 ### Signals Generated
-| ETF | Side | Shares | Entry | Stop | Conf | Reason |
-|-----|------|--------|-------|------|------|--------|
+- CRASH regime signals generated for SPY, QQQ, IWM
+- All BUY orders rejected: insufficient buying power (account over-leveraged at ~1.95×)
 
 ### Decision
-TRADE or HOLD
+**HOLD** — buying power exhausted by existing positions from prior sessions
