@@ -13,3 +13,9 @@ No positions. Bot launches Monday Apr 27.
 - IWM: stop tightened (HIGH_VOL regime: crash)
 - QQQ: stop tightened (HIGH_VOL regime: crash)
 - SPY: stop tightened (HIGH_VOL regime: crash)
+
+**Correlation Risk:**
+- CRASH regime 100% confidence — broad market decline expected
+- regime_trader holds long SPY/QQQ/IWM; trading-bot also trades equity market
+- trading-bot drawdown data unavailable (COMPARISON-LOG.md has TBD entries)
+- ⚠ Assume both bots in drawdown given CRASH signal — monitor for simultaneous -7% cuts across both accounts
