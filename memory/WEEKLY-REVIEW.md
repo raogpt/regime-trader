@@ -34,3 +34,23 @@ Friday reviews appended here.
 - ...
 
 ### Overall Grade: X
+
+## 2026-05-09 — Weekly Review
+
+### HMM Retrain Summary
+- Training bars: 343
+- n_states selected: 7
+- Current regime: WEAK_BULL (confidence 100.0%)
+- Week dominant regime: WEAK_BULL
+
+### Regime Distribution (full window)
+- crash: 14 bars (4.1%)
+- euphoria: 8 bars (2.3%)
+- neutral: 112 bars (32.7%)
+- strong_bear: 29 bars (8.5%)
+- strong_bull: 30 bars (8.7%)
+- weak_bear: 115 bars (33.5%)
+- weak_bull: 35 bars (10.2%)
+
+### Portfolio
+- Equity: $108,100.81
