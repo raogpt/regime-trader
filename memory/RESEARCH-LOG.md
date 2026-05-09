@@ -32,3 +32,19 @@ Format:
 
 ### Decision
 TRADE or HOLD
+
+---
+
+## 2026-05-09 — YouTube Intel
+
+No new videos. RSS fetch returned 0 results across all 7 channels (feedparser/youtube-transcript-api unavailable in cloud sandbox — network or runtime import failure). Timestamps not updated. No regime signals extracted today.
+
+| Channel | Status |
+|---------|--------|
+| Oseille TV | no new videos (RSS unavailable) |
+| Bravos Research | no new videos (RSS unavailable) |
+| Finary | no new videos (RSS unavailable) |
+| Investing Simplified (Prof G) | no new videos (RSS unavailable) |
+| George Gammon | no new videos (RSS unavailable) |
+| IG France (Alexandre Baradez) | no new videos (RSS unavailable) |
+| Real Vision Presents | no new videos (RSS unavailable) |
