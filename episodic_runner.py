@@ -142,6 +142,7 @@ def fetch_daily_bars(ticker: str, n_days: int) -> pd.DataFrame:
         timeframe=TimeFrame.Day,
         start=start,
         end=end,
+        feed="iex",
     )
 
     def _fetch():
@@ -191,14 +192,14 @@ def _model_is_fresh(max_age_days: int = 7) -> bool:
     return age < max_age_days
 
 
-def load_or_train_hmm(n_bars: int = 60) -> tuple[HMMEngine, np.ndarray]:
+def load_or_train_hmm(n_bars: int = 300) -> tuple[HMMEngine, np.ndarray]:
     """
     Load HMM from disk if fresh (<7 days).  Otherwise retrain on n_bars daily bars.
     Returns (engine, feature_matrix).
     """
     engineer = FeatureEngineer()
     bars = fetch_daily_bars(settings.PRIMARY_TICKER, n_bars)
-    features = engineer.compute_features(bars)
+    features = engineer.build_feature_dataframe(bars)
     features_clean = features.dropna().values
 
     if _model_is_fresh():
@@ -220,7 +221,7 @@ def retrain_hmm_full() -> tuple[HMMEngine, np.ndarray]:
     """Full retrain using HMM_TRAINING_DAYS bars (for weekly mode)."""
     engineer = FeatureEngineer()
     bars = fetch_daily_bars(settings.PRIMARY_TICKER, settings.HMM_TRAINING_DAYS)
-    features = engineer.compute_features(bars).dropna().values
+    features = engineer.build_feature_dataframe(bars).dropna().values
     logger.info("Full retrain on %d bars …", len(features))
     engine = HMMEngine(config=_hmm_config())
     engine.fit(features)
@@ -339,7 +340,7 @@ def run_pre_market() -> None:
     logger.info("Account | equity=%.2f cash=%.2f status=%s",
                 acct.equity, acct.cash, acct.status)
 
-    engine, features = load_or_train_hmm(n_bars=60)
+    engine, features = load_or_train_hmm(n_bars=300)
     regime = predict_regime(engine, features)
     logger.info("Regime: %s | confidence=%.2f | confirmed=%s",
                 regime.label, regime.probability, regime.is_confirmed)
@@ -385,7 +386,7 @@ def run_market_open() -> None:
         logger.info("Market is closed — exiting")
         return
 
-    engine, features = load_or_train_hmm(n_bars=60)
+    engine, features = load_or_train_hmm(n_bars=300)
     regime = predict_regime(engine, features)
     confidence = regime.probability
     is_high_vol = regime.label in HIGH_VOL_LABELS
@@ -410,21 +411,20 @@ def run_market_open() -> None:
 
     acct = with_retry(broker.get_account)
     risk_manager = RiskManager()
-    risk_manager.update_account(acct.equity, acct.equity)
-
-    cb_result = risk_manager.check_circuit_breakers()
-    if cb_result and cb_result.halt_trading:
+    cb_result = risk_manager.update_portfolio_value(acct.equity, regime.label)
+    if not cb_result.trading_allowed:
         logger.warning("Circuit breaker triggered — halting: %s", cb_result)
         git_commit_memory("market-open")
         return
 
     regime_info = engine.get_regime_info(regime.label)
-    orchestrator = StrategyOrchestrator(engine)
+    regime_infos = [engine.get_regime_info(lbl) for lbl in engine.regime_labels]
+    orchestrator = StrategyOrchestrator(regime_infos)
+    ticker_bars = {t: fetch_daily_bars(t, 300) for t in settings.TICKERS}
     signals = orchestrator.generate_signals(
+        symbols=settings.TICKERS,
+        bars=ticker_bars,
         regime_state=regime,
-        regime_info=regime_info,
-        tickers=settings.TICKERS,
-        account_value=acct.equity,
     )
 
     order_executor = OrderExecutor(broker=broker, risk_manager=risk_manager)
@@ -438,10 +438,10 @@ def run_market_open() -> None:
         # Apply cross-enrichment sizing modifier
         effective_confidence = signal.confidence * sizing_modifier
 
-        size_result = risk_manager.compute_position_size(
-            portfolio_value=acct.equity,
-            entry_price=signal.entry_price,
-            stop_price=signal.stop_loss,
+        size_result = risk_manager.calculate_position_size(
+            ticker=signal.symbol,
+            entry=signal.entry_price,
+            stop=signal.stop_loss,
             regime_max_pct=regime_info.max_position_size_pct,
         )
 
@@ -493,7 +493,7 @@ def run_midday() -> None:
         git_commit_memory("midday")
         return
 
-    engine, features = load_or_train_hmm(n_bars=60)
+    engine, features = load_or_train_hmm(n_bars=300)
     regime = predict_regime(engine, features)
     is_high_vol = regime.label in HIGH_VOL_LABELS
 
