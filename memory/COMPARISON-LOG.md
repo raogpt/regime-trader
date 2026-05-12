@@ -6,6 +6,12 @@ Weekly side-by-side performance tracking.
 |------|------------|---------------|---------|--------|
 | 2026-04-27 | TBD | TBD | TBD | TBD |
 
+## Daily Notes
+
+| Date | regime_trader Equity | Phase P&L | trading-bot |
+|------|---------------------|-----------|-------------|
+| 2026-05-12 | $107,120.90 | +$7,120.90 (+7.12%) | N/A |
+
 ## Notes
 - trading-bot: discretionary swing, individual stocks, Claude-driven
 - regime_trader: systematic HMM, ETFs, volatility-regime-based
