@@ -53,3 +53,24 @@ TRADE or HOLD
 - Catalyst gate active: False
 - Sizing modifier: 1.0
 - Regime gate: OPEN
+
+## 2026-05-14 — Pre-Market Regime Detection
+
+### Account
+- Equity: $109,066.88
+- Cash: $-107,980.63
+- Buying power: $1,086.25
+- Status: AccountStatus.ACTIVE
+
+### Regime Signal
+- Detected regime: EUPHORIA
+- Confidence: 100.0%
+- Consecutive bars: 1
+- Confirmed: False
+- Flickering: False
+
+### Cross-Enrichment Signal (from trading-bot)
+- Sector momentum: unknown
+- Catalyst gate active: False
+- Sizing modifier: 1.0
+- Regime gate: OPEN
