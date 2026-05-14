@@ -5,3 +5,8 @@
 **Regime:** UNKNOWN (HMM not yet run in episodic mode)
 
 No positions. Bot launches Monday Apr 27.
+
+## 2026-05-14 — Market Open
+**Regime:** CRASH | **Confidence:** 100.0% | **Portfolio:** $109,177.71
+
+_No trades executed._
