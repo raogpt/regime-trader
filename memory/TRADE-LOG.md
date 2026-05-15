@@ -7,15 +7,13 @@
 No positions. Bot launches Monday Apr 27.
 
 ## 2026-05-15 — Market Open
-**Regime:** CRASH | **Confidence:** 100.0% | **Portfolio:** $106,798.73
-
-_No trades executed._
-
-## 2026-05-15 — Market Open
-**Regime:** CRASH | **Confidence:** 100.0% | **Portfolio:** $106,656.71
+**Regime:** CRASH | **Confidence:** 100.0% | **Portfolio:** $106,657 | **Cash:** $9,577
 
 | ETF | Side | Shares | Entry | Stop | Conf | Regime |
 |---|---|---|---|---|---|---|
-| SPY | SELL | 0 | 0.00 | 696.46 | 1.00 | crash |
-| QQQ | SELL | 0 | 0.00 | 639.16 | 1.00 | crash |
-| IWM | SELL | 0 | 0.00 | 265.11 | 1.00 | crash |
+| SPY | SELL | 83 | 739.13 | 696.46 | 1.00 | crash |
+| QQQ | SELL | 35 | 707.18 | 639.16 | 1.00 | crash |
+| IWM | SELL | 113 | 278.39 | 265.11 | 1.00 | crash |
+
+**Post-trade positions:** SPY 44sh ($32,525) · QQQ 46sh ($32,538) · IWM 115sh ($32,016) — ~30% each, ~91% invested
+**Action:** Reduced leverage from ~2× to ~1× in response to CRASH regime signal
