@@ -41,8 +41,10 @@ except ImportError:
 
 try:
     import feedparser
-except ImportError:
-    log.error("feedparser not installed — run: pip install feedparser>=6.0")
+    # Verify feedparser is actually usable (needs sgmllib on older Python)
+    feedparser.parse  # noqa: B018
+except Exception:
+    log.warning("feedparser unavailable — using stdlib XML parser fallback")
     feedparser = None  # type: ignore
 
 try:
@@ -60,6 +62,72 @@ RSS_TEMPLATE = "https://www.youtube.com/feeds/videos.xml?channel_id={channel_id}
 TRANSCRIPT_MAX_CHARS = 8000
 RSS_TIMEOUT_SECONDS = 10
 DEFAULT_LOOKBACK_DAYS = 7
+
+# ---------------------------------------------------------------------------
+# Stdlib RSS fallback (used when feedparser is unavailable)
+# ---------------------------------------------------------------------------
+import urllib.request
+import xml.etree.ElementTree as _ET
+
+_YT_NS = {
+    "atom": "http://www.w3.org/2005/Atom",
+    "yt": "http://www.youtube.com/xml/schemas/2015",
+    "media": "http://search.yahoo.com/mrss/",
+}
+
+
+def _fetch_rss_stdlib(channel_id: str) -> list[dict]:
+    """Minimal YouTube RSS parser using only the Python stdlib."""
+    url = RSS_TEMPLATE.format(channel_id=channel_id)
+    log.info("Fetching RSS (stdlib): %s", url)
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "regime-trader/1.0"})
+        with urllib.request.urlopen(req, timeout=RSS_TIMEOUT_SECONDS) as resp:
+            raw = resp.read()
+    except Exception as exc:
+        log.warning("RSS fetch failed for channel %s: %s", channel_id, exc)
+        return []
+
+    try:
+        root = _ET.fromstring(raw)
+    except Exception as exc:
+        log.warning("RSS parse failed for channel %s: %s", channel_id, exc)
+        return []
+
+    entries = []
+    for entry in root.findall("atom:entry", _YT_NS):
+        video_id_el = entry.find("yt:videoId", _YT_NS)
+        title_el = entry.find("atom:title", _YT_NS)
+        published_el = entry.find("atom:published", _YT_NS)
+        link_el = entry.find("atom:link", _YT_NS)
+
+        video_id = video_id_el.text if video_id_el is not None else None
+        if not video_id and link_el is not None:
+            href = link_el.get("href", "")
+            m = re.search(r"v=([A-Za-z0-9_-]{11})", href)
+            video_id = m.group(1) if m else None
+
+        if not video_id:
+            continue
+
+        published_dt = None
+        if published_el is not None and published_el.text:
+            try:
+                # e.g. 2026-05-15T10:00:00+00:00
+                pub_str = published_el.text.replace("Z", "+00:00")
+                published_dt = datetime.fromisoformat(pub_str).astimezone(timezone.utc).replace(tzinfo=timezone.utc)
+            except Exception:
+                pass
+
+        entries.append({
+            "video_id": video_id,
+            "title": title_el.text if title_el is not None else "Untitled",
+            "published": published_dt,
+            "url": f"https://www.youtube.com/watch?v={video_id}",
+        })
+
+    log.info("  -> %d entries found", len(entries))
+    return entries
 
 # ---------------------------------------------------------------------------
 # Locate memory/youtube-watchlist.md relative to this script
@@ -147,10 +215,10 @@ def fetch_rss(channel_id: str) -> list[dict]:
     Fetch and parse the YouTube RSS feed for a channel.
 
     Returns a list of entry dicts: {video_id, title, published, url}
+    Uses feedparser when available, stdlib XML fallback otherwise.
     """
     if feedparser is None or requests is None:
-        log.error("feedparser or requests unavailable — cannot fetch RSS")
-        return []
+        return _fetch_rss_stdlib(channel_id)
 
     url = RSS_TEMPLATE.format(channel_id=channel_id)
     log.info("Fetching RSS: %s", url)
