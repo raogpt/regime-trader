@@ -142,6 +142,7 @@ def fetch_daily_bars(ticker: str, n_days: int) -> pd.DataFrame:
         timeframe=TimeFrame.Day,
         start=start,
         end=end,
+        feed="iex",
     )
 
     def _fetch():
@@ -198,7 +199,7 @@ def load_or_train_hmm(n_bars: int = 60) -> tuple[HMMEngine, np.ndarray]:
     """
     engineer = FeatureEngineer()
     bars = fetch_daily_bars(settings.PRIMARY_TICKER, n_bars)
-    features = engineer.compute_features(bars)
+    features = engineer.build_feature_dataframe(bars)
     features_clean = features.dropna().values
 
     if _model_is_fresh():
@@ -220,7 +221,7 @@ def retrain_hmm_full() -> tuple[HMMEngine, np.ndarray]:
     """Full retrain using HMM_TRAINING_DAYS bars (for weekly mode)."""
     engineer = FeatureEngineer()
     bars = fetch_daily_bars(settings.PRIMARY_TICKER, settings.HMM_TRAINING_DAYS)
-    features = engineer.compute_features(bars).dropna().values
+    features = engineer.build_feature_dataframe(bars).dropna().values
     logger.info("Full retrain on %d bars …", len(features))
     engine = HMMEngine(config=_hmm_config())
     engine.fit(features)
@@ -493,7 +494,7 @@ def run_midday() -> None:
         git_commit_memory("midday")
         return
 
-    engine, features = load_or_train_hmm(n_bars=60)
+    engine, features = load_or_train_hmm(n_bars=200)
     regime = predict_regime(engine, features)
     is_high_vol = regime.label in HIGH_VOL_LABELS
 
