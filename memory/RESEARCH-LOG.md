@@ -32,3 +32,24 @@ Format:
 
 ### Decision
 TRADE or HOLD
+
+## 2026-05-18 — Pre-Market Regime Detection
+
+### Account
+- Equity: $106,362.25
+- Cash: $9,576.85
+- Buying power: $115,939.10
+- Status: AccountStatus.ACTIVE
+
+### Regime Signal
+- Detected regime: CRASH
+- Confidence: 100.0%
+- Consecutive bars: 1
+- Confirmed: False
+- Flickering: False
+
+### Cross-Enrichment Signal (from trading-bot)
+- Sector momentum: unknown
+- Catalyst gate active: False
+- Sizing modifier: 1.0
+- Regime gate: OPEN
