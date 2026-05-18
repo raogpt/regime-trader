@@ -5,6 +5,7 @@ Weekly side-by-side performance tracking.
 | Week | trading-bot | regime_trader | S&P 500 | Winner |
 |------|------------|---------------|---------|--------|
 | 2026-04-27 | TBD | TBD | TBD | TBD |
+| 2026-05-18 (EOD) | TBD | +$6,162.11 (+6.16%) equity=$106,162 | TBD | TBD |
 
 ## Notes
 - trading-bot: discretionary swing, individual stocks, Claude-driven
