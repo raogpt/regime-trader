@@ -121,9 +121,18 @@ def with_retry(fn, retries: int = 3, base_delay: float = 2.0):
 
 def fetch_daily_bars(ticker: str, n_days: int) -> pd.DataFrame:
     """
-    Fetch the last n_days daily bars for ticker via Alpaca REST.
+    Fetch the last n_days daily bars for ticker.
+    Tries Alpaca REST first; falls back to yfinance on subscription errors.
     Returns a DataFrame with columns: open, high, low, close, volume.
     """
+    try:
+        return _fetch_daily_bars_alpaca(ticker, n_days)
+    except Exception as exc:
+        logger.warning("Alpaca bar fetch failed (%s) — falling back to yfinance", exc)
+        return _fetch_daily_bars_yfinance(ticker, n_days)
+
+
+def _fetch_daily_bars_alpaca(ticker: str, n_days: int) -> pd.DataFrame:
     from alpaca.data.historical import StockHistoricalDataClient
     from alpaca.data.requests import StockBarsRequest
     from alpaca.data.timeframe import TimeFrame
@@ -156,7 +165,6 @@ def fetch_daily_bars(ticker: str, n_days: int) -> pd.DataFrame:
     raw.index = pd.to_datetime(raw.index, utc=True)
     raw = raw.sort_index()
 
-    # Normalise column names
     raw.columns = [c.lower() for c in raw.columns]
     required = {"open", "high", "low", "close", "volume"}
     missing = required - set(raw.columns)
@@ -164,7 +172,31 @@ def fetch_daily_bars(ticker: str, n_days: int) -> pd.DataFrame:
         raise ValueError(f"Missing columns in Alpaca response: {missing}")
 
     df = raw[["open", "high", "low", "close", "volume"]].tail(n_days)
-    logger.info("Fetched %d bars for %s", len(df), ticker)
+    logger.info("Fetched %d bars for %s via Alpaca", len(df), ticker)
+    return df
+
+
+def _fetch_daily_bars_yfinance(ticker: str, n_days: int) -> pd.DataFrame:
+    import yfinance as yf
+
+    # Fetch extra days to cover weekends/holidays, then tail to n_days
+    period_days = int(n_days * 1.5)
+    raw = yf.download(ticker, period=f"{period_days}d", interval="1d",
+                      auto_adjust=True, progress=False)
+    if raw.empty:
+        raise ValueError(f"yfinance returned no data for {ticker}")
+
+    # yfinance returns MultiIndex columns like ('Close', 'SPY') — flatten
+    if isinstance(raw.columns, pd.MultiIndex):
+        raw.columns = [c[0].lower() for c in raw.columns]
+    else:
+        raw.columns = [c.lower() for c in raw.columns]
+
+    raw.index = pd.to_datetime(raw.index, utc=True)
+    raw = raw.sort_index()
+
+    df = raw[["open", "high", "low", "close", "volume"]].tail(n_days)
+    logger.info("Fetched %d bars for %s via yfinance", len(df), ticker)
     return df
 
 
@@ -198,8 +230,7 @@ def load_or_train_hmm(n_bars: int = 60) -> tuple[HMMEngine, np.ndarray]:
     """
     engineer = FeatureEngineer()
     bars = fetch_daily_bars(settings.PRIMARY_TICKER, n_bars)
-    features = engineer.compute_features(bars)
-    features_clean = features.dropna().values
+    features_clean = engineer.build_feature_dataframe(bars).dropna().values
 
     if _model_is_fresh():
         try:
@@ -220,7 +251,7 @@ def retrain_hmm_full() -> tuple[HMMEngine, np.ndarray]:
     """Full retrain using HMM_TRAINING_DAYS bars (for weekly mode)."""
     engineer = FeatureEngineer()
     bars = fetch_daily_bars(settings.PRIMARY_TICKER, settings.HMM_TRAINING_DAYS)
-    features = engineer.compute_features(bars).dropna().values
+    features = engineer.build_feature_dataframe(bars).dropna().values
     logger.info("Full retrain on %d bars …", len(features))
     engine = HMMEngine(config=_hmm_config())
     engine.fit(features)
@@ -385,7 +416,7 @@ def run_market_open() -> None:
         logger.info("Market is closed — exiting")
         return
 
-    engine, features = load_or_train_hmm(n_bars=60)
+    engine, features = load_or_train_hmm(n_bars=300)
     regime = predict_regime(engine, features)
     confidence = regime.probability
     is_high_vol = regime.label in HIGH_VOL_LABELS
@@ -409,22 +440,32 @@ def run_market_open() -> None:
         return
 
     acct = with_retry(broker.get_account)
-    risk_manager = RiskManager()
-    risk_manager.update_account(acct.equity, acct.equity)
+    risk_manager = RiskManager(portfolio_value=acct.equity)
+    cb_result = risk_manager.update_portfolio_value(acct.equity, regime.label)
 
-    cb_result = risk_manager.check_circuit_breakers()
-    if cb_result and cb_result.halt_trading:
+    if cb_result and not cb_result.trading_allowed:
         logger.warning("Circuit breaker triggered — halting: %s", cb_result)
         git_commit_memory("market-open")
         return
 
-    regime_info = engine.get_regime_info(regime.label)
-    orchestrator = StrategyOrchestrator(engine)
+    # Build RegimeInfo list for all labels the engine knows
+    regime_infos = [engine.get_regime_info(lbl) for lbl in engine.regime_labels]
+    regime_info  = engine.get_regime_info(regime.label)
+
+    # Fetch bars for every ticker (used by strategies for ATR / price)
+    all_bars: dict[str, pd.DataFrame] = {}
+    for tkr in settings.TICKERS:
+        try:
+            all_bars[tkr] = fetch_daily_bars(tkr, 300)
+        except Exception as exc:
+            logger.warning("Could not fetch bars for %s: %s", tkr, exc)
+
+    orchestrator = StrategyOrchestrator(regime_infos)
     signals = orchestrator.generate_signals(
+        symbols=settings.TICKERS,
+        bars=all_bars,
         regime_state=regime,
-        regime_info=regime_info,
-        tickers=settings.TICKERS,
-        account_value=acct.equity,
+        is_flickering=engine.is_flickering(),
     )
 
     order_executor = OrderExecutor(broker=broker, risk_manager=risk_manager)
@@ -438,10 +479,10 @@ def run_market_open() -> None:
         # Apply cross-enrichment sizing modifier
         effective_confidence = signal.confidence * sizing_modifier
 
-        size_result = risk_manager.compute_position_size(
-            portfolio_value=acct.equity,
-            entry_price=signal.entry_price,
-            stop_price=signal.stop_loss,
+        size_result = risk_manager.calculate_position_size(
+            ticker=signal.symbol,
+            entry=signal.entry_price,
+            stop=signal.stop_loss,
             regime_max_pct=regime_info.max_position_size_pct,
         )
 
