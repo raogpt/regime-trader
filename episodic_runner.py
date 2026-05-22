@@ -127,6 +127,7 @@ def fetch_daily_bars(ticker: str, n_days: int) -> pd.DataFrame:
     from alpaca.data.historical import StockHistoricalDataClient
     from alpaca.data.requests import StockBarsRequest
     from alpaca.data.timeframe import TimeFrame
+    from alpaca.data.enums import DataFeed
 
     api_key = os.environ.get("ALPACA_API_KEY", "")
     secret_key = os.environ.get("ALPACA_SECRET_KEY", "")
@@ -142,6 +143,7 @@ def fetch_daily_bars(ticker: str, n_days: int) -> pd.DataFrame:
         timeframe=TimeFrame.Day,
         start=start,
         end=end,
+        feed=DataFeed.IEX,  # IEX feed available on free/paper tier
     )
 
     def _fetch():
@@ -191,15 +193,16 @@ def _model_is_fresh(max_age_days: int = 7) -> bool:
     return age < max_age_days
 
 
-def load_or_train_hmm(n_bars: int = 60) -> tuple[HMMEngine, np.ndarray]:
+def load_or_train_hmm(n_bars: int = None) -> tuple[HMMEngine, np.ndarray]:
     """
     Load HMM from disk if fresh (<7 days).  Otherwise retrain on n_bars daily bars.
     Returns (engine, feature_matrix).
     """
+    if n_bars is None:
+        n_bars = settings.HMM_TRAINING_DAYS
     engineer = FeatureEngineer()
     bars = fetch_daily_bars(settings.PRIMARY_TICKER, n_bars)
-    features = engineer.compute_features(bars)
-    features_clean = features.dropna().values
+    features_clean = engineer.build_feature_matrix(bars)
 
     if _model_is_fresh():
         try:
@@ -339,7 +342,7 @@ def run_pre_market() -> None:
     logger.info("Account | equity=%.2f cash=%.2f status=%s",
                 acct.equity, acct.cash, acct.status)
 
-    engine, features = load_or_train_hmm(n_bars=60)
+    engine, features = load_or_train_hmm()
     regime = predict_regime(engine, features)
     logger.info("Regime: %s | confidence=%.2f | confirmed=%s",
                 regime.label, regime.probability, regime.is_confirmed)
@@ -385,7 +388,7 @@ def run_market_open() -> None:
         logger.info("Market is closed — exiting")
         return
 
-    engine, features = load_or_train_hmm(n_bars=60)
+    engine, features = load_or_train_hmm()
     regime = predict_regime(engine, features)
     confidence = regime.probability
     is_high_vol = regime.label in HIGH_VOL_LABELS
@@ -493,7 +496,7 @@ def run_midday() -> None:
         git_commit_memory("midday")
         return
 
-    engine, features = load_or_train_hmm(n_bars=60)
+    engine, features = load_or_train_hmm()
     regime = predict_regime(engine, features)
     is_high_vol = regime.label in HIGH_VOL_LABELS
 
