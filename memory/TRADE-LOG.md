@@ -5,3 +5,12 @@
 **Regime:** UNKNOWN (HMM not yet run in episodic mode)
 
 No positions. Bot launches Monday Apr 27.
+
+## 2026-05-25 — EOD Snapshot
+**Portfolio:** $110,914.84 | **Cash:** $-108,622.12 | **Open positions:** 3 | **Unrealized P&L:** $6,723.88
+
+| Symbol | Qty | Entry | Current | Unreal. P&L | P&L% |
+|---|---|---|---|---|---|
+| IWM | 287 | 275.30 | 285.12 | 2817.16 | 3.57% |
+| QQQ | 88 | 691.47 | 717.54 | 2293.75 | 3.77% |
+| SPY | 100 | 729.51 | 745.64 | 1612.97 | 2.21% |
