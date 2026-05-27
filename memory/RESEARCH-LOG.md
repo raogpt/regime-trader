@@ -53,3 +53,14 @@ TRADE or HOLD
 - Catalyst gate active: False
 - Sizing modifier: 1.0
 - Regime gate: OPEN
+
+### Anomalies & Fixes (2026-05-27)
+- **BUG FIXED** `feed="iex"`: Alpaca free-tier blocked SIP data feed (403 Forbidden). Fixed in `fetch_daily_bars()`.
+- **BUG FIXED** `build_feature_dataframe`: `compute_features()` method did not exist on `FeatureEngineer`; corrected to `build_feature_dataframe()`.
+- **BUG FIXED** `n_bars 60→300`: sma200 requires min_periods=100; 60-bar fetch yielded empty feature matrix after dropna(). All modes now fetch 300 bars → ~137 valid feature rows.
+- **HMM MODEL**: Loaded from disk (5 states, fresh — no retrain triggered). Last trained: <7 days ago.
+- ⚠️ **CASH WARNING**: Cash is deeply negative (-$108,622) with only $6,652 buying power. Existing positions consuming nearly all margin. NO new entries advisable until positions are reviewed.
+- **REGIME NOT CONFIRMED**: BULL at 74.9% confidence but only 1 consecutive bar (need 3). Rule: HOLD until regime stable.
+
+### Decision
+HOLD — regime not confirmed (1/3 bars). Low buying power. Await market-open check.
