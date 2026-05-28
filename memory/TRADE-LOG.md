@@ -8,5 +8,14 @@ No positions. Bot launches Monday Apr 27.
 
 ### 2026-05-28 — Midday Review
 **Regime:** BULL | **Confidence:** 100.0%
+**Portfolio:** $115,486.40 equity | **Cash:** -$108,622.12 (levered)
 
-_No action required._
+| Symbol | Qty | Avg Entry | Price | Mkt Value | Unreal P&L |
+|--------|-----|-----------|-------|-----------|------------|
+| IWM    | 287 | $275.30   | $292.28 | $83,884 | **+$4,872** |
+| QQQ    |  88 | $691.47   | $736.07 | $64,774 | **+$3,924** |
+| SPY    | 100 | $729.51   | $754.50 | $75,450 | **+$2,499** |
+
+- No position hit -7% loss threshold — no cuts
+- Regime not HIGH_VOL — no stop tightening
+- Correlation risk: regime_trader NOT in drawdown (all positions profitable)
