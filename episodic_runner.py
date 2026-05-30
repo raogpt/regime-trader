@@ -121,9 +121,21 @@ def with_retry(fn, retries: int = 3, base_delay: float = 2.0):
 
 def fetch_daily_bars(ticker: str, n_days: int) -> pd.DataFrame:
     """
-    Fetch the last n_days daily bars for ticker via Alpaca REST.
+    Fetch the last n_days daily bars for ticker.
+    Tries Alpaca REST first; falls back to yfinance on subscription errors.
     Returns a DataFrame with columns: open, high, low, close, volume.
     """
+    try:
+        return _fetch_daily_bars_alpaca(ticker, n_days)
+    except Exception as exc:
+        msg = str(exc).lower()
+        if "subscription" in msg or "forbidden" in msg or "403" in msg:
+            logger.warning("Alpaca SIP data blocked (%s) — falling back to yfinance", exc)
+            return _fetch_daily_bars_yfinance(ticker, n_days)
+        raise
+
+
+def _fetch_daily_bars_alpaca(ticker: str, n_days: int) -> pd.DataFrame:
     from alpaca.data.historical import StockHistoricalDataClient
     from alpaca.data.requests import StockBarsRequest
     from alpaca.data.timeframe import TimeFrame
@@ -134,7 +146,6 @@ def fetch_daily_bars(ticker: str, n_days: int) -> pd.DataFrame:
     client = StockHistoricalDataClient(api_key=api_key, secret_key=secret_key)
 
     end = datetime.now(timezone.utc)
-    # Fetch extra days to account for weekends / holidays
     start = end - timedelta(days=int(n_days * 1.5))
 
     req = StockBarsRequest(
@@ -149,14 +160,11 @@ def fetch_daily_bars(ticker: str, n_days: int) -> pd.DataFrame:
 
     raw = with_retry(_fetch)
 
-    # alpaca-py returns a multi-index (symbol, timestamp) — flatten if needed
     if isinstance(raw.index, pd.MultiIndex):
         raw = raw.xs(ticker, level="symbol")
 
     raw.index = pd.to_datetime(raw.index, utc=True)
     raw = raw.sort_index()
-
-    # Normalise column names
     raw.columns = [c.lower() for c in raw.columns]
     required = {"open", "high", "low", "close", "volume"}
     missing = required - set(raw.columns)
@@ -164,7 +172,44 @@ def fetch_daily_bars(ticker: str, n_days: int) -> pd.DataFrame:
         raise ValueError(f"Missing columns in Alpaca response: {missing}")
 
     df = raw[["open", "high", "low", "close", "volume"]].tail(n_days)
-    logger.info("Fetched %d bars for %s", len(df), ticker)
+    logger.info("Fetched %d bars for %s (Alpaca)", len(df), ticker)
+    return df
+
+
+def _fetch_daily_bars_yfinance(ticker: str, n_days: int) -> pd.DataFrame:
+    import yfinance as yf
+
+    # Fetch extra calendar days to cover weekends/holidays
+    period_days = int(n_days * 1.5)
+    end = datetime.now(timezone.utc)
+    start = end - timedelta(days=period_days)
+
+    raw = yf.download(
+        ticker,
+        start=start.strftime("%Y-%m-%d"),
+        end=end.strftime("%Y-%m-%d"),
+        auto_adjust=True,
+        progress=False,
+    )
+
+    if raw.empty:
+        raise ValueError(f"yfinance returned no data for {ticker}")
+
+    # yfinance may return MultiIndex columns when downloading single ticker
+    if isinstance(raw.columns, pd.MultiIndex):
+        raw.columns = raw.columns.get_level_values(0)
+
+    raw.columns = [c.lower() for c in raw.columns]
+    raw.index = pd.to_datetime(raw.index, utc=True)
+    raw = raw.sort_index()
+
+    required = {"open", "high", "low", "close", "volume"}
+    missing = required - set(raw.columns)
+    if missing:
+        raise ValueError(f"Missing columns in yfinance response: {missing}")
+
+    df = raw[["open", "high", "low", "close", "volume"]].tail(n_days)
+    logger.info("Fetched %d bars for %s (yfinance fallback)", len(df), ticker)
     return df
 
 
@@ -198,7 +243,7 @@ def load_or_train_hmm(n_bars: int = 60) -> tuple[HMMEngine, np.ndarray]:
     """
     engineer = FeatureEngineer()
     bars = fetch_daily_bars(settings.PRIMARY_TICKER, n_bars)
-    features = engineer.compute_features(bars)
+    features = engineer.build_feature_dataframe(bars)
     features_clean = features.dropna().values
 
     if _model_is_fresh():
@@ -220,7 +265,7 @@ def retrain_hmm_full() -> tuple[HMMEngine, np.ndarray]:
     """Full retrain using HMM_TRAINING_DAYS bars (for weekly mode)."""
     engineer = FeatureEngineer()
     bars = fetch_daily_bars(settings.PRIMARY_TICKER, settings.HMM_TRAINING_DAYS)
-    features = engineer.compute_features(bars).dropna().values
+    features = engineer.build_feature_dataframe(bars).dropna().values
     logger.info("Full retrain on %d bars …", len(features))
     engine = HMMEngine(config=_hmm_config())
     engine.fit(features)
