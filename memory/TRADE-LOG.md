@@ -9,4 +9,4 @@ No positions. Bot launches Monday Apr 27.
 ## 2026-06-02 — Market Open
 **Regime:** BULL | **Confidence:** 100.0% | **Portfolio:** $115,699.72
 
-_No trades executed._
+HOLD — Insufficient buying power ($7,080 available; orders for SPY/QQQ/IWM required $15–17k each). Existing positions already consuming margin. No new entries placed.
