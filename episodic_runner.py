@@ -119,9 +119,31 @@ def with_retry(fn, retries: int = 3, base_delay: float = 2.0):
 # Alpaca REST bar fetching
 # ===========================================================================
 
+def _fetch_daily_bars_yfinance(ticker: str, n_days: int) -> pd.DataFrame:
+    """Fallback bar fetcher using yfinance (free, no subscription required)."""
+    import yfinance as yf
+    period_days = int(n_days * 1.5)
+    raw = yf.download(ticker, period=f"{period_days}d", interval="1d", progress=False, auto_adjust=True)
+    if raw.empty:
+        raise ValueError(f"yfinance returned no data for {ticker}")
+    # yfinance may return MultiIndex columns with (field, ticker)
+    if isinstance(raw.columns, pd.MultiIndex):
+        raw.columns = [c[0].lower() for c in raw.columns]
+    else:
+        raw.columns = [c.lower() for c in raw.columns]
+    required = {"open", "high", "low", "close", "volume"}
+    missing = required - set(raw.columns)
+    if missing:
+        raise ValueError(f"Missing columns in yfinance response: {missing}")
+    df = raw[["open", "high", "low", "close", "volume"]].dropna().tail(n_days)
+    logger.info("Fetched %d bars for %s via yfinance", len(df), ticker)
+    return df
+
+
 def fetch_daily_bars(ticker: str, n_days: int) -> pd.DataFrame:
     """
-    Fetch the last n_days daily bars for ticker via Alpaca REST.
+    Fetch the last n_days daily bars for ticker.
+    Tries Alpaca first; falls back to yfinance on subscription/403 errors.
     Returns a DataFrame with columns: open, high, low, close, volume.
     """
     from alpaca.data.historical import StockHistoricalDataClient
@@ -147,7 +169,14 @@ def fetch_daily_bars(ticker: str, n_days: int) -> pd.DataFrame:
     def _fetch():
         return client.get_stock_bars(req).df
 
-    raw = with_retry(_fetch)
+    try:
+        raw = with_retry(_fetch)
+    except Exception as exc:
+        err_str = str(exc).lower()
+        if "subscription" in err_str or "403" in err_str or "forbidden" in err_str:
+            logger.warning("Alpaca data subscription error — falling back to yfinance: %s", exc)
+            return _fetch_daily_bars_yfinance(ticker, n_days)
+        raise
 
     # alpaca-py returns a multi-index (symbol, timestamp) — flatten if needed
     if isinstance(raw.index, pd.MultiIndex):
@@ -198,8 +227,7 @@ def load_or_train_hmm(n_bars: int = 60) -> tuple[HMMEngine, np.ndarray]:
     """
     engineer = FeatureEngineer()
     bars = fetch_daily_bars(settings.PRIMARY_TICKER, n_bars)
-    features = engineer.compute_features(bars)
-    features_clean = features.dropna().values
+    features_clean = engineer.build_feature_matrix(bars)
 
     if _model_is_fresh():
         try:
@@ -220,7 +248,7 @@ def retrain_hmm_full() -> tuple[HMMEngine, np.ndarray]:
     """Full retrain using HMM_TRAINING_DAYS bars (for weekly mode)."""
     engineer = FeatureEngineer()
     bars = fetch_daily_bars(settings.PRIMARY_TICKER, settings.HMM_TRAINING_DAYS)
-    features = engineer.compute_features(bars).dropna().values
+    features = engineer.build_feature_matrix(bars)
     logger.info("Full retrain on %d bars …", len(features))
     engine = HMMEngine(config=_hmm_config())
     engine.fit(features)
@@ -493,7 +521,7 @@ def run_midday() -> None:
         git_commit_memory("midday")
         return
 
-    engine, features = load_or_train_hmm(n_bars=60)
+    engine, features = load_or_train_hmm(n_bars=252)
     regime = predict_regime(engine, features)
     is_high_vol = regime.label in HIGH_VOL_LABELS
 
