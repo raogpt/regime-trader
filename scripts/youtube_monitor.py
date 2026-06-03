@@ -142,14 +142,55 @@ def parse_last_checked(raw: str) -> Optional[datetime]:
 # RSS fetching
 # ---------------------------------------------------------------------------
 
+def _parse_rss_xml(xml_text: str) -> list[dict]:
+    """Parse YouTube RSS Atom feed using stdlib xml.etree.ElementTree."""
+    import xml.etree.ElementTree as ET
+    ns = {
+        "atom": "http://www.w3.org/2005/Atom",
+        "yt": "http://www.youtube.com/xml/schemas/2015",
+    }
+    entries = []
+    try:
+        root = ET.fromstring(xml_text)
+    except ET.ParseError as exc:
+        log.warning("RSS XML parse error: %s", exc)
+        return []
+    for entry in root.findall("atom:entry", ns):
+        vid_el = entry.find("yt:videoId", ns)
+        video_id = vid_el.text if vid_el is not None else None
+        if not video_id:
+            link_el = entry.find("atom:link", ns)
+            href = link_el.attrib.get("href", "") if link_el is not None else ""
+            m = re.search(r"v=([A-Za-z0-9_-]{11})", href)
+            video_id = m.group(1) if m else None
+        if not video_id:
+            continue
+        title_el = entry.find("atom:title", ns)
+        title = title_el.text if title_el is not None else "Untitled"
+        pub_el = entry.find("atom:published", ns)
+        published_dt = None
+        if pub_el is not None and pub_el.text:
+            try:
+                published_dt = datetime.fromisoformat(pub_el.text.replace("Z", "+00:00"))
+            except ValueError:
+                pass
+        entries.append({
+            "video_id": video_id,
+            "title": title,
+            "published": published_dt,
+            "url": f"https://www.youtube.com/watch?v={video_id}",
+        })
+    return entries
+
+
 def fetch_rss(channel_id: str) -> list[dict]:
     """
     Fetch and parse the YouTube RSS feed for a channel.
 
     Returns a list of entry dicts: {video_id, title, published, url}
     """
-    if feedparser is None or requests is None:
-        log.error("feedparser or requests unavailable — cannot fetch RSS")
+    if requests is None:
+        log.error("requests unavailable — cannot fetch RSS")
         return []
 
     url = RSS_TEMPLATE.format(channel_id=channel_id)
@@ -162,35 +203,32 @@ def fetch_rss(channel_id: str) -> list[dict]:
         log.warning("RSS fetch failed for channel %s: %s", channel_id, exc)
         return []
 
-    feed = feedparser.parse(resp.text)
-    entries = []
-
-    for entry in feed.entries:
-        # Extract video ID from yt:videoId or from the link
-        video_id = getattr(entry, "yt_videoid", None)
-        if not video_id:
-            link = getattr(entry, "link", "")
-            m = re.search(r"v=([A-Za-z0-9_-]{11})", link)
-            video_id = m.group(1) if m else None
-
-        if not video_id:
-            continue
-
-        # Parse published date
-        published_struct = getattr(entry, "published_parsed", None)
-        if published_struct:
-            published_dt = datetime(*published_struct[:6], tzinfo=timezone.utc)
-        else:
-            published_dt = None
-
-        entries.append(
-            {
+    # Use feedparser if available, otherwise fall back to stdlib XML parser
+    if feedparser is not None:
+        feed = feedparser.parse(resp.text)
+        entries = []
+        for entry in feed.entries:
+            video_id = getattr(entry, "yt_videoid", None)
+            if not video_id:
+                link = getattr(entry, "link", "")
+                m = re.search(r"v=([A-Za-z0-9_-]{11})", link)
+                video_id = m.group(1) if m else None
+            if not video_id:
+                continue
+            published_struct = getattr(entry, "published_parsed", None)
+            if published_struct:
+                published_dt = datetime(*published_struct[:6], tzinfo=timezone.utc)
+            else:
+                published_dt = None
+            entries.append({
                 "video_id": video_id,
                 "title": getattr(entry, "title", "Untitled"),
                 "published": published_dt,
                 "url": f"https://www.youtube.com/watch?v={video_id}",
-            }
-        )
+            })
+    else:
+        log.info("feedparser unavailable — using stdlib XML fallback")
+        entries = _parse_rss_xml(resp.text)
 
     log.info("  -> %d entries found", len(entries))
     return entries
