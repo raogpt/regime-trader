@@ -53,3 +53,18 @@ TRADE or HOLD
 - Catalyst gate active: False
 - Sizing modifier: 1.0
 - Regime gate: OPEN
+
+### ETF Snapshot (live positions)
+- SPY: 100 shares @ $729.51 avg → MV $75,920 | unrealized +$2,969
+- QQQ: 88 shares @ $691.47 avg → MV $65,802 | unrealized +$4,952
+- IWM: 287 shares @ $275.30 avg → MV $83,500 | unrealized +$4,487
+
+### Anomalies
+1. **LEVERAGE BREACH**: Long MV $225,222 / Equity $116,644 = 1.93x. Hard rule max is 1.25x for LOW_VOL, 1.0x for MID/HIGH_VOL. Positions appear to have been opened in a prior session with no TRADE-LOG record.
+2. **HMM state label**: Regime detected as "BULL" — not a standard LOW_VOL/MID_VOL/HIGH_VOL label. Saved model (n_states=5) uses raw HMM state names. State-to-volatility-regime mapping should be verified.
+3. **Confirmation gate**: Only 1 consecutive bar. Hard rule requires 3 before acting. No new entries today.
+4. **Session fixes applied**: (a) IEX feed substituted for SIP (subscription limit); (b) `compute_features` → `build_feature_dataframe`; (c) `fetch_daily_bars` now fetches +300 warmup bars for rolling windows.
+
+### Decision
+HOLD — regime unconfirmed (1/3 bars). Leverage already breached; no new entries.
+Existing positions: HOLD, monitor stops.
