@@ -54,3 +54,38 @@ Friday reviews appended here.
 
 ### Portfolio
 - Equity: $108,011.71
+- Return since inception (Apr 27): +8.01%
+- SPY benchmark (Mon-Thu, IEX): -2.77% this week / -2.28% since Apr 27
+
+### Week Performance vs Benchmark
+- regime_trader outperforming SPY by ~10.3% since inception
+- This week SPY sold off hard (down ~2.77%); regime staying NEUTRAL protected capital
+
+### What the HMM Got Right
+- NEUTRAL regime held through SPY weakness this week — avoided chasing declining momentum
+- 7-state model selected by BIC; weak_bear (28.3%) and neutral (38.8%) dominate, accurately reflecting choppy/risk-off environment
+- No false euphoria signal despite prior +8% gain — model well-calibrated
+
+### What the HMM Got Wrong / Watch
+- 100% confidence on NEUTRAL reads as suspicious — HMM viterbi can over-commit when recent bars are unambiguous, but single-regime certainty deserves scrutiny
+- convergence warnings during retrain on 4 of 7 state-count candidates; worth monitoring if BIC selection degrades
+- weak_bear at 28% of historical window with strong_bear at 8.7% — if these merge next week, check for state collapse
+
+### Should Confidence Threshold Change?
+- 55% minimum threshold is appropriate; NEUTRAL at 100% confidence = low-risk hold, not an issue
+- If next regime flip arrives at <70%, consider requiring 3-bar stability check before acting (already in rules)
+- No change recommended this week
+
+### Should Circuit Breaker Levels Change?
+- Market down ~2.77% this week with no circuit trigger — levels appropriately set
+- No adjustment needed
+
+### Model Improvements for Next Week
+- Add weekly equity snapshot to TRADE-LOG at end of each Friday so week-over-week return can be computed precisely
+- Monitor if 7-state count holds after next retrain or oscillates — instability = reduce n_states_max
+- Consider logging the Viterbi path confidence distribution (not just latest bar) for richer diagnostics
+
+### Overall Grade: B+
+- Strong capital preservation vs benchmark during risk-off week
+- Data infrastructure issues (SIP feed → IEX fallback) resolved; IEX adequate for daily bars
+- No trades executed; NEUTRAL regime + no clear ETF entry signal = correct hold behavior
