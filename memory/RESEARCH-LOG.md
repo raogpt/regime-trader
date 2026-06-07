@@ -32,3 +32,15 @@ Format:
 
 ### Decision
 TRADE or HOLD
+
+---
+
+## 2026-06-07 — YouTube Intel
+
+| Channel | Video | Regime Signal | Relevance |
+|---------|-------|---------------|-----------|
+
+- **Status:** No new videos — RSS fetch skipped (feedparser/requests unavailable in network-restricted cloud env)
+- **Channels checked:** Oseille TV, Bravos Research, Finary, Investing Simplified (Prof G), George Gammon, IG France (Alexandre Baradez), Real Vision Presents
+- **All channels:** Last checked = never → 7-day lookback window attempted, 0 results returned
+- **Action:** No regime signals extracted. HOLD bias maintained pending next successful fetch.
