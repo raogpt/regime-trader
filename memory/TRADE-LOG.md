@@ -5,3 +5,12 @@
 **Regime:** UNKNOWN (HMM not yet run in episodic mode)
 
 No positions. Bot launches Monday Apr 27.
+
+## 2026-06-08 — Market Open
+**Regime:** CRASH | **Confidence:** 100.0% | **Portfolio:** $110,200.40
+
+| ETF | Side | Shares | Entry | Stop | Conf | Regime |
+|---|---|---|---|---|---|---|
+| SPY | BUY | 0 | 0.00 | 716.94 | 1.00 | crash |
+| QQQ | BUY | 0 | 0.00 | 672.61 | 1.00 | crash |
+| IWM | BUY | 0 | 0.00 | 271.88 | 1.00 | crash |
