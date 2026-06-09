@@ -5,3 +5,11 @@
 **Regime:** UNKNOWN (HMM not yet run in episodic mode)
 
 No positions. Bot launches Monday Apr 27.
+
+### 2026-06-09 — Midday Review
+**Regime:** CRASH | **Confidence:** 100.0%
+
+**Stops tightened (HIGH_VOL):**
+- IWM: stop tightened (HIGH_VOL regime: crash)
+- QQQ: stop tightened (HIGH_VOL regime: crash)
+- SPY: stop tightened (HIGH_VOL regime: crash)
