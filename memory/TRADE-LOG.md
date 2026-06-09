@@ -13,3 +13,9 @@ No positions. Bot launches Monday Apr 27.
 - IWM: stop tightened (HIGH_VOL regime: crash)
 - QQQ: stop tightened (HIGH_VOL regime: crash)
 - SPY: stop tightened (HIGH_VOL regime: crash)
+
+**Correlation Risk Note (STEP 3):**
+- Regime: CRASH at 100% confidence — broad market stress
+- trading-bot memory not accessible from this session; COMPARISON-LOG at template state
+- CRASH regime implies high probability both bots in drawdown simultaneously
+- Action: flag for manual cross-check; if trading-bot also in drawdown → reduce sizing 50% per hard rules
