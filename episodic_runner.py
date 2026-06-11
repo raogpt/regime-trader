@@ -137,11 +137,13 @@ def fetch_daily_bars(ticker: str, n_days: int) -> pd.DataFrame:
     # Fetch extra days to account for weekends / holidays
     start = end - timedelta(days=int(n_days * 1.5))
 
+    from alpaca.data.enums import DataFeed
     req = StockBarsRequest(
         symbol_or_symbols=ticker,
         timeframe=TimeFrame.Day,
         start=start,
         end=end,
+        feed=DataFeed.IEX,
     )
 
     def _fetch():
@@ -197,17 +199,25 @@ def load_or_train_hmm(n_bars: int = 60) -> tuple[HMMEngine, np.ndarray]:
     Returns (engine, feature_matrix).
     """
     engineer = FeatureEngineer()
-    bars = fetch_daily_bars(settings.PRIMARY_TICKER, n_bars)
-    features = engineer.compute_features(bars)
-    features_clean = features.dropna().values
 
     if _model_is_fresh():
         try:
             engine = HMMEngine.load(str(HMM_MODEL_PATH))
             logger.info("HMM loaded from disk (fresh model)")
+            # Need enough bars for rolling z-score (252-bar window, min_periods=63) + SMA200 (min 100)
+            lookback = max(n_bars, 400)
+            bars = fetch_daily_bars(settings.PRIMARY_TICKER, lookback)
+            features = engineer.build_feature_dataframe(bars)
+            features_clean = features.dropna().values
             return engine, features_clean
         except Exception as exc:
             logger.warning("HMM load failed (%s) — retraining", exc)
+
+    # No fresh model — train from scratch with full history
+    training_bars = max(n_bars, settings.HMM_TRAINING_DAYS)
+    bars = fetch_daily_bars(settings.PRIMARY_TICKER, training_bars)
+    features = engineer.build_feature_dataframe(bars)
+    features_clean = features.dropna().values
 
     logger.info("Training HMM on %d bars …", len(features_clean))
     engine = HMMEngine(config=_hmm_config())
@@ -220,7 +230,7 @@ def retrain_hmm_full() -> tuple[HMMEngine, np.ndarray]:
     """Full retrain using HMM_TRAINING_DAYS bars (for weekly mode)."""
     engineer = FeatureEngineer()
     bars = fetch_daily_bars(settings.PRIMARY_TICKER, settings.HMM_TRAINING_DAYS)
-    features = engineer.compute_features(bars).dropna().values
+    features = engineer.build_feature_dataframe(bars).dropna().values
     logger.info("Full retrain on %d bars …", len(features))
     engine = HMMEngine(config=_hmm_config())
     engine.fit(features)
@@ -410,24 +420,41 @@ def run_market_open() -> None:
 
     acct = with_retry(broker.get_account)
     risk_manager = RiskManager()
-    risk_manager.update_account(acct.equity, acct.equity)
+    cb_result = risk_manager.update_portfolio_value(float(acct.equity), regime.label)
 
-    cb_result = risk_manager.check_circuit_breakers()
-    if cb_result and cb_result.halt_trading:
+    if cb_result and not cb_result.trading_allowed:
         logger.warning("Circuit breaker triggered — halting: %s", cb_result)
+        append_to_log(TRADE_LOG,
+                      f"\n### {date.today().isoformat()} market-open — CIRCUIT BREAKER: {cb_result}\n")
         git_commit_memory("market-open")
         return
 
-    regime_info = engine.get_regime_info(regime.label)
-    orchestrator = StrategyOrchestrator(engine)
+    # Build RegimeInfo list for all engine states
+    regime_infos = [engine.get_regime_info(label) for label in engine.regime_labels]
+    orchestrator = StrategyOrchestrator(regime_infos)
+
+    # Fetch per-ticker bars for signal generation
+    ticker_bars: dict[str, pd.DataFrame] = {}
+    for ticker in settings.TICKERS:
+        try:
+            ticker_bars[ticker] = fetch_daily_bars(ticker, 100)
+        except Exception as exc:
+            logger.warning("Could not fetch bars for %s: %s", ticker, exc)
+
+    is_flickering = engine.is_flickering()
     signals = orchestrator.generate_signals(
+        symbols=settings.TICKERS,
+        bars=ticker_bars,
         regime_state=regime,
-        regime_info=regime_info,
-        tickers=settings.TICKERS,
-        account_value=acct.equity,
+        is_flickering=is_flickering,
     )
 
+    # Apply cross-enrichment sizing modifier to each signal
+    for sig in signals:
+        sig.position_size_pct = sig.position_size_pct * sizing_modifier
+
     order_executor = OrderExecutor(broker=broker, risk_manager=risk_manager)
+    order_executor.sync_positions()   # load existing Alpaca positions before rebalancing
     trade_lines = []
 
     for signal in signals:
@@ -435,22 +462,10 @@ def run_market_open() -> None:
             logger.info("Signal FLAT for %s — skipping", signal.symbol)
             continue
 
-        # Apply cross-enrichment sizing modifier
         effective_confidence = signal.confidence * sizing_modifier
 
-        size_result = risk_manager.compute_position_size(
-            portfolio_value=acct.equity,
-            entry_price=signal.entry_price,
-            stop_price=signal.stop_loss,
-            regime_max_pct=regime_info.max_position_size_pct,
-        )
-
-        if size_result.shares <= 0:
-            logger.info("Zero shares for %s after sizing — skipping", signal.symbol)
-            continue
-
         try:
-            results = order_executor.rebalance(signal, acct.equity)
+            results = order_executor.rebalance(signal, float(acct.equity))
             for r in results:
                 logger.info("Order | %s %s x%d @ %.2f | id=%s",
                             r.side, r.ticker, r.qty, r.filled_price, r.order_id)

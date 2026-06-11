@@ -7,15 +7,13 @@
 No positions. Bot launches Monday Apr 27.
 
 ## 2026-06-11 — Market Open
-**Regime:** BEAR | **Confidence:** 100.0% | **Portfolio:** $105,214.91
-
-_No trades executed._
-
-## 2026-06-11 — Market Open
 **Regime:** BEAR | **Confidence:** 100.0% | **Portfolio:** $105,230.53
+**Action:** Reduce exposure — HighVolDefensiveStrategy targets 60% allocation
 
 | ETF | Side | Shares | Entry | Stop | Conf | Regime |
 |---|---|---|---|---|---|---|
-| SPY | SELL | 0 | 0.00 | 716.06 | 1.00 | bear |
-| QQQ | SELL | 0 | 0.00 | 671.72 | 1.00 | bear |
-| IWM | SELL | 0 | 0.00 | 272.41 | 1.00 | bear |
+| SPY | SELL | 122 | 726.67 | 716.06 | 1.00 | bear |
+| QQQ | SELL | 96 | 697.23 | 671.72 | 1.00 | bear |
+| IWM | SELL | 332 | 284.64 | 272.41 | 1.00 | bear |
+
+**Remaining positions:** SPY 44 | QQQ 46 | IWM 112
