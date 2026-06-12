@@ -53,3 +53,18 @@ TRADE or HOLD
 - Catalyst gate active: False
 - Sizing modifier: 1.0
 - Regime gate: OPEN
+
+### HMM Training Note
+- **RETRAIN: first-ever fit** (no prior model on disk)
+- n_states selected: 6 (BIC-optimal over 3–7)
+- Training bars: 343 clean (from 504 fetched)
+- BIC: 5378.27 | log-likelihood: -502.91
+- Convergence warnings: multiple (numeric precision only, delta < 1e-4 — benign)
+
+### Anomalies / Startup Fixes Applied This Session
+1. **SIP feed → IEX**: free-tier Alpaca account blocked SIP; switched `StockBarsRequest(feed="iex")`
+2. **Method rename**: `engineer.compute_features()` → `engineer.build_feature_dataframe()`
+3. **Insufficient bars**: `load_or_train_hmm(n_bars=60)` → `n_bars=settings.HMM_TRAINING_DAYS` (504); with only 60 bars all features dropped on `dropna()` due to `_ZSCORE_WINDOW=252` and `sma200(min_periods=100)`
+
+### Decision
+HOLD — regime STRONG_BEAR confirmed=False (1/3 consecutive bars required)
