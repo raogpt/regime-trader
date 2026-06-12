@@ -11,6 +11,6 @@ No positions. Bot launches Monday Apr 27.
 
 | ETF | Side | Shares | Entry | Stop | Conf | Regime |
 |---|---|---|---|---|---|---|
-| SPY | BUY | 0 | 0.00 | 716.54 | 1.00 | strong_bear |
-| QQQ | BUY | 0 | 0.00 | 672.68 | 1.00 | strong_bear |
-| IWM | BUY | 0 | 0.00 | 273.02 | 1.00 | strong_bear |
+| SPY | BUY | 21 | ~est | 716.54 | 1.00 | strong_bear | orders submitted; fill pending (paper async) |
+| QQQ | BUY | 16 | ~est | 672.68 | 1.00 | strong_bear | orders submitted; fill pending (paper async) |
+| IWM | BUY | 37 | ~est | 273.02 | 1.00 | strong_bear | orders submitted; fill pending (paper async) |
