@@ -119,9 +119,32 @@ def with_retry(fn, retries: int = 3, base_delay: float = 2.0):
 # Alpaca REST bar fetching
 # ===========================================================================
 
+def _fetch_daily_bars_yfinance(ticker: str, n_days: int) -> pd.DataFrame:
+    """Fallback: fetch daily bars via yfinance (free, no subscription needed)."""
+    import yfinance as yf
+    extra = int(n_days * 1.5)
+    end = datetime.now(timezone.utc)
+    start = end - timedelta(days=extra)
+    raw = yf.download(ticker, start=start.strftime("%Y-%m-%d"),
+                      end=end.strftime("%Y-%m-%d"), auto_adjust=True, progress=False)
+    if raw.empty:
+        raise ValueError(f"yfinance returned no data for {ticker}")
+    # Flatten MultiIndex columns (yfinance >=0.2 returns (field, ticker) tuples)
+    if isinstance(raw.columns, pd.MultiIndex):
+        raw.columns = [c[0].lower() for c in raw.columns]
+    else:
+        raw.columns = [c.lower() for c in raw.columns]
+    if "adj close" in raw.columns:
+        raw = raw.rename(columns={"adj close": "close"})
+    df = raw[["open", "high", "low", "close", "volume"]].tail(n_days)
+    logger.info("Fetched %d bars for %s via yfinance", len(df), ticker)
+    return df
+
+
 def fetch_daily_bars(ticker: str, n_days: int) -> pd.DataFrame:
     """
     Fetch the last n_days daily bars for ticker via Alpaca REST.
+    Falls back to yfinance if Alpaca returns a subscription error (free plan).
     Returns a DataFrame with columns: open, high, low, close, volume.
     """
     from alpaca.data.historical import StockHistoricalDataClient
@@ -147,7 +170,14 @@ def fetch_daily_bars(ticker: str, n_days: int) -> pd.DataFrame:
     def _fetch():
         return client.get_stock_bars(req).df
 
-    raw = with_retry(_fetch)
+    try:
+        raw = with_retry(_fetch)
+    except Exception as exc:
+        err_str = str(exc).lower()
+        if "subscription" in err_str or "forbidden" in err_str or "403" in err_str:
+            logger.warning("Alpaca subscription limit hit — falling back to yfinance")
+            return _fetch_daily_bars_yfinance(ticker, n_days)
+        raise
 
     # alpaca-py returns a multi-index (symbol, timestamp) — flatten if needed
     if isinstance(raw.index, pd.MultiIndex):
@@ -198,7 +228,7 @@ def load_or_train_hmm(n_bars: int = 60) -> tuple[HMMEngine, np.ndarray]:
     """
     engineer = FeatureEngineer()
     bars = fetch_daily_bars(settings.PRIMARY_TICKER, n_bars)
-    features = engineer.compute_features(bars)
+    features = engineer.build_feature_dataframe(bars)
     features_clean = features.dropna().values
 
     if _model_is_fresh():
@@ -220,7 +250,7 @@ def retrain_hmm_full() -> tuple[HMMEngine, np.ndarray]:
     """Full retrain using HMM_TRAINING_DAYS bars (for weekly mode)."""
     engineer = FeatureEngineer()
     bars = fetch_daily_bars(settings.PRIMARY_TICKER, settings.HMM_TRAINING_DAYS)
-    features = engineer.compute_features(bars).dropna().values
+    features = engineer.build_feature_dataframe(bars).dropna().values
     logger.info("Full retrain on %d bars …", len(features))
     engine = HMMEngine(config=_hmm_config())
     engine.fit(features)
