@@ -48,8 +48,33 @@ TRADE or HOLD
 - Confirmed: False
 - Flickering: False
 
+### ETF Snapshot (IEX feed, last close 2026-06-12)
+- SPY: $741.67 (1d chg: +0.54%)
+- QQQ: $721.31 (1d chg: +0.65%)
+- IWM: $292.97 (1d chg: +0.87%)
+
 ### Cross-Enrichment Signal (from trading-bot)
 - Sector momentum: unknown
 - Catalyst gate active: False
 - Sizing modifier: 1.0
 - Regime gate: OPEN
+
+### Open Positions (stale TRADE-LOG — synced here)
+| ETF | Qty | Avg Entry | Mkt Val | Unrealized P&L |
+|-----|-----|-----------|---------|----------------|
+| IWM | 149 | $288.25 | $44,266 | +$1,318 |
+| QQQ | 62 | $712.83 | $45,637 | +$1,442 |
+| SPY | 65 | $739.08 | $48,799 | +$759 |
+
+### Anomalies / Warnings
+- TRADE-LOG was stale (showed "No positions" since launch baseline); synced above
+- STRONG_BEAR regime detected but unconfirmed (1/3 bars) — all longs still open
+- HMM retrained from scratch (no saved model); 60-bar training on 7-state HMM → multiple non-convergence warnings (tight sample, degenerate solution warning at n_states=7)
+- Negative cash (-$28,570) = leveraged margin positions (~1.25x)
+- Fix applied: episodic_runner.py switched to IEX feed (SIP subscription error); compute_features → build_feature_dataframe; fetch 250 bars for feature warmup
+
+### Signals Generated
+None — regime unconfirmed (1/3 consecutive bars required)
+
+### Decision
+HOLD — STRONG_BEAR signal emerging but needs 2 more confirming bars before action. Existing longs monitored. Next run (market-open/midday) will re-evaluate if regime persists.

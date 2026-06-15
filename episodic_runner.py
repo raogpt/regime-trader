@@ -124,6 +124,7 @@ def fetch_daily_bars(ticker: str, n_days: int) -> pd.DataFrame:
     Fetch the last n_days daily bars for ticker via Alpaca REST.
     Returns a DataFrame with columns: open, high, low, close, volume.
     """
+    from alpaca.data.enums import DataFeed
     from alpaca.data.historical import StockHistoricalDataClient
     from alpaca.data.requests import StockBarsRequest
     from alpaca.data.timeframe import TimeFrame
@@ -142,6 +143,7 @@ def fetch_daily_bars(ticker: str, n_days: int) -> pd.DataFrame:
         timeframe=TimeFrame.Day,
         start=start,
         end=end,
+        feed=DataFeed.IEX,
     )
 
     def _fetch():
@@ -197,9 +199,11 @@ def load_or_train_hmm(n_bars: int = 60) -> tuple[HMMEngine, np.ndarray]:
     Returns (engine, feature_matrix).
     """
     engineer = FeatureEngineer()
-    bars = fetch_daily_bars(settings.PRIMARY_TICKER, n_bars)
-    features = engineer.compute_features(bars)
-    features_clean = features.dropna().values
+    # Fetch extra bars so SMA200/min_periods=100 features populate; keep last n_bars for training
+    fetch_bars = max(n_bars, 250)
+    bars = fetch_daily_bars(settings.PRIMARY_TICKER, fetch_bars)
+    features = engineer.build_feature_dataframe(bars)
+    features_clean = features.dropna().values[-n_bars:]
 
     if _model_is_fresh():
         try:
@@ -220,7 +224,7 @@ def retrain_hmm_full() -> tuple[HMMEngine, np.ndarray]:
     """Full retrain using HMM_TRAINING_DAYS bars (for weekly mode)."""
     engineer = FeatureEngineer()
     bars = fetch_daily_bars(settings.PRIMARY_TICKER, settings.HMM_TRAINING_DAYS)
-    features = engineer.compute_features(bars).dropna().values
+    features = engineer.build_feature_dataframe(bars).dropna().values
     logger.info("Full retrain on %d bars …", len(features))
     engine = HMMEngine(config=_hmm_config())
     engine.fit(features)
