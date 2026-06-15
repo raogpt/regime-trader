@@ -32,3 +32,24 @@ Format:
 
 ### Decision
 TRADE or HOLD
+
+## 2026-06-15 — Pre-Market Regime Detection
+
+### Account
+- Equity: $110,136.98
+- Cash: $-28,569.69
+- Buying power: $274,099.92
+- Status: AccountStatus.ACTIVE
+
+### Regime Signal
+- Detected regime: STRONG_BEAR
+- Confidence: 100.0%
+- Consecutive bars: 1
+- Confirmed: False
+- Flickering: False
+
+### Cross-Enrichment Signal (from trading-bot)
+- Sector momentum: unknown
+- Catalyst gate active: False
+- Sizing modifier: 1.0
+- Regime gate: OPEN
