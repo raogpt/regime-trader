@@ -5,3 +5,8 @@
 **Regime:** UNKNOWN (HMM not yet run in episodic mode)
 
 No positions. Bot launches Monday Apr 27.
+
+### 2026-06-16 — Midday Review
+**Regime:** WEAK_BEAR | **Confidence:** 100.0%
+
+_No action required._
