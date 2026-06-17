@@ -66,7 +66,65 @@ DEFAULT_LOOKBACK_DAYS = 7
 # ---------------------------------------------------------------------------
 SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parent
-WATCHLIST_PATH = REPO_ROOT / "memory" / "youtube-watchlist.md"
+WATCHLIST_PATH   = REPO_ROOT / "memory" / "youtube-watchlist.md"
+QUEUE_PATH       = REPO_ROOT / "memory" / "transcript-queue.json"
+TRANSCRIPTS_DIR  = REPO_ROOT / "memory" / "transcripts"
+
+
+# ---------------------------------------------------------------------------
+# Transcript queue helpers (for off-cloud fetching via fetch_transcripts.py)
+# ---------------------------------------------------------------------------
+
+def load_cached_transcript(video_id: str) -> Optional[str]:
+    """Return locally cached transcript text if already fetched, else None."""
+    path = TRANSCRIPTS_DIR / f"{video_id}.txt"
+    if path.exists():
+        text = path.read_text(encoding="utf-8").strip()
+        return text if text else None
+    return None
+
+
+def update_transcript_queue(new_videos: list[dict]) -> None:
+    """
+    Append any video_ids without a cached transcript to the queue file.
+    fetch_transcripts.py (run on a residential IP) drains this queue.
+    """
+    TRANSCRIPTS_DIR.mkdir(parents=True, exist_ok=True)
+
+    # Load existing queue
+    existing: list[dict] = []
+    if QUEUE_PATH.exists():
+        try:
+            existing = json.loads(QUEUE_PATH.read_text()).get("pending", [])
+        except Exception:
+            existing = []
+
+    existing_ids = {item["video_id"] for item in existing}
+
+    added = 0
+    for v in new_videos:
+        vid = v["video_id"]
+        if vid not in existing_ids and not (TRANSCRIPTS_DIR / f"{vid}.txt").exists():
+            existing.append({
+                "video_id": vid,
+                "channel": v["channel"],
+                "title": v["title"],
+                "lang": v["language"],
+                "published": v["published"],
+                "queued_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            })
+            existing_ids.add(vid)
+            added += 1
+
+    QUEUE_PATH.write_text(
+        json.dumps(
+            {"updated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+             "pending": existing},
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    log.info("Transcript queue: added %d item(s), total pending=%d", added, len(existing))
 
 
 # ---------------------------------------------------------------------------
@@ -309,19 +367,29 @@ def mode_check(since_override: Optional[str], bot_context: str) -> None:
             if pub <= cutoff:
                 continue
 
-            # New video — fetch transcript
             log.info("  New video: [%s] %s", entry["video_id"], entry["title"])
-            transcript_text, transcript_available = fetch_transcript(entry["video_id"], lang)
 
-            if not transcript_available:
-                log.info("  NO_TRANSCRIPT for %s", entry["video_id"])
-                transcript_excerpt = None
+            # 1. Check local cache (written by fetch_transcripts.py on residential IP)
+            cached = load_cached_transcript(entry["video_id"])
+            if cached:
+                log.info("  Transcript loaded from cache: %s", entry["video_id"])
+                transcript_excerpt = cached
+                transcript_available = True
+                transcript_source = "cache"
             else:
-                transcript_excerpt = (
-                    transcript_text[:TRANSCRIPT_MAX_CHARS]
-                    if transcript_text and len(transcript_text) > TRANSCRIPT_MAX_CHARS
-                    else transcript_text
-                )
+                # 2. Try live fetch (works on residential IP, fails on cloud — graceful)
+                transcript_text, transcript_available = fetch_transcript(entry["video_id"], lang)
+                if transcript_available:
+                    transcript_excerpt = (
+                        transcript_text[:TRANSCRIPT_MAX_CHARS]
+                        if transcript_text and len(transcript_text) > TRANSCRIPT_MAX_CHARS
+                        else transcript_text
+                    )
+                    transcript_source = "live"
+                else:
+                    log.info("  NO_TRANSCRIPT — queued for off-cloud fetch: %s", entry["video_id"])
+                    transcript_excerpt = None
+                    transcript_source = "queued"
 
             channel_new.append(
                 {
@@ -333,6 +401,7 @@ def mode_check(since_override: Optional[str], bot_context: str) -> None:
                     "language": lang,
                     "transcript_excerpt": transcript_excerpt,
                     "transcript_available": transcript_available,
+                    "transcript_source": transcript_source,
                 }
             )
 
@@ -342,6 +411,9 @@ def mode_check(since_override: Optional[str], bot_context: str) -> None:
         else:
             no_new_videos.append(channel_name)
             log.info("Channel '%s': no new videos", channel_name)
+
+    # Write any transcript-less videos to the queue for off-cloud fetching
+    update_transcript_queue([v for v in new_videos if not v["transcript_available"]])
 
     output = {
         "check_date": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
