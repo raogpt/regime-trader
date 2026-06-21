@@ -41,9 +41,13 @@ except ImportError:
 
 try:
     import feedparser
-except ImportError:
-    log.error("feedparser not installed — run: pip install feedparser>=6.0")
+    # Verify feedparser is actually importable (sgmllib issue on Python 3.11+)
+    feedparser.parse  # noqa: B018
+except Exception:
+    log.warning("feedparser unavailable — using built-in XML fallback for RSS")
     feedparser = None  # type: ignore
+
+import xml.etree.ElementTree as _ET  # stdlib fallback for RSS parsing
 
 try:
     from youtube_transcript_api import YouTubeTranscriptApi, NoTranscriptFound, TranscriptsDisabled
@@ -142,14 +146,63 @@ def parse_last_checked(raw: str) -> Optional[datetime]:
 # RSS fetching
 # ---------------------------------------------------------------------------
 
+def _fetch_rss_stdlib(xml_text: str) -> list[dict]:
+    """Parse YouTube Atom RSS feed using stdlib xml.etree (feedparser fallback)."""
+    ns = {
+        "atom": "http://www.w3.org/2005/Atom",
+        "yt": "http://www.youtube.com/xml/schemas/2015",
+        "media": "http://search.yahoo.com/mrss/",
+    }
+    entries = []
+    try:
+        root = _ET.fromstring(xml_text)
+    except _ET.ParseError as exc:
+        log.warning("XML parse error: %s", exc)
+        return []
+
+    for entry in root.findall("atom:entry", ns):
+        video_id_el = entry.find("yt:videoId", ns)
+        video_id = video_id_el.text if video_id_el is not None else None
+        if not video_id:
+            link_el = entry.find("atom:link", ns)
+            href = link_el.get("href", "") if link_el is not None else ""
+            m = re.search(r"v=([A-Za-z0-9_-]{11})", href)
+            video_id = m.group(1) if m else None
+        if not video_id:
+            continue
+
+        title_el = entry.find("atom:title", ns)
+        title = title_el.text if title_el is not None else "Untitled"
+
+        published_el = entry.find("atom:published", ns)
+        published_dt = None
+        if published_el is not None and published_el.text:
+            try:
+                raw = published_el.text.rstrip("Z")
+                if "+" in raw:
+                    raw = raw.split("+")[0]
+                published_dt = datetime.strptime(raw, "%Y-%m-%dT%H:%M:%S").replace(tzinfo=timezone.utc)
+            except ValueError:
+                pass
+
+        entries.append({
+            "video_id": video_id,
+            "title": title,
+            "published": published_dt,
+            "url": f"https://www.youtube.com/watch?v={video_id}",
+        })
+
+    return entries
+
+
 def fetch_rss(channel_id: str) -> list[dict]:
     """
     Fetch and parse the YouTube RSS feed for a channel.
 
     Returns a list of entry dicts: {video_id, title, published, url}
     """
-    if feedparser is None or requests is None:
-        log.error("feedparser or requests unavailable — cannot fetch RSS")
+    if requests is None:
+        log.error("requests unavailable — cannot fetch RSS")
         return []
 
     url = RSS_TEMPLATE.format(channel_id=channel_id)
@@ -162,35 +215,27 @@ def fetch_rss(channel_id: str) -> list[dict]:
         log.warning("RSS fetch failed for channel %s: %s", channel_id, exc)
         return []
 
-    feed = feedparser.parse(resp.text)
-    entries = []
-
-    for entry in feed.entries:
-        # Extract video ID from yt:videoId or from the link
-        video_id = getattr(entry, "yt_videoid", None)
-        if not video_id:
-            link = getattr(entry, "link", "")
-            m = re.search(r"v=([A-Za-z0-9_-]{11})", link)
-            video_id = m.group(1) if m else None
-
-        if not video_id:
-            continue
-
-        # Parse published date
-        published_struct = getattr(entry, "published_parsed", None)
-        if published_struct:
-            published_dt = datetime(*published_struct[:6], tzinfo=timezone.utc)
-        else:
-            published_dt = None
-
-        entries.append(
-            {
+    if feedparser is not None:
+        feed = feedparser.parse(resp.text)
+        entries = []
+        for entry in feed.entries:
+            video_id = getattr(entry, "yt_videoid", None)
+            if not video_id:
+                link = getattr(entry, "link", "")
+                m = re.search(r"v=([A-Za-z0-9_-]{11})", link)
+                video_id = m.group(1) if m else None
+            if not video_id:
+                continue
+            published_struct = getattr(entry, "published_parsed", None)
+            published_dt = datetime(*published_struct[:6], tzinfo=timezone.utc) if published_struct else None
+            entries.append({
                 "video_id": video_id,
                 "title": getattr(entry, "title", "Untitled"),
                 "published": published_dt,
                 "url": f"https://www.youtube.com/watch?v={video_id}",
-            }
-        )
+            })
+    else:
+        entries = _fetch_rss_stdlib(resp.text)
 
     log.info("  -> %d entries found", len(entries))
     return entries
