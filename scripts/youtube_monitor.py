@@ -33,16 +33,20 @@ log = logging.getLogger("youtube_monitor")
 # ---------------------------------------------------------------------------
 # Optional imports — graceful degradation if not installed yet
 # ---------------------------------------------------------------------------
+import xml.etree.ElementTree as ET
+
 try:
     import requests
 except ImportError:
     log.error("requests not installed — run: pip install requests")
     requests = None  # type: ignore
 
+# feedparser is optional — we fall back to requests + xml.etree.ElementTree
 try:
     import feedparser
-except ImportError:
-    log.error("feedparser not installed — run: pip install feedparser>=6.0")
+    # Verify feedparser is actually importable (broken on Python 3.11 with sgmllib)
+    feedparser.parse  # noqa: B018
+except Exception:
     feedparser = None  # type: ignore
 
 try:
@@ -142,14 +146,63 @@ def parse_last_checked(raw: str) -> Optional[datetime]:
 # RSS fetching
 # ---------------------------------------------------------------------------
 
+def _parse_rss_xml(xml_text: str) -> list[dict]:
+    """Parse YouTube Atom RSS feed using stdlib xml.etree.ElementTree."""
+    ns = {
+        "atom": "http://www.w3.org/2005/Atom",
+        "yt": "http://www.youtube.com/xml/schemas/2015",
+        "media": "http://search.yahoo.com/mrss/",
+    }
+    root = ET.fromstring(xml_text)
+    entries = []
+    for entry in root.findall("atom:entry", ns):
+        video_id_el = entry.find("yt:videoId", ns)
+        video_id = video_id_el.text.strip() if video_id_el is not None else None
+
+        if not video_id:
+            link_el = entry.find("atom:link", ns)
+            if link_el is not None:
+                href = link_el.get("href", "")
+                m = re.search(r"v=([A-Za-z0-9_-]{11})", href)
+                video_id = m.group(1) if m else None
+
+        if not video_id:
+            continue
+
+        title_el = entry.find("atom:title", ns)
+        title = title_el.text.strip() if title_el is not None else "Untitled"
+
+        published_el = entry.find("atom:published", ns)
+        published_dt = None
+        if published_el is not None and published_el.text:
+            try:
+                published_dt = datetime.fromisoformat(
+                    published_el.text.replace("Z", "+00:00")
+                )
+            except ValueError:
+                pass
+
+        entries.append(
+            {
+                "video_id": video_id,
+                "title": title,
+                "published": published_dt,
+                "url": f"https://www.youtube.com/watch?v={video_id}",
+            }
+        )
+    return entries
+
+
 def fetch_rss(channel_id: str) -> list[dict]:
     """
     Fetch and parse the YouTube RSS feed for a channel.
 
     Returns a list of entry dicts: {video_id, title, published, url}
+    Uses requests + xml.etree.ElementTree (stdlib) as primary path; falls back
+    to feedparser when available and the XML parse fails.
     """
-    if feedparser is None or requests is None:
-        log.error("feedparser or requests unavailable — cannot fetch RSS")
+    if requests is None:
+        log.error("requests unavailable — cannot fetch RSS")
         return []
 
     url = RSS_TEMPLATE.format(channel_id=channel_id)
@@ -162,38 +215,44 @@ def fetch_rss(channel_id: str) -> list[dict]:
         log.warning("RSS fetch failed for channel %s: %s", channel_id, exc)
         return []
 
-    feed = feedparser.parse(resp.text)
-    entries = []
+    # Primary: stdlib XML parse (no extra deps)
+    try:
+        entries = _parse_rss_xml(resp.text)
+        log.info("  -> %d entries found (xml parser)", len(entries))
+        return entries
+    except Exception as exc:
+        log.warning("  XML parse failed, trying feedparser: %s", exc)
 
-    for entry in feed.entries:
-        # Extract video ID from yt:videoId or from the link
-        video_id = getattr(entry, "yt_videoid", None)
-        if not video_id:
-            link = getattr(entry, "link", "")
-            m = re.search(r"v=([A-Za-z0-9_-]{11})", link)
-            video_id = m.group(1) if m else None
+    # Fallback: feedparser
+    if feedparser is not None:
+        try:
+            feed = feedparser.parse(resp.text)
+            entries = []
+            for entry in feed.entries:
+                video_id = getattr(entry, "yt_videoid", None)
+                if not video_id:
+                    link = getattr(entry, "link", "")
+                    m = re.search(r"v=([A-Za-z0-9_-]{11})", link)
+                    video_id = m.group(1) if m else None
+                if not video_id:
+                    continue
+                published_struct = getattr(entry, "published_parsed", None)
+                if published_struct:
+                    published_dt = datetime(*published_struct[:6], tzinfo=timezone.utc)
+                else:
+                    published_dt = None
+                entries.append({
+                    "video_id": video_id,
+                    "title": getattr(entry, "title", "Untitled"),
+                    "published": published_dt,
+                    "url": f"https://www.youtube.com/watch?v={video_id}",
+                })
+            log.info("  -> %d entries found (feedparser)", len(entries))
+            return entries
+        except Exception as exc2:
+            log.warning("  feedparser also failed: %s", exc2)
 
-        if not video_id:
-            continue
-
-        # Parse published date
-        published_struct = getattr(entry, "published_parsed", None)
-        if published_struct:
-            published_dt = datetime(*published_struct[:6], tzinfo=timezone.utc)
-        else:
-            published_dt = None
-
-        entries.append(
-            {
-                "video_id": video_id,
-                "title": getattr(entry, "title", "Untitled"),
-                "published": published_dt,
-                "url": f"https://www.youtube.com/watch?v={video_id}",
-            }
-        )
-
-    log.info("  -> %d entries found", len(entries))
-    return entries
+    return []
 
 
 # ---------------------------------------------------------------------------
