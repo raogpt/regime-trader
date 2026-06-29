@@ -32,3 +32,9 @@ Format:
 
 ### Decision
 TRADE or HOLD
+
+---
+
+## 2026-06-29 — YouTube Intel
+
+No new videos across all 7 monitored channels (Oseille TV, Bravos Research, Finary, Investing Simplified, George Gammon, IG France, Real Vision Presents). No regime signal updates.
