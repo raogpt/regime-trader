@@ -1,19 +1,27 @@
 #!/usr/bin/env python3
 """
-youtube_monitor.py — YouTube channel monitor for trading bots.
+intel_monitor.py — Multi-source (YouTube + blog RSS) market intel monitor for trading bots.
 
 Usage:
-    python scripts/youtube_monitor.py --mode check [--since YYYY-MM-DD] [--bot trading|regime]
-    python scripts/youtube_monitor.py --mode update-timestamps
+    python scripts/intel_monitor.py --mode check [--since YYYY-MM-DD] [--bot trading|regime]
+    python scripts/intel_monitor.py --mode update-timestamps
 
-Reads memory/youtube-watchlist.md, fetches RSS feeds, extracts transcripts,
-and outputs structured JSON for Claude to process.
+Reads memory/intel-watchlist.md, fetches each source's RSS/Atom feed, and
+outputs structured JSON for Claude to process.
+
+YouTube entries yield title + publish date only. Transcript extraction is
+deliberately NOT attempted: this environment's egress IP is caught by
+YouTube/Google's bot-detection checkpoint (a redirect to
+google.com/sorry/index, i.e. a CAPTCHA wall) before any page or caption
+content loads. This is IP-reputation-based, not client-specific — curl,
+requests, and headless-browser navigation all hit the same wall. Blog
+entries carry their RSS-provided content (full text or teaser, depending on
+the publisher), which is not affected by this block.
 """
 
 import argparse
 import json
 import logging
-import os
 import re
 import sys
 from datetime import datetime, timedelta, timezone
@@ -28,7 +36,7 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(message)s",
     stream=sys.stderr,
 )
-log = logging.getLogger("youtube_monitor")
+log = logging.getLogger("intel_monitor")
 
 # ---------------------------------------------------------------------------
 # Optional imports — graceful degradation if not installed yet
@@ -45,28 +53,20 @@ except ImportError:
     log.error("feedparser not installed — run: pip install feedparser>=6.0")
     feedparser = None  # type: ignore
 
-try:
-    from youtube_transcript_api import YouTubeTranscriptApi, NoTranscriptFound, TranscriptsDisabled
-except ImportError:
-    log.error("youtube_transcript_api not installed — run: pip install youtube-transcript-api>=0.6")
-    YouTubeTranscriptApi = None  # type: ignore
-    NoTranscriptFound = Exception  # type: ignore
-    TranscriptsDisabled = Exception  # type: ignore
-
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
-RSS_TEMPLATE = "https://www.youtube.com/feeds/videos.xml?channel_id={channel_id}"
-TRANSCRIPT_MAX_CHARS = 8000
-RSS_TIMEOUT_SECONDS = 10
+CONTENT_MAX_CHARS = 8000
+FEED_TIMEOUT_SECONDS = 15
 DEFAULT_LOOKBACK_DAYS = 7
+HTML_TAG_RE = re.compile(r"<[^>]+>")
 
 # ---------------------------------------------------------------------------
-# Locate memory/youtube-watchlist.md relative to this script
+# Locate memory/intel-watchlist.md relative to this script
 # ---------------------------------------------------------------------------
 SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parent
-WATCHLIST_PATH = REPO_ROOT / "memory" / "youtube-watchlist.md"
+WATCHLIST_PATH = REPO_ROOT / "memory" / "intel-watchlist.md"
 
 
 # ---------------------------------------------------------------------------
@@ -75,16 +75,16 @@ WATCHLIST_PATH = REPO_ROOT / "memory" / "youtube-watchlist.md"
 
 def parse_watchlist(path: Path) -> list[dict]:
     """
-    Parse the markdown table in youtube-watchlist.md.
+    Parse the markdown table in intel-watchlist.md.
 
     Returns a list of dicts:
-        {id, channel, url, channel_id, lang, categories, signal_score, last_checked}
+        {id, source, type, url, feed_url, lang, categories, signal_score, last_checked}
     """
     if not path.exists():
         log.error("Watchlist not found: %s", path)
         return []
 
-    channels = []
+    sources = []
     in_table = False
 
     with open(path, encoding="utf-8") as fh:
@@ -103,26 +103,27 @@ def parse_watchlist(path: Path) -> list[dict]:
             # Parse data rows
             if in_table and line.startswith("|") and line.endswith("|"):
                 parts = [p.strip() for p in line.split("|")[1:-1]]
-                if len(parts) < 8:
+                if len(parts) < 9:
                     continue
-                channels.append(
+                sources.append(
                     {
                         "id": parts[0],
-                        "channel": parts[1],
-                        "url": parts[2],
-                        "channel_id": parts[3],
-                        "lang": parts[4],
-                        "categories": parts[5],
-                        "signal_score": parts[6],
-                        "last_checked": parts[7],
+                        "source": parts[1],
+                        "type": parts[2].lower(),
+                        "url": parts[3],
+                        "feed_url": parts[4],
+                        "lang": parts[5],
+                        "categories": parts[6],
+                        "signal_score": parts[7],
+                        "last_checked": parts[8],
                     }
                 )
             elif in_table and not line.startswith("|"):
                 # End of table
                 in_table = False
 
-    log.info("Parsed %d channels from watchlist", len(channels))
-    return channels
+    log.info("Parsed %d source(s) from watchlist", len(sources))
+    return sources
 
 
 def parse_last_checked(raw: str) -> Optional[datetime]:
@@ -138,57 +139,69 @@ def parse_last_checked(raw: str) -> Optional[datetime]:
         return None
 
 
+def clean_html(raw: Optional[str]) -> Optional[str]:
+    """Strip HTML tags and collapse whitespace."""
+    if not raw:
+        return None
+    text = HTML_TAG_RE.sub(" ", raw)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text or None
+
+
 # ---------------------------------------------------------------------------
-# RSS fetching
+# Feed fetching
 # ---------------------------------------------------------------------------
 
-def fetch_rss(channel_id: str) -> list[dict]:
+def fetch_feed(feed_url: str) -> list[dict]:
     """
-    Fetch and parse the YouTube RSS feed for a channel.
+    Fetch and parse an RSS/Atom feed (YouTube or blog).
 
-    Returns a list of entry dicts: {video_id, title, published, url}
+    Returns a list of entry dicts: {entry_id, title, published, url, content}
     """
     if feedparser is None or requests is None:
-        log.error("feedparser or requests unavailable — cannot fetch RSS")
+        log.error("feedparser or requests unavailable — cannot fetch feed")
         return []
 
-    url = RSS_TEMPLATE.format(channel_id=channel_id)
-    log.info("Fetching RSS: %s", url)
+    log.info("Fetching feed: %s", feed_url)
 
     try:
-        resp = requests.get(url, timeout=RSS_TIMEOUT_SECONDS)
+        resp = requests.get(feed_url, timeout=FEED_TIMEOUT_SECONDS)
         resp.raise_for_status()
     except Exception as exc:
-        log.warning("RSS fetch failed for channel %s: %s", channel_id, exc)
+        log.warning("Feed fetch failed for %s: %s", feed_url, exc)
         return []
 
     feed = feedparser.parse(resp.text)
     entries = []
 
     for entry in feed.entries:
-        # Extract video ID from yt:videoId or from the link
-        video_id = getattr(entry, "yt_videoid", None)
-        if not video_id:
-            link = getattr(entry, "link", "")
-            m = re.search(r"v=([A-Za-z0-9_-]{11})", link)
-            video_id = m.group(1) if m else None
+        link = getattr(entry, "link", "")
 
-        if not video_id:
+        # YouTube feeds carry yt:videoId; used as a stable entry id when present
+        entry_id = getattr(entry, "yt_videoid", None) or getattr(entry, "id", None) or link
+        if not entry_id:
             continue
 
-        # Parse published date
-        published_struct = getattr(entry, "published_parsed", None)
+        published_struct = getattr(entry, "published_parsed", None) or getattr(entry, "updated_parsed", None)
         if published_struct:
             published_dt = datetime(*published_struct[:6], tzinfo=timezone.utc)
         else:
             published_dt = None
 
+        # Prefer full body (content:encoded) over summary/description teaser
+        content_raw = None
+        if getattr(entry, "content", None):
+            content_raw = entry.content[0].get("value")
+        if not content_raw:
+            content_raw = getattr(entry, "summary", None) or getattr(entry, "description", None)
+
         entries.append(
             {
-                "video_id": video_id,
+                "entry_id": entry_id,
                 "title": getattr(entry, "title", "Untitled"),
                 "published": published_dt,
-                "url": f"https://www.youtube.com/watch?v={video_id}",
+                "url": link,
+                "content": clean_html(content_raw),
             }
         )
 
@@ -197,71 +210,20 @@ def fetch_rss(channel_id: str) -> list[dict]:
 
 
 # ---------------------------------------------------------------------------
-# Transcript fetching
-# ---------------------------------------------------------------------------
-
-def fetch_transcript(video_id: str, preferred_lang: str) -> tuple[Optional[str], bool]:
-    """
-    Try to fetch a transcript for a YouTube video.
-
-    Priority: preferred_lang -> opposite_lang -> auto-generated.
-    Returns (transcript_text, available).
-    """
-    if YouTubeTranscriptApi is None:
-        return None, False
-
-    lang_priority = []
-
-    # Build priority list: preferred first, then opposite, then auto
-    if preferred_lang.upper() == "FR":
-        lang_priority = [["fr"], ["en"], ["fr-FR"], ["en-US"]]
-    else:
-        lang_priority = [["en"], ["fr"], ["en-US"], ["fr-FR"]]
-
-    # New API (>=0.6): instantiate, use .fetch() with languages list
-    api = YouTubeTranscriptApi()
-
-    for langs in lang_priority:
-        try:
-            fetched = api.fetch(video_id, languages=langs)
-            text = " ".join(seg.text for seg in fetched)
-            text = re.sub(r"\s+", " ", text).strip()
-            return text, True
-        except Exception:
-            continue
-
-    # Last resort: list available transcripts and fetch first one
-    try:
-        transcript_list = api.list(video_id)
-        for t in transcript_list:
-            try:
-                fetched = t.fetch()
-                text = " ".join(seg.text for seg in fetched)
-                text = re.sub(r"\s+", " ", text).strip()
-                return text, True
-            except Exception:
-                continue
-    except Exception as exc:
-        log.info("  Transcript unavailable for %s: %s", video_id, exc)
-
-    return None, False
-
-
-# ---------------------------------------------------------------------------
 # Mode: check
 # ---------------------------------------------------------------------------
 
 def mode_check(since_override: Optional[str], bot_context: str) -> None:
     """
-    Main check mode: find new videos, fetch transcripts, output JSON to stdout.
+    Main check mode: find new items across all sources, output JSON to stdout.
     """
-    channels = parse_watchlist(WATCHLIST_PATH)
-    if not channels:
+    sources = parse_watchlist(WATCHLIST_PATH)
+    if not sources:
         output = {
             "check_date": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
             "bot_context": bot_context,
-            "new_videos": [],
-            "no_new_videos": [],
+            "new_items": [],
+            "no_new_items": [],
             "error": "Watchlist empty or not found",
         }
         print(json.dumps(output, ensure_ascii=False, indent=2))
@@ -277,81 +239,80 @@ def mode_check(since_override: Optional[str], bot_context: str) -> None:
         except ValueError:
             log.warning("Invalid --since date: %r — ignoring", since_override)
 
-    new_videos = []
-    no_new_videos = []
+    new_items = []
+    no_new_items = []
 
-    for ch in channels:
-        channel_name = ch["channel"]
-        channel_id = ch["channel_id"]
-        lang = ch["lang"]
+    for src in sources:
+        source_name = src["source"]
+        source_type = src["type"]
+        feed_url = src["feed_url"]
+        lang = src["lang"]
 
         # Determine cutoff date
         if global_since:
             cutoff = global_since
         else:
-            last_checked = parse_last_checked(ch["last_checked"])
+            last_checked = parse_last_checked(src["last_checked"])
             if last_checked is None:
                 cutoff = datetime.now(timezone.utc) - timedelta(days=DEFAULT_LOOKBACK_DAYS)
-                log.info("Channel '%s' never checked — looking back %d days", channel_name, DEFAULT_LOOKBACK_DAYS)
+                log.info("Source '%s' never checked — looking back %d days", source_name, DEFAULT_LOOKBACK_DAYS)
             else:
                 cutoff = last_checked
-                log.info("Channel '%s' last checked: %s", channel_name, last_checked.strftime("%Y-%m-%d"))
+                log.info("Source '%s' last checked: %s", source_name, last_checked.strftime("%Y-%m-%d"))
 
-        entries = fetch_rss(channel_id)
-        channel_new = []
+        entries = fetch_feed(feed_url)
+        source_new = []
 
         for entry in entries:
             pub = entry["published"]
             if pub is None:
-                log.warning("  Skipping entry with no publish date: %s", entry["video_id"])
+                log.warning("  Skipping entry with no publish date: %s", entry["entry_id"])
                 continue
 
             if pub <= cutoff:
                 continue
 
-            # New video — fetch transcript
-            log.info("  New video: [%s] %s", entry["video_id"], entry["title"])
-            transcript_text, transcript_available = fetch_transcript(entry["video_id"], lang)
+            log.info("  New item [%s]: %s", source_type, entry["title"])
 
-            if not transcript_available:
-                log.info("  NO_TRANSCRIPT for %s", entry["video_id"])
-                transcript_excerpt = None
-            else:
-                transcript_excerpt = (
-                    transcript_text[:TRANSCRIPT_MAX_CHARS]
-                    if transcript_text and len(transcript_text) > TRANSCRIPT_MAX_CHARS
-                    else transcript_text
-                )
+            content = entry["content"]
+            content_excerpt = (
+                content[:CONTENT_MAX_CHARS] if content and len(content) > CONTENT_MAX_CHARS else content
+            )
 
-            channel_new.append(
+            # YouTube: title-only signal (see module docstring — transcript
+            # extraction is blocked at the network/IP-reputation level).
+            if source_type == "youtube":
+                content_excerpt = None
+
+            source_new.append(
                 {
-                    "channel": channel_name,
-                    "video_id": entry["video_id"],
+                    "type": source_type,
+                    "source": source_name,
                     "title": entry["title"],
                     "published": pub.strftime("%Y-%m-%d"),
                     "url": entry["url"],
                     "language": lang,
-                    "transcript_excerpt": transcript_excerpt,
-                    "transcript_available": transcript_available,
+                    "content_excerpt": content_excerpt,
+                    "content_available": content_excerpt is not None,
                 }
             )
 
-        if channel_new:
-            new_videos.extend(channel_new)
-            log.info("Channel '%s': %d new video(s)", channel_name, len(channel_new))
+        if source_new:
+            new_items.extend(source_new)
+            log.info("Source '%s': %d new item(s)", source_name, len(source_new))
         else:
-            no_new_videos.append(channel_name)
-            log.info("Channel '%s': no new videos", channel_name)
+            no_new_items.append(source_name)
+            log.info("Source '%s': no new items", source_name)
 
     output = {
         "check_date": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
         "bot_context": bot_context,
-        "new_videos": new_videos,
-        "no_new_videos": no_new_videos,
+        "new_items": new_items,
+        "no_new_items": no_new_items,
     }
 
     print(json.dumps(output, ensure_ascii=False, indent=2))
-    log.info("Done. %d new video(s) across %d channel(s) with no updates.", len(new_videos), len(no_new_videos))
+    log.info("Done. %d new item(s) across %d source(s) with no updates.", len(new_items), len(no_new_items))
 
 
 # ---------------------------------------------------------------------------
@@ -360,7 +321,7 @@ def mode_check(since_override: Optional[str], bot_context: str) -> None:
 
 def mode_update_timestamps() -> None:
     """
-    Update the Last Checked column in youtube-watchlist.md with today's date.
+    Update the Last Checked column in intel-watchlist.md with today's date.
     """
     if not WATCHLIST_PATH.exists():
         log.error("Watchlist not found: %s", WATCHLIST_PATH)
@@ -393,9 +354,9 @@ def mode_update_timestamps() -> None:
         # Update data rows in the table
         if in_table and stripped.startswith("|") and stripped.endswith("|"):
             parts = stripped.split("|")
-            # Columns: '' | ID | Channel | URL | ChannelID | Lang | Categories | Score | LastChecked | ''
+            # Columns: '' | ID | Source | Type | URL | FeedURL | Lang | Categories | Score | LastChecked | ''
             # parts[0] is empty, parts[-1] is empty; last column is parts[-2]
-            if len(parts) >= 10:
+            if len(parts) >= 11:
                 # Replace the Last Checked column (last data column = parts[-2])
                 original_last = parts[-2].strip()
                 parts[-2] = f" {today} "
@@ -425,7 +386,7 @@ def mode_update_timestamps() -> None:
     with open(WATCHLIST_PATH, "w", encoding="utf-8") as fh:
         fh.write(new_content)
 
-    log.info("Timestamps updated for %d channel(s). Watchlist saved.", updated_count)
+    log.info("Timestamps updated for %d source(s). Watchlist saved.", updated_count)
     print(json.dumps({"status": "ok", "updated": updated_count, "date": today}))
 
 
@@ -435,19 +396,19 @@ def mode_update_timestamps() -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="YouTube channel monitor for trading bots."
+        description="Multi-source (YouTube + blog RSS) market intel monitor for trading bots."
     )
     parser.add_argument(
         "--mode",
         choices=["check", "update-timestamps"],
         required=True,
-        help="check: find new videos | update-timestamps: mark all channels as checked today",
+        help="check: find new items | update-timestamps: mark all sources as checked today",
     )
     parser.add_argument(
         "--since",
         metavar="YYYY-MM-DD",
         default=None,
-        help="Override cutoff date for --mode check (fetch videos published after this date)",
+        help="Override cutoff date for --mode check (fetch items published after this date)",
     )
     parser.add_argument(
         "--bot",
@@ -469,8 +430,8 @@ def main() -> None:
         error_output = {
             "check_date": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
             "bot_context": getattr(args, "bot", "unknown"),
-            "new_videos": [],
-            "no_new_videos": [],
+            "new_items": [],
+            "no_new_items": [],
             "error": str(exc),
         }
         print(json.dumps(error_output, ensure_ascii=False, indent=2))
