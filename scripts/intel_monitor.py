@@ -61,6 +61,23 @@ FEED_TIMEOUT_SECONDS = 15
 DEFAULT_LOOKBACK_DAYS = 7
 HTML_TAG_RE = re.compile(r"<[^>]+>")
 
+# Some publishers (e.g. CNBC) return 403 for the default python-requests
+# user-agent string; a browser-like one is accepted by every source tested.
+REQUEST_HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+    )
+}
+
+# Fallback formats for feeds whose date string feedparser can't auto-parse
+# into published_parsed/updated_parsed (e.g. investing.com: "Jul 11, 2026 10:15 GMT").
+FALLBACK_DATE_FORMATS = (
+    "%b %d, %Y %H:%M GMT",
+    "%a, %d %b %Y %H:%M:%S %Z",
+    "%Y-%m-%dT%H:%M:%SZ",
+)
+
 # ---------------------------------------------------------------------------
 # Locate memory/intel-watchlist.md relative to this script
 # ---------------------------------------------------------------------------
@@ -148,6 +165,30 @@ def clean_html(raw: Optional[str]) -> Optional[str]:
     return text or None
 
 
+def parse_entry_date(entry) -> Optional[datetime]:
+    """
+    Resolve an entry's publish date, tolerating feeds feedparser can't
+    auto-parse into published_parsed/updated_parsed (e.g. investing.com's
+    "Jul 11, 2026 10:15 GMT" style).
+    """
+    struct = getattr(entry, "published_parsed", None) or getattr(entry, "updated_parsed", None)
+    if struct:
+        return datetime(*struct[:6], tzinfo=timezone.utc)
+
+    raw = (getattr(entry, "published", None) or getattr(entry, "updated", None) or "").strip()
+    if not raw:
+        return None
+
+    for fmt in FALLBACK_DATE_FORMATS:
+        try:
+            return datetime.strptime(raw, fmt).replace(tzinfo=timezone.utc)
+        except ValueError:
+            continue
+
+    log.warning("Could not parse entry date: %r", raw)
+    return None
+
+
 # ---------------------------------------------------------------------------
 # Feed fetching
 # ---------------------------------------------------------------------------
@@ -165,7 +206,7 @@ def fetch_feed(feed_url: str) -> list[dict]:
     log.info("Fetching feed: %s", feed_url)
 
     try:
-        resp = requests.get(feed_url, timeout=FEED_TIMEOUT_SECONDS)
+        resp = requests.get(feed_url, timeout=FEED_TIMEOUT_SECONDS, headers=REQUEST_HEADERS)
         resp.raise_for_status()
     except Exception as exc:
         log.warning("Feed fetch failed for %s: %s", feed_url, exc)
@@ -182,11 +223,7 @@ def fetch_feed(feed_url: str) -> list[dict]:
         if not entry_id:
             continue
 
-        published_struct = getattr(entry, "published_parsed", None) or getattr(entry, "updated_parsed", None)
-        if published_struct:
-            published_dt = datetime(*published_struct[:6], tzinfo=timezone.utc)
-        else:
-            published_dt = None
+        published_dt = parse_entry_date(entry)
 
         # Prefer full body (content:encoded) over summary/description teaser
         content_raw = None

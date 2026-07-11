@@ -9,9 +9,12 @@ IMPORTANT — PERSISTENCE: Commit and push at end.
 Sources: memory/intel-watchlist.md — a mix of `youtube` (title-only signal;
 transcript fetch is not attempted — this environment's egress IP is caught by
 YouTube/Google's bot-detection checkpoint before any transcript loads, see
-watchlist notes) and `blog` (full RSS content, no such block observed)
-entries. Weight `blog` signal higher confidence than `youtube` title-only
-signal in the analysis below.
+watchlist notes) and `blog` (RSS-fetched, no such block observed) entries.
+Each item in /tmp/intel.json carries `content_available` — use that flag
+directly for confidence weighting, not the `type` field alone: a few `blog`
+sources (Investing.com, Seeking Alpha — Market Currents) return
+headline-only RSS with no body text, so `content_available` is `false` for
+them too despite `type=blog`. See watchlist notes for the full list.
 
 STEP 1 — Check for new items:
   pip install -q feedparser 2>/dev/null
@@ -33,10 +36,12 @@ STEP 3 — Analyze items with regime_trader lens:
   B. WEALTH MANAGEMENT (same as trading-bot):
      - Portfolio allocation advice, tax strategies, asset recommendations
 
-  Confidence weighting: `blog` items carry analyzable content — treat
-  consistent with normal source-quality judgment. `youtube` items are
-  title-only — treat any regime signal drawn from them as low confidence
-  unless corroborated by a `blog` item or price action.
+  Confidence weighting: items with `content_available: true` carry
+  analyzable body text — treat consistent with normal source-quality
+  judgment. Items with `content_available: false` (all `youtube` items,
+  plus the headline-only `blog` sources noted above) are title-only — treat
+  any regime signal drawn from them as low confidence unless corroborated
+  by a `content_available` item or price action.
 
 STEP 4 — Generate reports:
   REPORT A: Append to memory/RESEARCH-LOG.md:
@@ -50,7 +55,8 @@ STEP 4 — Generate reports:
   - Executive summary (3-5 bullets)
   - Per-item section: title, thesis, actionable signals, confidence
   - Cross-source consensus signals (if 2+ sources agree — note whether
-    corroboration is blog+blog, blog+youtube, or youtube-only)
+    corroboration includes at least one `content_available` item or is
+    title-only across the board)
   - REGIME CONSENSUS: aggregate HIGH/MID/LOW vol signal from all sources
   - TLDR for wealth management (separate section at bottom)
   - Relevance score per item for regime_trader portfolio
