@@ -1,0 +1,59 @@
+name: Fetch YouTube Transcripts (self-hosted)
+
+# Triggers:
+#   1. When the cloud runner pushes a new/updated transcript-queue.json
+#   2. Daily safety net (catches anything missed by push trigger)
+on:
+  push:
+    paths:
+      - 'memory/transcript-queue.json'
+  schedule:
+    - cron: '15 8 * * *'   # 08:15 UTC daily — after the cloud intel run
+  workflow_dispatch:        # manual trigger
+
+jobs:
+  fetch-transcripts:
+    # IMPORTANT: must run on your home machine / Raspberry Pi.
+    # Register it at: Settings → Actions → Runners → New self-hosted runner
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install youtube-transcript-api
+
+      - name: Check queue
+        id: queue_check
+        run: |
+          if [ ! -f memory/transcript-queue.json ]; then
+            echo "has_pending=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          COUNT=$(python -c "import json; d=json.load(open('memory/transcript-queue.json')); print(len(d.get('pending', [])))")
+          echo "has_pending=$([ $COUNT -gt 0 ] && echo true || echo false)" >> $GITHUB_OUTPUT
+          echo "Queue has $COUNT pending transcript(s)"
+
+      - name: Fetch transcripts
+        if: steps.queue_check.outputs.has_pending == 'true'
+        run: |
+          python scripts/fetch_transcripts.py 2>&1
+
+      - name: Commit and push transcripts
+        if: steps.queue_check.outputs.has_pending == 'true'
+        run: |
+          git config user.name  "regime-trader-bot"
+          git config user.email "bot@regime-trader"
+          git add memory/transcripts/ memory/transcript-queue.json
+          # Only commit if there are actual changes
+          git diff --staged --quiet || git commit -m "transcripts fetched $(date +%Y-%m-%d)"
+          git push origin HEAD
