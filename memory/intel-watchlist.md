@@ -15,19 +15,19 @@ Last updated: 2026-07-13
 | 5 | George Gammon | youtube | https://www.youtube.com/channel/UCpvyOqtEc86X8w8_Se0t4-w | https://www.youtube.com/feeds/videos.xml?channel_id=UCpvyOqtEc86X8w8_Se0t4-w | EN | macro, credit-cycles, monetary-policy, trade-ideas | ★★★ | 2026-07-13 |
 | 6 | IG France (Alexandre Baradez) | youtube | https://www.youtube.com/channel/UCQ0A2MqahcnKlToIJ_giSEg | https://www.youtube.com/feeds/videos.xml?channel_id=UCQ0A2MqahcnKlToIJ_giSEg | FR | macro, technical-analysis, market-daily | ★★★ | 2026-07-13 |
 | 7 | Real Vision Presents | youtube | https://www.youtube.com/channel/UCBH5VZE_Y4F3CMcPIzPEB5A | https://www.youtube.com/feeds/videos.xml?channel_id=UCBH5VZE_Y4F3CMcPIzPEB5A | EN | macro, institutional, liquidity-cycles, commodities | ★★★ | 2026-07-13 |
-| 8 | Federal Reserve — Press Releases | blog | https://www.federalreserve.gov | https://www.federalreserve.gov/feeds/press_all.xml | EN | fed-policy, rates, official | ★★★ | never |
-| 9 | Liberty Street Economics (NY Fed) | blog | https://libertystreeteconomics.newyorkfed.org | https://libertystreeteconomics.newyorkfed.org/feed/ | EN | macro, research, banking, liquidity | ★★★ | never |
-| 10 | FRED Blog (St. Louis Fed) | blog | https://fredblog.stlouisfed.org | https://fredblog.stlouisfed.org/feed/ | EN | macro, data-explainer | ★★ | never |
-| 11 | The Big Picture (Ritholtz) | blog | https://ritholtz.com | https://ritholtz.com/feed/ | EN | macro, market-commentary, sentiment | ★★ | never |
-| 12 | WSJ Markets | blog | https://www.wsj.com/market-data | https://feeds.content.dowjones.io/public/rss/RSSMarketsMain | EN | market-news, breaking | ★★ | never |
-| 13 | ETF Trends (VettaFi) | blog | https://www.etftrends.com | https://www.etftrends.com/feed/ | EN | ETF, rotation, SPY, QQQ, IWM | ★★★ | never |
-| 14 | CNBC — Economy | blog | https://www.cnbc.com/economy/ | https://www.cnbc.com/id/20910258/device/rss/rss.html | EN | macro, fed-policy, labor-data, inflation | ★★★ | never |
-| 15 | Investing.com — Market Overview | blog | https://www.investing.com | https://www.investing.com/rss/market_overview.rss | EN | macro, analysis, fed-policy, geopolitics | ★★★ | never |
-| 16 | CNBC — Finance | blog | https://www.cnbc.com/finance/ | https://www.cnbc.com/id/10000664/device/rss/rss.html | EN | market-news, fed-policy, deals | ★★ | never |
-| 17 | Investing.com — Stock Market News | blog | https://www.investing.com | https://www.investing.com/rss/news_25.rss | EN | market-news, sector, geopolitics | ★★ | never |
-| 18 | Yahoo Finance — Market News (S&P 500) | blog | https://finance.yahoo.com | https://feeds.finance.yahoo.com/rss/2.0/headline?s=%5EGSPC&region=US&lang=en-US | EN | market-news, index-level | ★★ | never |
-| 19 | Motley Fool | blog | https://www.fool.com | https://www.fool.com/feeds/index.aspx | EN | stock-picks, wealth-mgmt, sentiment | ★ | never |
-| 20 | Seeking Alpha — Market Currents | blog | https://seekingalpha.com | https://seekingalpha.com/market_currents.xml | EN | market-news, earnings-calendar, movers | ★ | never |
+| 8 | Federal Reserve — Press Releases | blog | https://www.federalreserve.gov | https://www.federalreserve.gov/feeds/press_all.xml | EN | fed-policy, rates, official | ★★★ | 2026-07-13 |
+| 9 | Liberty Street Economics (NY Fed) | blog | https://libertystreeteconomics.newyorkfed.org | https://libertystreeteconomics.newyorkfed.org/feed/ | EN | macro, research, banking, liquidity | ★★★ | 2026-07-13 |
+| 10 | FRED Blog (St. Louis Fed) | blog | https://fredblog.stlouisfed.org | https://fredblog.stlouisfed.org/feed/ | EN | macro, data-explainer | ★★ | 2026-07-13 |
+| 11 | The Big Picture (Ritholtz) | blog | https://ritholtz.com | https://ritholtz.com/feed/ | EN | macro, market-commentary, sentiment | ★★ | 2026-07-13 |
+| 12 | WSJ Markets | blog | https://www.wsj.com/market-data | https://feeds.content.dowjones.io/public/rss/RSSMarketsMain | EN | market-news, breaking | ★★ | 2026-07-13 |
+| 13 | ETF Trends (VettaFi) | blog | https://www.etftrends.com | https://www.etftrends.com/feed/ | EN | ETF, rotation, SPY, QQQ, IWM | ★★★ | 2026-07-13 |
+| 14 | CNBC — Economy | blog | https://www.cnbc.com/economy/ | https://www.cnbc.com/id/20910258/device/rss/rss.html | EN | macro, fed-policy, labor-data, inflation | ★★★ | 2026-07-13 |
+| 15 | Investing.com — Market Overview | blog | https://www.investing.com | https://www.investing.com/rss/market_overview.rss | EN | macro, analysis, fed-policy, geopolitics | ★★★ | 2026-07-13 |
+| 16 | CNBC — Finance | blog | https://www.cnbc.com/finance/ | https://www.cnbc.com/id/10000664/device/rss/rss.html | EN | market-news, fed-policy, deals | ★★ | 2026-07-13 |
+| 17 | Investing.com — Stock Market News | blog | https://www.investing.com | https://www.investing.com/rss/news_25.rss | EN | market-news, sector, geopolitics | ★★ | 2026-07-13 |
+| 18 | Yahoo Finance — Market News (S&P 500) | blog | https://finance.yahoo.com | https://feeds.finance.yahoo.com/rss/2.0/headline?s=%5EGSPC&region=US&lang=en-US | EN | market-news, index-level | ★★ | 2026-07-13 |
+| 19 | Motley Fool | blog | https://www.fool.com | https://www.fool.com/feeds/index.aspx | EN | stock-picks, wealth-mgmt, sentiment | ★ | 2026-07-13 |
+| 20 | Seeking Alpha — Market Currents | blog | https://seekingalpha.com | https://seekingalpha.com/market_currents.xml | EN | market-news, earnings-calendar, movers | ★ | 2026-07-13 |
 
 ## Type Legend
 - `youtube` — RSS gives title + publish date. Live transcript fetch from this
