@@ -72,3 +72,37 @@ TRADE or HOLD
 | WSJ Markets (~35 remaining items) | blog | M&A/deals, opinion columns, company-specific stories (UniCredit/Commerzbank, Circle bank charter, etc.) | — | — | Low |
 | Investing.com — Stock Market News (10 items) | blog (title-only) | Single-company headlines (Q32 Bio, Ford/Unifor, Meta data center, Fraport, etc.) | — | — | Low — title-only |
 | Seeking Alpha — Market Currents (6 remaining items) | blog (title-only) | Single-company news headlines (CoreCivic, Ocugen, Gamehaus, Cathie Wood trades, etc.) | — | — | Low — title-only |
+
+## 2026-07-14 — Market Intel (regime_trader)
+| Source | Type | Item | Regime Signal | Vol Bias | Relevance |
+|--------|------|------|----------------|----------|-----------|
+| WSJ Markets | blog | "Oil Surges Most Since 2020" — Trump reimposes Strait of Hormuz blockade, 3rd straight night of US strikes on Iran; Brent >$85 | War escalation deepening, not resolving | HIGH | High — direct energy/inflation driver |
+| Investing.com — Market Overview | blog (title-only) | "Oil Jumps, Bonds Break and the AI Trade Starts Losing Its Shine"; "War, Yields, Yen and AI Collide Across the Global Fault Lines" | Multi-asset stress compounding (oil+bonds+AI) | HIGH | High — directly ties oil/rates shock to QQQ-relevant AI trade |
+| Seeking Alpha — Market Currents | blog (title-only) | "AI boom: Data-center operators reportedly race to sell majority stakes" | Corroborates WSJ AI-financing-stress item independently | HIGH (QQQ) | Med-High |
+| WSJ Markets | blog | "Data-Center Builders Are Racing to Offload Stakes Worth Billions" — investors seeking to own AI physical infra directly | AI-capex financing stress continuing from 7/13 | HIGH (QQQ) | High |
+| CNBC — Finance | blog | Waller: Fed "shouldn't fight the last war" on inflation but hikes still possible | Hawkish-Fed thesis persists into CPI day | HIGH | High |
+| Investing.com — Market Overview | blog (title-only) | "Waller Warns Fed May Need to Hike Rates If June's CPI Runs Hot"; "US CPI Preview: Will the Fed Actually Hike Rates on a Hot Inflation Report?" | Today's CPI print (8:30am ET) framed as the swing catalyst for hike odds | HIGH | High — direct earnings/catalyst-filter trigger, same-day |
+| Motley Fool | blog | "Prediction: Today's Inflation Report Will Contain a Much-Needed Silver Lining, but Also Highlight Something Sinister" — June CPI due 8:30am ET | Headline decline expected but underlying detail flagged as problematic | HIGH | High — CPI is today, not 2 days out |
+| CNBC — Finance | blog | "A July rate hike from the Fed? The odds are rising" — tied to oil spike from Hormuz | Rate-hike odds rising in tandem with oil shock | HIGH | High |
+| CNBC — Finance | blog | "Big banks poised to report booming revenue" — SpaceX IPO + Iran war volatility cited as tailwinds for Q2 bank results | Volatility itself becoming a Wall St revenue driver | Confirms HIGH | High — bank earnings same day (7/14) |
+| WSJ Markets | blog | "Dollar Could Rise if U.S. Core Inflation Data Exceed Forecasts" vs. "Dollar Faces Pullback as Fed Might Not Lift Rates" (7/13) | Contested/two-sided Fed-direction pricing, same pattern as prior day | Mixed | High — rates/FX regime input |
+| WSJ Markets (×2) | blog | "Gold Falls Below $4,000" (7/13) then "Gold Rises on Inflation Concerns" (7/14) | Gold whipsawing both directions in 24h — inflation-vs-rate-hike tug of war | HIGH (elevated vol, no clean direction) | High |
+| Investing.com — Market Overview | blog (title-only) | "Gold Caught in the East-West Divide: Is the Bullish Wave About to Begin?" (×2 headline variants) | Independent confirmation gold direction is contested/unsettled | Mixed | Med |
+| Yahoo Finance (Stocktwits) | blog | Retail sentiment flipped: QQQ improved to "bullish", SPY declined to "neutral" — reverse of 7/13 read (SPY bullish/QQQ neutral) | Rotation signal reversing day-over-day | Rotation flip | High — direct SPY/QQQ divergence, opposite sign from yesterday |
+| Investing.com — Market Overview | blog (title-only) | "Traders Tilt to Heavy Buy in the Nasdaq 100 Following Latest Pullback" | Dip-buying flow into QQQ-adjacent index | Consistent with QQQ sentiment flip above | Med-High |
+| WSJ Markets | blog | "U.S. Stocks Fall as AI Selloff, Oil Jump Rattle Markets" (7/13, carried into 7/14 futures) | Confirms chip/AI-led selloff alongside oil shock | HIGH (QQQ-specific) | High |
+| ETF Trends (VettaFi) | blog | "Revenue Weighting Has Relevance" — S&P 500 top-5 concentration risk flagged as indexes sit near all-time highs | Concentration-risk framing relevant to SPY regime interpretation | Context | Med-High |
+| ETF Trends (VettaFi) | blog | "Revival of Oil Turbulence Puts These Energy ETFs in Focus" — explicitly ties Iran conflict to renewed oil-linked ETF volatility | Confirms energy-linked vol regime shift | HIGH | Med-High |
+| CNBC — Economy | blog | India inflation 4.38% in June, 8th straight monthly rise (Iran war + weak rainfall) | Independent non-US confirmation of war-driven inflation spillover | HIGH | Med |
+| CNBC — Finance | blog | Kalshi launches "Pro" product for perpetual futures / multi-market traders | Market-structure note, not a direct signal | Low | Low |
+| Bravos Research | youtube (title-only) | "Nobody is Prepared for What's About to Happen…" | Unknown content — title-only, queued for transcript | Low confidence | Low |
+| IG France (Alexandre Baradez) | youtube (title-only) | "MarketLive: dernières tendances graphiques des marchés"; Short: "BCE et Fed : les marchés anticipent le pire (et ça se voit)" | Short's title alone signals markets pricing a hawkish ECB/Fed outcome | Low confidence (title-only) | Med (title directly macro-relevant) — queued for transcript |
+| FRED Blog (St. Louis Fed) | blog | Real GDP growth by state Q1 2026 — 47/50 states grew, national avg 2.1% annualized | Background growth data, no near-term vol signal | Low | Low |
+| The Big Picture (Ritholtz) | blog | "10 Monday AM Reads" — cites WSJ survey: economists raising 2027+ inflation forecasts on Iran conflict cost embedding | Corroborates sticky-inflation thesis independently | HIGH | Med-High |
+| WSJ Markets | blog | "10 of the Best Financial Advisor Companies" — fiduciary RIA rankings | Wealth-mgmt reference | Low | Low |
+| Motley Fool (48 remaining items) | blog | Single-stock deep dives (Micron, Walmart, Buffett/Berkshire, American Express, Chipotle, etc.) and generic retirement/dividend explainers | — | — | Low — outside ETF-only mandate |
+| ETF Trends (VettaFi) (~18 remaining items) | blog | Niche/product-level ETF pieces (ETF of the Week, fixed-income launches, nuclear, single-nation World Cup ETFs, active-ETF AUM growth) | — | — | Low-Med — product-level, not macro |
+| WSJ Markets (~15 remaining items) | blog | Market-Talk roundups (energy, health care, TMT, basic materials), opinion (Chicago pensions), Goldman GC story | — | — | Low |
+| Investing.com — Stock Market News (10 items) | blog (title-only) | Single-company headlines (Maersk, Debenhams, Ericsson, Indra, Genus, Rank, BMW recall, etc.) | — | — | Low — title-only |
+| Seeking Alpha — Market Currents (6 remaining items) | blog (title-only) | Single-company news headlines (Watches of Switzerland, Google/Android probe, Samsung ADR, AstraZeneca license) | — | — | Low — title-only |
+| Yahoo Finance — Market News (S&P 500) (~15 remaining items) | blog | Single-stock movers (SanDisk, AppLovin, Astera Labs, SolarEdge, Clearway Energy, etc.) | — | — | Low — outside ETF-only mandate |

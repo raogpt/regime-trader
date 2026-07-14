@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-13T11:29:36Z",
+  "updated": "2026-07-14T09:05:28Z",
   "pending": [
     {
       "video_id": "X7ESsDQGffY",
@@ -8,6 +8,22 @@
       "lang": "FR",
       "published": "2026-07-13",
       "queued_at": "2026-07-13T11:29:36Z"
+    },
+    {
+      "video_id": "94htUvTURLU",
+      "channel": "Bravos Research",
+      "title": "Nobody is Prepared for What\u2019s About to Happen\u2026",
+      "lang": "EN",
+      "published": "2026-07-13",
+      "queued_at": "2026-07-14T09:05:28Z"
+    },
+    {
+      "video_id": "yTmfA2q2Qw4",
+      "channel": "IG France (Alexandre Baradez)",
+      "title": "BCE et Fed : les march\u00e9s anticipent le pire (et \u00e7a se voit) #Short #AlexandreBaradez",
+      "lang": "FR",
+      "published": "2026-07-13",
+      "queued_at": "2026-07-14T09:05:28Z"
     }
   ]
 }
