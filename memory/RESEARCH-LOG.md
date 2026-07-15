@@ -72,3 +72,39 @@ TRADE or HOLD
 | WSJ Markets (~35 remaining items) | blog | M&A/deals, opinion columns, company-specific stories (UniCredit/Commerzbank, Circle bank charter, etc.) | — | — | Low |
 | Investing.com — Stock Market News (10 items) | blog (title-only) | Single-company headlines (Q32 Bio, Ford/Unifor, Meta data center, Fraport, etc.) | — | — | Low — title-only |
 | Seeking Alpha — Market Currents (6 remaining items) | blog (title-only) | Single-company news headlines (CoreCivic, Ocugen, Gamehaus, Cathie Wood trades, etc.) | — | — | Low — title-only |
+
+## 2026-07-15 — Market Intel (regime_trader)
+Source: 20-feed RSS monitor (7 YouTube, 13 blog/news; lookback since 2026-07-13 last check). 195 new items. 5 sources had no new content (Finary, Investing Simplified/Prof G, George Gammon, Real Vision Presents, Liberty Street Economics). 5 YouTube videos posted (Oseille TV, Bravos Research, IG France x3) — all title-only, queued for off-cloud transcript fetch.
+
+| Source | Type | Item | Regime Signal | Vol Bias | Relevance |
+|--------|------|------|----------------|----------|-----------|
+| CNBC — Economy | blog | June CPI +3.5% y/y, below 3.8% expected | Cooling inflation, disinflationary surprise | LOW (per se) | High |
+| Yahoo Finance | blog | "Wall Street ends higher on cool inflation data, solid bank earnings" | Risk-on reaction to CPI + earnings | LOW | High |
+| Investing.com — Market Overview (title-only x3) | blog | "Softer US CPI Supports Risk Appetite Despite Geopolitical Tensions" / "A Softer June CPI Report Reignites Rate-Cut Hopes" / "Soft US Inflation Cools Fed Hike Bets, but Middle East Tensions Keep Oil Bid" | Dovish CPI repricing, explicitly contrasted against Mideast risk | MIXED | High (title-only) |
+| CNBC — Finance | blog | "A July rate hike from the Fed? The odds are rising" — driven by oil spike, not CPI | Hawkish repricing via energy shock, contradicts CPI-driven dovish read | HIGH | High |
+| WSJ Markets | blog | "Oil Surges Most Since 2020, Reflecting Bet Strait Won't Go Back to Normal"; "U.S. Reimposed Naval Blockade on Iran"; "Oil Jumps as Trump Vows to Renew Iran Blockade" | Fresh Hormuz/Iran escalation reigniting oil-driven inflation risk | HIGH | High |
+| ETF Trends (VettaFi) | blog | "Revival of Oil Turbulence Puts These Energy ETFs in Focus" — notes "relative calm" in oil may be over post last week's Mideast events | Independent confirmation of oil-vol catalyst | HIGH | Med-High |
+| CNBC — Finance | blog | Fed Chair Kevin Warsh testifies to House Financial Services Cmte; pledges Fed policy "regime change" to fight inflation "tax" | Hawkish Fed leadership messaging despite soft CPI | MED-HIGH | High |
+| CNBC — Finance | blog | Waller: Fed "shouldn't fight the last war" on inflation, hikes still possible | Hawkish governor commentary | MED-HIGH | High |
+| CNBC — Finance | blog | "Big banks poised to report booming revenue propelled by SpaceX IPO, Iran war volatility" | Banks monetizing elevated vol — confirms vol regime is live, not theoretical | Context | Med |
+| CNBC — Finance | blog | "The AI boom just found two new winners: Goldman Sachs and JPMorgan Chase" (record trading/IB revenue) | Confirms bank-earnings strength | LOW | Med |
+| CNBC — Economy | blog | China Q2 growth slowest since 2022, fanning stimulus calls | Global growth risk-off counterweight | MED | Med-High |
+| CNBC — Economy | blog | India inflation accelerates to 4.38% in June (Iran war + rainfall) | Independent, non-US inflation spillover from conflict | MED | Med |
+| ETF Trends (VettaFi) | blog | "Small-Caps Extending Bullish Ways? Play It Safe With OUSM" — best first-half since 1991 | Direct IWM rotation/strength signal | context | High (IWM-specific) |
+| ETF Trends (VettaFi) | blog | "Small-Caps Offer Rare Value as Sector Gaps Narrow" — Morningstar favors equal-weighting (same-channel, corroborates above) | Confirms small-cap thesis | context | High (IWM-specific) |
+| ETF Trends (VettaFi) | blog | "Strong Markets, Growing Complexity" — Q2 2026 recap: S&P best April since Nov 2020, fresh record highs, "volatility re-emerged in June" | Direct regime narrative, SPY/QQQ | context | High |
+| ETF Trends (VettaFi) | blog | "Time to Upgrade Financials? The Bull Case for Banks" — Iran war weakened growth expectations via inflation + oil vol | Sector-rotation signal tied to same Iran/oil theme | MED | Med-High |
+| ETF Trends (VettaFi) | blog | "Q2 Earnings Preview: Tech & Energy Drive Growth Amid Healthcare Headwinds" — 23.3% S&P EPS growth expected | Earnings-season catalyst kicking off | context | High (catalyst filter) |
+| Investing.com — Market Overview (title-only) | blog | "Gold Long Sentiment Falls out of Extreme Buy as Traders Note the Bear Channel" | Gold sentiment cooling despite war/oil — atypical, same pattern as 7/13 report | context | Med |
+| Federal Reserve (official) | blog | Minutes of Board's discount rate meetings, June 8 & 17, 2026 | Official record, title-only | Low | Med |
+| FRED Blog (St. Louis Fed) | blog | Real GDP by state, Q1 2026: 47/50 states grew, national avg 2.1% annualized | Background growth context | Low | Low-Med |
+| The Big Picture (Ritholtz) | blog | Monday/Tuesday AM Reads + McKeel Hagerty (Hagerty Insurance) transcript | Link-aggregation, no distinct new macro thesis this batch | Low | Low |
+| IG France (Alexandre Baradez) | youtube (title-only x3) | "MarketLive" general; "Tensions USA-Iran: impact Pétrole/Taux/Actions"; "BCE et Fed: les marchés anticipent le pire" (Short) | Titles align with oil/Iran/Fed themes above but content unverified | Low confidence | High — queued for transcript |
+| Bravos Research | youtube (title-only) | "Nobody is Prepared for What's About to Happen…" | Urgent title, macro/trade-ideas channel, content unknown | Low confidence | Med — queued for transcript |
+| Oseille TV | youtube (title-only) | "Ces pays d'Afrique vendent leur passeport (et c'est 100% légal)" | Africa/wealth-mgmt-adjacent (passports, not UEMOA specifically), content unknown | Low confidence | High (wealth-mgmt priority) — queued for transcript |
+| Motley Fool (50 items) | blog | Single-stock deep-dives (Nvidia, SpaceX, IBM, Tesla, etc.) + retirement/SS explainers | — | — | Low — outside ETF-only mandate |
+| ETF Trends (VettaFi) (~19 remaining) | blog | Niche fund launches/product pieces (CLOs, nuclear, space, MLPs, REITs) | — | — | Low-Med — product-level |
+| WSJ Markets (~38 remaining) | blog | Deals/opinion columns/company-specific (IBM warning, PayPal/Stripe bid, media deals) | — | — | Low |
+| Investing.com — Stock Market News (10 items, title-only) | blog | Single-company headlines (SK Hynix, BMW, PayPal/Stripe, Oracle) | — | — | Low — title-only |
+| Seeking Alpha — Market Currents (7 items, title-only) | blog | Single-company/movers headlines (PYPL, Nokia, DeepSeek, Pentair) | — | — | Low — title-only |
+| Yahoo Finance (~19 remaining) | blog | Single-stock/personal-finance pieces (Coca-Cola, Rocket Lab, dividend picks) | — | — | Low |
