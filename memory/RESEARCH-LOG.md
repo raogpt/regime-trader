@@ -72,3 +72,34 @@ TRADE or HOLD
 | WSJ Markets (~35 remaining items) | blog | M&A/deals, opinion columns, company-specific stories (UniCredit/Commerzbank, Circle bank charter, etc.) | — | — | Low |
 | Investing.com — Stock Market News (10 items) | blog (title-only) | Single-company headlines (Q32 Bio, Ford/Unifor, Meta data center, Fraport, etc.) | — | — | Low — title-only |
 | Seeking Alpha — Market Currents (6 remaining items) | blog (title-only) | Single-company news headlines (CoreCivic, Ocugen, Gamehaus, Cathie Wood trades, etc.) | — | — | Low — title-only |
+
+## 2026-07-16 — Market Intel (regime_trader)
+Catch-up run covering 2026-07-14 through 2026-07-16 (last checked 2026-07-13). 241 new items across 20 sources; 6 new YouTube videos (all title-only, transcripts queued). Full report: `reports/2026-07-16-market-intel.md`.
+
+| Source | Type | Item | Regime Signal | Vol Bias | Relevance |
+|--------|------|------|----------------|----------|-----------|
+| CNBC — Economy | blog | June CPI +3.5% YoY, below 3.8% expected | Disinflation surprise #1 | Dovish | High |
+| CNBC — Economy | blog | June PPI -0.3%, steepest drop in 1yr+ (Yahoo Finance corroborates) | Disinflation surprise #2 | Dovish | High |
+| CNBC — Finance | blog | Incoming Fed Chair Warsh pledges "regime change" to end inflation "tax" | Hawkish rhetoric vs. cooling data | Hawkish | High |
+| CNBC — Finance | blog | NY Fed's Williams: inflation "has peaked," rates "well positioned" | Directly contradicts Warsh — split Fed messaging | Mixed/uncertainty | High |
+| CNBC — Economy | blog | Renewed Hormuz hostilities ("several consecutive days of strikes") drive ECB rates rethink amid "extremely volatile" outlook | Iran conflict escalated, not resolved, since 7/13 report | HIGH | High |
+| WSJ Markets | blog | "U.S. Stock Futures Fall on Fresh AI Wobble" — Korea Exchange briefly suspended SK Hynix/Samsung trading | Sharp, distinct AI/chip selloff, QQQ-concentrated | HIGH | High |
+| Investing.com — Market Overview (title-only) | blog | "TSMC Beats but the AI Trade Loses More Altitude", "Middle East Tensions and Chip Selloff Set the Tone" | Corroborates WSJ chip-selloff signal | HIGH | Med-High |
+| Investing.com — Stock Market News (title-only) | blog | "South Korea leads record Asia equity outflows as tech slump, rate hike hit" | Third independent confirmation of chip-sector outflows | HIGH | Med |
+| Yahoo Finance | blog | "Dow Jones Futures: Apple, Google Mask Dell, Sandisk, Micron Sell-Off" | 3rd+ source confirming same-day AI selloff | HIGH | High |
+| George Gammon | youtube (title-only) | "It's Official, The AI Bubble Just Popped" — published same day (7/16) as blog-source selloff consensus | Same-day title corroboration | HIGH (unverified) | Med — title-only |
+| ETF Trends (VettaFi) | blog | "Small Caps Rally Is Running With Strong, Fundamental Legs" — Russell 2000 outpacing S&P 500 | Rotation signal: IWM relative strength | Rotation | High — direct IWM signal |
+| ETF Trends (VettaFi) | blog | "Small-Caps Offer Rare Value as Sector Gaps Narrow" — Morningstar Q3 2026 outlook now favors equal-weighting | Corroborates rotation thesis w/ named source | Rotation | High |
+| Yahoo Finance | blog | "Review & Preview: Losing Momentum" — momentum strategy underperforming | Consistent with rotation away from crowded AI/momentum trade | Rotation | Med-High |
+| WSJ Markets | blog | "Wall Street Traders Are Having Their Best Year Ever" — "market is clearly extremely risk-on" | Record risk-on positioning same morning as chip selloff — possible inflection point | Contrarian/context | High |
+| CNBC — Finance | blog | Morgan Stanley record quarterly revenue, equities trading +69% YoY (Goldman/JPM peers) | Confirms risk-on trading revenue tailwind | Context | High |
+| Yahoo Finance | blog | "As AI Gobbles the Market, Make Sure You're Truly Diversified" | Diversification-against-concentration wealth-mgmt angle | Context | Med — wealth mgmt |
+| Finary | youtube (title-only) | "Votre argent ne vaut rien" (Your money is worth nothing) — French, currency/purchasing-power theme likely | Unknown — transcript pending | Low confidence | Med — wealth mgmt, pending |
+| Oseille TV | youtube (title-only) | "Ces pays d'Afrique vendent leur passeport" — citizenship-by-investment | Unknown — transcript pending | Low confidence | Low-Med — Africa-adjacent, tangential |
+| Investing Simplified (Prof G) | youtube (title-only) | "This Market Dip Just Created the BEST Buying Opportunity of 2026" | Contrarian-bullish counterweight, unverified | Low confidence | Med — pending |
+| IG France (Alexandre Baradez) (5 items, title-only) | youtube | Titles reference inflation-data non-reaction and USA-Iran impact on oil/rates/equities | Directionally aligned w/ blog consensus, unverified | Low confidence | Med |
+| WSJ Markets (~35 remaining) | blog | Deals/M&A, opinion columns, single-company stories | — | — | Low |
+| Motley Fool (50 items) | blog | Single-stock deep dives (Nvidia, AMD, Qualcomm, IBM, Lucid, etc.) | — | — | Low — outside ETF-only mandate |
+| ETF Trends (VettaFi) (~47 remaining) | blog | Niche ETF product/launch coverage | — | — | Low — product-level |
+| Federal Reserve / Liberty Street / FRED Blog (1 each) | blog | Discount-rate minutes, nonbank regulatory-arbitrage research, state GDP data | — | — | Low — background only |
+| **No UEMOA/Africa allocation content found** | — | Explicit keyword check across all 241 items: zero direct matches | — | — | — |
