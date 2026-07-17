@@ -72,3 +72,46 @@ TRADE or HOLD
 | WSJ Markets (~35 remaining items) | blog | M&A/deals, opinion columns, company-specific stories (UniCredit/Commerzbank, Circle bank charter, etc.) | — | — | Low |
 | Investing.com — Stock Market News (10 items) | blog (title-only) | Single-company headlines (Q32 Bio, Ford/Unifor, Meta data center, Fraport, etc.) | — | — | Low — title-only |
 | Seeking Alpha — Market Currents (6 remaining items) | blog (title-only) | Single-company news headlines (CoreCivic, Ocugen, Gamehaus, Cathie Wood trades, etc.) | — | — | Low — title-only |
+
+## 2026-07-17 — Market Intel (regime_trader)
+| Source | Type | Item | Regime Signal | Vol Bias | Relevance |
+|--------|------|------|----------------|----------|-----------|
+| WSJ Markets | blog | Oil headed for 10% weekly gain on escalating U.S.-Iran attacks | War shock intensifying, not resolving, a week in | HIGH | High |
+| WSJ Markets | blog | Gold below $4,000 as U.S.-Iran conflict fuels rate-hike bets | Gold down on hike-fear, not up on safe-haven flight — same atypical pattern as 07-13 | HIGH | High |
+| CNBC — Economy | blog | Renewed Hormuz hostilities drive ECB rates rethink amid "extremely volatile" outlook | War shock now shaping non-US central bank policy | HIGH | Med-High |
+| Yahoo Finance | blog | Nasdaq/S&P 500 futures slide as chip stocks tumble, Iran tensions fuel risk-off; Stocktwits bullish QQQ / neutral SPY | Named SPY/QQQ sentiment divergence | HIGH | High — direct SPY/QQQ split |
+| Yahoo Finance | blog | US Stock Market Today: S&P 500 futures dip on tariff and energy cost worries (new 25% Brazil tariff) | New tariff catalyst layering onto oil/Iran inflation input | HIGH | Med-High |
+| CNBC — Finance | blog | "A July rate hike from the Fed? The odds are rising" — hike odds tied directly to Hormuz oil spike | War shock directly repricing Fed-hike odds | HIGH | High |
+| WSJ Markets | blog | "Stock Market Today: Nasdaq Futures Drop as Chip Selloff Deepens" — AI buildout concerns | New dominant driver: AI/chip selloff, QQQ-specific | HIGH (QQQ-specific) | High |
+| Yahoo Finance | blog | Asian shares sink, Tokyo down >5%, TSMC -7.3%; S&P futures -0.8%, Dow futures -0.5% | Sharpest single magnitude data point in batch; AI-selloff contagion to Asia | HIGH | High |
+| WSJ Markets | blog | "Chip Stocks Fall as AI Trade Loses Steam" — Nasdaq -1.5% on fresh semiconductor selling | Confirms AI-trade unwind is real, not just headline noise | HIGH (QQQ-specific) | High |
+| Investing.com — Market Overview | blog (title-only) | "The Macro Storm Is Fading but AI Is Becoming the Market's Main Fault Line"; "Asia Wrap: The AI Trade Is Discovering Gravity" | Names the driver-composition shift explicitly | HIGH | Med — headline-only |
+| George Gammon | youtube (title-only) | "It's Official, The AI Bubble Just Popped (Here's Why)" | Thematically aligned with AI-selloff consensus but not independent corroboration | Directional only | Low — title-only |
+| Yahoo Finance | blog | "Dow Jones Futures Fall, Netflix Dives, SpaceX Scrubs Launch After Latest AI Sell-Off" — regional banks/transports rose while AI names tumbled | Rotation within the selloff, not broad decline | Mixed | High |
+| ETF Trends (VettaFi) | blog | "Priced for Perfection" — Meta/MSFT/Alphabet/Amazon slated to spend ≥$700B 2026 AI capex, ~80% above 2025 | Credit/capex stress context behind chip selloff | Vol risk | Med-High |
+| CNBC — Finance | blog | Fed Chair Kevin Warsh pledges policy "regime change" to fight inflation, testifies to House and Senate | New hawkish Fed leadership — genuine regime-relevant change | HIGH | High |
+| CNBC — Finance | blog | Dallas Fed's Logan calls for "modestly" higher rates even after cooler CPI | Hawkish committee voice | HIGH | High |
+| CNBC — Finance | blog | NY Fed's Williams says inflation "has peaked," rates "well positioned" | Dovish-leaning counter-voice — Fed direction still contested | Mixed | High |
+| CNBC — Economy | blog | CPI rose 3.5% annually in June, less than the 3.8% expected | Cooler-than-expected inflation print, immediately contested by Logan | Mitigating (dovish) | High |
+| WSJ Markets | blog | "Sharp Drop in Diesel Supplies Threatens to Rev Up Inflation Again" | Independent supply-side inflation-reacceleration risk | HIGH | Med-High |
+| ETF Trends (VettaFi) + Investing.com (2 sources) | blog | Retail sales rose for 5th straight month (+0.2%, $768.6B per Census Bureau); "Second-Quarter Consumer Rebound" | Consumer demand holding up despite war/inflation backdrop | Mitigating (lower vol) | High |
+| ETF Trends (VettaFi) ×4 + Motley Fool ×1 | blog | Small-caps "easily outpacing" S&P 500 on "strong, fundamental legs" across 4 independent pieces + Motley Fool small-cap-ETF comparison | Durable IWM relative-strength / broadening-out signal | Rotation signal | High — direct IWM relevance |
+| Yahoo Finance | blog | El-Erian: Dow +9% YTD, Nasdaq +11%, S&P +10% — gap closing ("fascinating market shift") | Broadening away from mega-cap tech, corroborates small-cap rotation | Rotation signal | High |
+| ETF Trends (VettaFi) | blog | "Time to Upgrade Financials?" — explicitly ties "2026 war with Iran" to inflation/oil-vol portfolio drag, pitches financials rotation | Ties geopolitical and rotation threads together | Med-High | Med-High |
+| Yahoo Finance / Motley Fool (same wire item) | blog | S&P 500 Shiller CAPE ratio "on the verge of reaching its highest level in history" | Valuation-regime caveat on SPY strength | Vol risk (valuation) | Med-High |
+| CNBC — Finance | blog | Buffett: "It's tough to find values when everybody is preferring gambling" | Widely-followed valuation-risk commentary | Vol risk | Medium |
+| WSJ Markets | blog | "Blockbuster Stock Sales Are Threatening to Overwhelm the Bull Market" — share-issuance pace echoes "later stages of prior rallies" | Late-cycle equity-supply signal | Vol risk | Med-High |
+| Yahoo Finance | blog | UBS doubles down on its S&P 500 target | Bullish counter-voice, sharpens debate | Mitigating | Medium |
+| WSJ Markets | blog | Morgan Stanley record quarterly revenue (equities trading +69%); BlackRock AUM past $15T (+20% profit) — but Nasdaq fell same week TSMC posted record results | Strong earnings currently overwhelmed by AI-valuation concerns — earnings/price divergence | Mixed | High — catalyst-filter relevant |
+| CNBC — Finance | blog | "Big banks poised to report booming revenue propelled by SpaceX IPO, Iran war volatility" | War-driven vol is a revenue tailwind for bank trading desks, not uniformly bearish | Context | Medium |
+| The Big Picture (Ritholtz) | blog | "At The Money: When Should Do-It-Yourself Investors Fire Themselves?" | Legitimate wealth-mgmt / advisory-transition content | n/a | Medium |
+| Oseille TV | youtube (title-only) | "Ces pays d'Afrique vendent leur passeport (et c'est 100% légal)" | Africa-adjacent but NOT UEMOA/CFA-franc content — passport-by-investment programs; explicitly ruled out | n/a | Low — title-only, not UEMOA-relevant |
+| IG France (Alexandre Baradez) ×7 | youtube (title-only) | MarketLive videos on Iran/oil impact, US inflation reaction, EUR/USD signal, Fed/ECB | Thematically aligned with geopolitical/Fed threads but unverifiable | Directional only | Low — title-only |
+| Motley Fool (~44 remaining items) | blog | Single-stock deep-dives (Nvidia, Tesla, IBM, Amazon, Sandisk, TSM/UNH/Wipro earnings transcripts, retirement/SS explainers) | — | — | Low — outside ETF-only mandate |
+| ETF Trends (VettaFi) (~35 remaining items) | blog | Niche single-fund/product pieces (nuclear, crypto ETPs, CLOs, MLPs, healthcare/space funds) | — | — | Low-Med — product-level, not macro |
+| WSJ Markets (~30 remaining items) | blog | Opinion columns, M&A/single-company stories (Alcoa, Altice, U.S. Bancorp, prenup/housing features) | — | — | Low |
+| Investing.com — Stock Market News (10 items) | blog (title-only) | Single-company/regional headlines (Hemnet, Getinge, SMA Solar, Indonesia index) | — | — | Low — title-only |
+| Seeking Alpha — Market Currents (7 items) | blog (title-only) | Single-company earnings/M&A wire items (SKF, Husqvarna, Assa Abloy, Getinge) | — | — | Low — title-only |
+| Federal Reserve (official) (3 items) | blog | Bank-exam/enforcement notices, discount-rate-meeting minutes | — | — | Low-Med — administrative |
+| Liberty Street Economics (NY Fed) (2 items) | blog | Basel III / bank-holding-company capital-structure research series | — | — | Low-Med — background only |
+| FRED Blog (St. Louis Fed) (2 items) | blog | State-level manufacturing employment, Q1 2026 state GDP data | — | — | Low — long-run background |
