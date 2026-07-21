@@ -72,3 +72,51 @@ TRADE or HOLD
 | WSJ Markets (~35 remaining items) | blog | M&A/deals, opinion columns, company-specific stories (UniCredit/Commerzbank, Circle bank charter, etc.) | — | — | Low |
 | Investing.com — Stock Market News (10 items) | blog (title-only) | Single-company headlines (Q32 Bio, Ford/Unifor, Meta data center, Fraport, etc.) | — | — | Low — title-only |
 | Seeking Alpha — Market Currents (6 remaining items) | blog (title-only) | Single-company news headlines (CoreCivic, Ocugen, Gamehaus, Cathie Wood trades, etc.) | — | — | Low — title-only |
+
+## 2026-07-21 — Market Intel (regime_trader)
+| Source | Type | Item | Regime Signal | Vol Bias | Relevance |
+|--------|------|------|----------------|----------|-----------|
+| Motley Fool | blog | US gas prices back above $4.00/gal (+27% YoY, AAA data) as Iran conflict grinds on | Sustained energy-cost pressure feeding inflation/Fed debate | HIGH | High |
+| Yahoo Finance | blog | Yemen's Houthis impose naval blockade on Saudi Arabia — new front widening Iran war beyond the Gulf | Fresh escalation, not de-escalation, mid-window | HIGH | High |
+| WSJ Markets (4 items) | blog | Ceasefire mediation push (7/21): gold up >1%, oil eases below $90 Brent, Asian equities up on ceasefire hopes | First concrete de-escalation signal, still unresolved | Mixed — HIGH→easing | High |
+| Yahoo Finance | blog | New tariffs imposed on Canadian goods (mentioned in passing, 7/21) | Fresh trade-policy catalyst, thin detail | Unclear | Low-Med — no detail |
+| Investing.com — Market Overview (5 headlines) | blog (title-only) | "Iran Strikes, Burnham's Gilt Test and Inflation Surprises"; "S&P 500: Treasury Liquidity Drain Signals Higher Market Volatility"; "Market Broadening Gains Momentum as AI Uncertainty Grows"; "The $40 Trillion Trap: Disinflation Is Not Deliverance" | Vol + broadening + disinflation themes echoed | HIGH | Med — headline-only |
+| Yahoo Finance + Motley Fool (2 sources) | blog | Kevin Warsh confirmed as Fed Chair (sworn in May 22), "reform-oriented" Fed, declined to issue dot plot | Fed leadership/communication-regime shift | Uncertainty-raising | High — HMM Fed-feature relevant |
+| Motley Fool | blog | Warsh's inflation testimony landed as traders priced 86% odds of a July rate HOLD | Reduced near-term hike/cut tail risk vs 7/13 | Lower near-term | High |
+| CNBC — Finance | blog | Dallas Fed's Logan: "modestly" higher rates warranted, "good inflation news wasn't good enough" | Hawkish Fed voice | HIGH | High |
+| CNBC — Finance | blog | NY Fed's Williams: inflation "has peaked," rates "well positioned" | Dovish counterweight — Fed voices still split | MID | High |
+| The Big Picture (Ritholtz) | blog | Warsh has not confirmed PCE as Fed's inflation yardstick across hearings/press conf — "glaring omission" per Stay-At-Home Macro | More opaque Fed communication regime | Uncertainty-raising | Med — HMM relevant |
+| CNBC — Economy + ETF Trends (2 sources) | blog | June CPI 3.5% YoY (vs 3.8% expected, down from May 4.2%); core ~2.9% | Disinflation surprise, complicates hawkish narrative | Dovish counter-signal | High |
+| CNBC — Economy | blog | June PPI unexpectedly fell 0.3% on big drop in gasoline | Confirms cooling headline inflation | Dovish | High |
+| CNBC — Economy | blog | Import prices from China hit highest level since 2008 | Tariff pass-through still building (corroborates 7/13 NY Fed thesis) | Supports HIGH/hawkish | High |
+| ETF Trends | blog | Retail sales +0.2% June, 5th straight monthly gain but deceleration from May's +1.0% | Consumer resilient but slowing | Mixed | Med-High |
+| WSJ Markets | blog | US Leading Economic Index fell 0.2% in June on weakening consumer spending | Modest deceleration signal | Mixed | Med |
+| CNBC — Economy | blog | Renewed Hormuz hostilities force ECB rate rethink amid "extremely volatile" outlook | Explicit named-source volatility characterization | HIGH | High |
+| ETF Trends (3 posts) | blog | Russell 2000 + S&P SmallCap 600 averaging +20.8% YTD vs S&P 500's +8.9-11.4% YTD | Strongest quantified IWM-outperforming-SPY rotation data point to date | Rotation signal | High — direct IWM/SPY split |
+| ETF Trends | blog | S&P 500 fell 1.6% for week ending 7/17, sitting 2.0% below June 2 record, +8.9% YTD | Confirms real single-week vol/drawdown | HIGH (realized) | High |
+| ETF Trends | blog | Record $1.1T ETF inflows in 2026 so far; new Nasdaq-100 ETF fee war | Strong risk appetite/participation despite vol | Med | Med |
+| ETF Trends | blog | "Q2 Recap: Markets Get Back on Track" — Q2 2026 as a full-quarter "wall of worry" climb | Resilience-despite-macro-noise framing continues from 7/13 | Context | High |
+| WSJ Markets (4 items) | blog | Chip/AI whipsaw across the week: "Nasdaq Loses Early Gains... Fears... AI" → "Chip Stocks Regain Ground... AI-bubble anxieties in rear-view mirror" → "AI Trade Bounces Back" → "Chip Stocks Lead Futures Higher" | Elevated realized vol specifically in QQQ-relevant chip/AI complex, both directions within days | HIGH (QQQ-specific) | High |
+| The Big Picture (Ritholtz) | blog | SpaceX lost >$1T value from post-IPO peak ($2.64T→$1.63T); bonds "trading like junk bonds" (Bloomberg/Globe and Mail) | Major AI-adjacent value-destruction + credit-stress data point | Vol risk | Med-High |
+| CNBC — Finance (2 items) | blog | Morgan Stanley record quarterly revenue, equities trading +69%; peers call market "clearly extremely risk-on" | Hard evidence of elevated realized trading volume/vol | HIGH (realized) | High |
+| CNBC — Finance + Yahoo Finance (2 sources) | blog | Jamie Dimon: wouldn't buy stocks or long Treasurys at current prices, markets underestimate risk | Prominent bearish counter-voice to market resilience | Vol risk | High |
+| The Big Picture (Ritholtz) | blog | "Overvalued, Bubble, or Revolution?" — Mag 7 concentration ~27%, Nvidia P/E back to 2019 level, tech fwd P/E 22 vs 55 in 2000 | Data-backed pushback against AI-bubble framing | Mitigating factor | Med-High |
+| George Gammon | youtube (title-only) | "It's Official, The AI Bubble Just Popped (Here's Why)" | Contradicts Ritholtz "not a bubble" thesis — unconfirmed | Low confidence | Low — title-only |
+| ETF Trends | blog | "Bonds Are Back" — cash increasingly costly, Treasuries pitched as rebalancing target with attractive real yields, lower vol than equities | Wealth-mgmt regime framing | Context | High |
+| ETF Trends | blog | American Century's Greenblath on new Fed chair's impact on bond landscape | Fed-communication-shift is bond-market relevant | Context | Med |
+| CNBC — Finance + Motley Fool (2 sources) | blog | Buffett: "tough to find values when everybody is preferring gambling" | Market froth/sentiment gauge, recurring theme | Context | Med-High |
+| The Big Picture (Ritholtz) | blog | "At The Money: When Should Do-It-Yourself Investors Fire Themselves?" — advisor-value/DIY-investing interview series | Wealth-mgmt, evergreen | n/a | Low-Med |
+| Investing Simplified (Prof G) (2 titles) | youtube (title-only) | "This Market Dip Just Created the BEST Buying Opportunity of 2026"; "History is About to be Made" | Bullish dip-buy framing coinciding with mid-window S&P pullback — unconfirmed | Low confidence | Low — title-only |
+| IG France (2 titles) | youtube (title-only) | "Tensions USA-Iran : Quel impact..."; "Inflation US : Pourquoi les marchés ne réagissent pas ?" | On-theme with Iran/inflation narrative, content unknown | Low confidence | Low — title-only |
+| Liberty Street Economics (NY Fed) (3 items) | blog | Series on nonbank subsidiaries, Basel III capital treatment, regulatory arbitrage in bank holding companies | Banking-structure research, narrower than 7/13's tariff series | Low direct | Med — background |
+| Federal Reserve (official) (3 items) | blog | Discount-rate meeting minutes; bank-examiner enforcement action; joint exam-confidentiality statement | Administrative, procedural | Neutral | Low |
+| FRED Blog (3 items) | blog | Unemployment/marriage status; state manufacturing employment; Q1 2026 state GDP growth | Background macro context | Low | Low |
+| Oseille TV (1 title) | youtube (title-only) | "Ces pays d'Afrique vendent leur passeport (et c'est 100% légal)" | Citizenship-by-investment content, not UEMOA/portfolio relevant | n/a | Low — checked for UEMOA relevance, none found |
+| Motley Fool (~45 remaining items) | blog | Single-stock "should you buy X" pieces (Palantir, Meta, ServiceNow, Uber, Netflix, Salesforce, Broadcom, Tesla, Marvell, Micron, Nebius, etc.), Cathie Wood/Tom Lee crypto picks | — | — | Low — outside ETF-only mandate |
+| ETF Trends (~30 remaining items) | blog | Niche fund/sector pieces (nuclear, rare earths, healthcare, REITs, crypto ETPs, active-mgmt launches) | — | — | Low-Med — product-level, not macro |
+| WSJ Markets (~42 remaining items) | blog | M&A/deals, opinion columns, personal-finance/tax features, single-company stories | — | — | Low |
+| CNBC — Finance (~17 remaining items) | blog | Company/deal-specific (Capital One/Discover, Coinbase, China auto sales, Kalshi growth, India IPO, Anthropic IPO prep) | — | — | Low |
+| Yahoo Finance (~11 remaining items) | blog | Single-stock "why did X move today" pieces (Pan American Silver, Rithm, Itron, Garmin, Ouster, Cenovus, M/I Homes, Lucid, etc.) | — | — | Low |
+| Investing.com — Stock Market News (10 items) | blog (title-only) | Single-company headlines (Virbac, Jungheinrich, Bachem, Samsung robotics, Nextdc, Zurich Insurance, Emirates/Boeing) | — | — | Low — title-only |
+| Seeking Alpha — Market Currents (7 items) | blog (title-only) | Single-company/earnings-print headlines (NBIS/ZION movers, TSMC, Anthropic, Oracle/Wisconsin, Wärtsilä/Wereldhave/Vår Energi) | — | — | Low — title-only |
+| IG France (5 remaining), Investing Simplified (2 remaining), Oseille TV (2 remaining), Finary (3), George Gammon (1 remaining) | youtube (title-only) | Generic technical-analysis/personal-finance/wealth-mgmt French and English content | — | — | Low — title-only, unconfirmed |
