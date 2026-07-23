@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-13T11:29:36Z",
+  "updated": "2026-07-23T09:06:32Z",
   "pending": [
     {
       "video_id": "X7ESsDQGffY",
@@ -8,6 +8,174 @@
       "lang": "FR",
       "published": "2026-07-13",
       "queued_at": "2026-07-13T11:29:36Z"
+    },
+    {
+      "video_id": "zfKvDA7FmeY",
+      "channel": "Oseille TV",
+      "title": "L'Europe vient de voter la FIN de votre vie priv\u00e9e !",
+      "lang": "FR",
+      "published": "2026-07-22",
+      "queued_at": "2026-07-23T09:06:32Z"
+    },
+    {
+      "video_id": "Ot0UbY0-7GY",
+      "channel": "Oseille TV",
+      "title": "L'Europe coule comme le Titanic, et personne ne r\u00e9agit",
+      "lang": "FR",
+      "published": "2026-07-18",
+      "queued_at": "2026-07-23T09:06:32Z"
+    },
+    {
+      "video_id": "rE_4O7hAcAI",
+      "channel": "Oseille TV",
+      "title": "Le jeu est truqu\u00e9 : pourquoi 99% des gens \u00e9chouent",
+      "lang": "FR",
+      "published": "2026-07-15",
+      "queued_at": "2026-07-23T09:06:32Z"
+    },
+    {
+      "video_id": "-Q7SVGz-lVI",
+      "channel": "Oseille TV",
+      "title": "Ces pays d'Afrique vendent leur passeport (et c'est 100% l\u00e9gal)",
+      "lang": "FR",
+      "published": "2026-07-14",
+      "queued_at": "2026-07-23T09:06:32Z"
+    },
+    {
+      "video_id": "ze3RUdUo5ns",
+      "channel": "Finary",
+      "title": "Comment pr\u00e9parer sa retraite d\u00e8s 30 ans ?",
+      "lang": "FR",
+      "published": "2026-07-19",
+      "queued_at": "2026-07-23T09:06:32Z"
+    },
+    {
+      "video_id": "7nebEkIslYw",
+      "channel": "Finary",
+      "title": "La monnaie parfaite existe-t-elle ? Bitcoin, euro, dollar\u2026 La vid\u00e9o compl\u00e8te est sur la cha\u00eene.",
+      "lang": "FR",
+      "published": "2026-07-17",
+      "queued_at": "2026-07-23T09:06:32Z"
+    },
+    {
+      "video_id": "bwGFf2erUAg",
+      "channel": "Finary",
+      "title": "Votre monnaie ne vaut rien",
+      "lang": "FR",
+      "published": "2026-07-15",
+      "queued_at": "2026-07-23T09:06:32Z"
+    },
+    {
+      "video_id": "L-mTrFOD57M",
+      "channel": "Investing Simplified (Prof G)",
+      "title": "To Live Off Dividends.. You Must Understand This (SCHD vs. JEPI)",
+      "lang": "EN",
+      "published": "2026-07-21",
+      "queued_at": "2026-07-23T09:06:32Z"
+    },
+    {
+      "video_id": "eRZ39NF8SRo",
+      "channel": "Investing Simplified (Prof G)",
+      "title": "If you missed SMH, this ETF could be MUCH BIGGER \ud83d\udc40\ud83d\udcc8",
+      "lang": "EN",
+      "published": "2026-07-20",
+      "queued_at": "2026-07-23T09:06:32Z"
+    },
+    {
+      "video_id": "4ItZFsE_-go",
+      "channel": "Investing Simplified (Prof G)",
+      "title": "\ud83d\udea8History is About to be Made.. (Best Opportunity for Investors!)",
+      "lang": "EN",
+      "published": "2026-07-18",
+      "queued_at": "2026-07-23T09:06:32Z"
+    },
+    {
+      "video_id": "lXYHnlXZI5A",
+      "channel": "Investing Simplified (Prof G)",
+      "title": "You\u2019ll never retire if you don\u2019t change this..",
+      "lang": "EN",
+      "published": "2026-07-16",
+      "queued_at": "2026-07-23T09:06:32Z"
+    },
+    {
+      "video_id": "iAd_mcZcQyA",
+      "channel": "Investing Simplified (Prof G)",
+      "title": "\ud83d\udea8This Market Dip Just Created the BEST Buying Opportunity of 2026 (Here's the Data)",
+      "lang": "EN",
+      "published": "2026-07-15",
+      "queued_at": "2026-07-23T09:06:32Z"
+    },
+    {
+      "video_id": "YbIKPH-rK8w",
+      "channel": "George Gammon",
+      "title": "WARNING: They Just Created A $10 Trillion Derivatives Timebomb",
+      "lang": "EN",
+      "published": "2026-07-23",
+      "queued_at": "2026-07-23T09:06:32Z"
+    },
+    {
+      "video_id": "YD5IrExMPVk",
+      "channel": "George Gammon",
+      "title": "WARNING: This Is An Economic Sign That Can't Be Ignored",
+      "lang": "EN",
+      "published": "2026-07-18",
+      "queued_at": "2026-07-23T09:06:32Z"
+    },
+    {
+      "video_id": "paLy21TVecw",
+      "channel": "George Gammon",
+      "title": "It's Official, The AI Bubble Just Popped (Here's Why)",
+      "lang": "EN",
+      "published": "2026-07-16",
+      "queued_at": "2026-07-23T09:06:32Z"
+    },
+    {
+      "video_id": "IQyrpFuBU9c",
+      "channel": "IG France (Alexandre Baradez)",
+      "title": "Acheter une Action : 7 Questions qui Changent Tout (Exemples R\u00e9els 2026)",
+      "lang": "FR",
+      "published": "2026-07-17",
+      "queued_at": "2026-07-23T09:06:32Z"
+    },
+    {
+      "video_id": "2DVani8SH1k",
+      "channel": "IG France (Alexandre Baradez)",
+      "title": "\ud83d\udcc8 MarketLive : Analysons les derni\u00e8res tendances graphiques des march\u00e9s | IG x ALexandre Baradez",
+      "lang": "FR",
+      "published": "2026-07-16",
+      "queued_at": "2026-07-23T09:06:32Z"
+    },
+    {
+      "video_id": "gQ-6qsK7mmA",
+      "channel": "IG France (Alexandre Baradez)",
+      "title": "\ud83d\udea8 Inflation US : Pourquoi les march\u00e9s ne r\u00e9agissent pas ? | MarketLive | IG x ALexandre Baradez",
+      "lang": "FR",
+      "published": "2026-07-15",
+      "queued_at": "2026-07-23T09:06:32Z"
+    },
+    {
+      "video_id": "c6obqgSsSLc",
+      "channel": "IG France (Alexandre Baradez)",
+      "title": "Mais pourquoi les march\u00e9s n'ont pas r\u00e9agi \u00e0 la baisse de l'inflation am\u00e9ricaine ?",
+      "lang": "FR",
+      "published": "2026-07-15",
+      "queued_at": "2026-07-23T09:06:32Z"
+    },
+    {
+      "video_id": "r3xuP0ezLBg",
+      "channel": "IG France (Alexandre Baradez)",
+      "title": "Le signal que les traders attendent sur l'EUR/USD \ud83d\udcb6",
+      "lang": "FR",
+      "published": "2026-07-15",
+      "queued_at": "2026-07-23T09:06:32Z"
+    },
+    {
+      "video_id": "yTmfA2q2Qw4",
+      "channel": "IG France (Alexandre Baradez)",
+      "title": "BCE et Fed : les march\u00e9s anticipent le pire (et \u00e7a se voit) #Short #AlexandreBaradez",
+      "lang": "FR",
+      "published": "2026-07-13",
+      "queued_at": "2026-07-23T09:06:32Z"
     }
   ]
 }
