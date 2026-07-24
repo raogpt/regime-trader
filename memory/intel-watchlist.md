@@ -1,6 +1,6 @@
 # Market Intel Watchlist
 
-Sources monitored daily for market intelligence (regime signals + wealth mgmt).
+Sources monitored weekly for market intelligence (regime signals + wealth mgmt).
 To add a source: ask Claude in a conversation session.
 Last updated: 2026-07-24
 
@@ -28,18 +28,27 @@ Last updated: 2026-07-24
 | 18 | Yahoo Finance — Market News (S&P 500) | blog | https://finance.yahoo.com | https://feeds.finance.yahoo.com/rss/2.0/headline?s=%5EGSPC&region=US&lang=en-US | EN | market-news, index-level | ★★ | 2026-07-24 |
 | 19 | Motley Fool | blog | https://www.fool.com | https://www.fool.com/feeds/index.aspx | EN | stock-picks, wealth-mgmt, sentiment | ★ | 2026-07-24 |
 | 20 | Seeking Alpha — Market Currents | blog | https://seekingalpha.com | https://seekingalpha.com/market_currents.xml | EN | market-news, earnings-calendar, movers | ★ | 2026-07-24 |
+| 21 | Sika Finance — BRVM/UEMOA | blog | https://www.sikafinance.com | https://www.sikafinance.com/rss/actualites_bourse_brvm | FR | UEMOA, BRVM, west-africa, wealth-mgmt | ★★★ | never |
+| 22 | BCEAO (Banque Centrale des États de l'Afrique de l'Ouest) — official | blog | https://www.bceao.int | https://www.bceao.int/rss.xml | FR | UEMOA, monetary-policy, official, fed-policy-equivalent | ★★★ | never |
+| 23 | Financial Afrik | blog | https://www.financialafrik.com | https://www.financialafrik.com/feed/ | FR | UEMOA, west-africa, banking, macro, wealth-mgmt | ★★ | never |
 
 ## Type Legend
-- `youtube` — RSS gives title + publish date. Live transcript fetch from this
-  environment's IP is blocked (YouTube/Google bot-detection checkpoint,
-  redirects to `google.com/sorry/index` — IP-reputation-based, not
-  client-specific). `intel_monitor.py` instead checks `memory/transcripts/`
-  for a cached transcript and, if absent, queues the video to
-  `memory/transcript-queue.json` for `fetch_transcripts.py` to fetch on a
-  residential IP (self-hosted GitHub Actions runner — see
-  `.github/workflows/fetch-transcripts.yml`). Treat YouTube items as
-  **title-only, low confidence** until a cached transcript appears
-  (`content_available: true`).
+- `youtube` — RSS gives title + publish date. Live transcript fetch is
+  attempted inline by `intel_monitor.py` via `youtube-transcript-api`.
+  Re-tested 2026-07-24: earlier documentation here claimed this environment's
+  IP is *permanently* blocked by a YouTube/Google bot-detection checkpoint —
+  that's not quite right. A handful of live fetches succeed, then the IP
+  gets burst-blocked for the rest of that run (a session/volume trigger, not
+  a permanent wall). `intel_monitor.py` backs off after a few consecutive
+  failures in one run (see `MAX_CONSECUTIVE_TRANSCRIPT_FAILURES` in that
+  script) and queues the rest to `memory/transcript-queue.json`, then also
+  drains a few of the oldest queued items each run
+  (`MAX_BACKLOG_DRAIN_PER_RUN`) — so the backlog shrinks over successive
+  scheduled runs on its own. `fetch_transcripts.py` /
+  `.github/workflows/fetch-transcripts.yml` (GitHub-hosted runner as of
+  2026-07-24 — see that workflow's comments) remain an additional fallback
+  drain path, not a requirement. Treat YouTube items as **title-only, low
+  confidence** until a cached transcript appears (`content_available: true`).
 - `blog` — RSS is fetched directly (no bot-wall issue observed). Most sources'
   entries carry full/teaser body text alongside the title — treat those as
   **higher confidence** than title-only YouTube signal (paywalled sources
@@ -87,6 +96,15 @@ Last updated: 2026-07-24
 - **Yahoo Finance — general Top Stories** (`/news/rssindex`) — noisier and
   more single-stock-pick-heavy than the S&P 500-framed feed added above;
   skipped in favor of the narrower one.
+- **Agence Ecofin** (agenceecofin.com) — considered for the UEMOA/West Africa
+  priority. The generic `/rss` endpoint resolves (HTTP 200, valid Joomla RSS
+  XML) but the `<channel>` carries zero `<item>` entries — effectively
+  broken/empty. Every category-specific path tried (`/actualites-finance`,
+  `/finance`, `/component/tags/tag/finance`, each with `?format=feed&type=rss`)
+  returned HTTP 403 from a Cloudflare "Just a moment..." bot-check page.
+  Skipped in favor of Financial Afrik and Sika Finance (added above), which
+  both resolve cleanly with real content; re-check Agence Ecofin later if a
+  working feed URL surfaces.
 
 ## Signal Score Legend
 - ★★★ Highly actionable (generated 2+ good trade ideas / official source)

@@ -1,5 +1,18 @@
-name: Fetch YouTube Transcripts (self-hosted)
+name: Fetch YouTube Transcripts (fallback drain)
 
+# Fallback-only: intel_monitor.py already attempts live transcript fetches
+# inline during each scheduled intel run and drains a few backlog items per
+# run itself (see its module docstring) — this workflow just chips away at
+# whatever's still left, using a GitHub-hosted runner. This previously ran
+# on `runs-on: self-hosted`, but no self-hosted runner was ever registered:
+# all 24 scheduled/push runs between 2026-06-17 and 2026-07-24 sat as
+# `queued` until GitHub auto-cancelled them — the job never once executed.
+# Switched to a GitHub-hosted runner so it actually runs. Note per
+# youtube-transcript-api's own error message, cloud-provider IPs (including
+# GitHub-hosted runners) are also subject to YouTube's IP-reputation block,
+# so this may still only partially succeed on any given run — that's fine,
+# it just chips away at the backlog like intel_monitor.py's own drain does.
+#
 # Triggers:
 #   1. When the cloud runner pushes a new/updated transcript-queue.json
 #   2. Daily safety net (catches anything missed by push trigger)
@@ -13,9 +26,7 @@ on:
 
 jobs:
   fetch-transcripts:
-    # IMPORTANT: must run on your home machine / Raspberry Pi.
-    # Register it at: Settings → Actions → Runners → New self-hosted runner
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repo

@@ -9,18 +9,30 @@ Usage:
 Reads memory/intel-watchlist.md, fetches each source's RSS/Atom feed, and
 outputs structured JSON for Claude to process.
 
-YouTube entries yield title + publish date from RSS; transcript text is not
-fetched live here because this environment's egress IP is caught by
-YouTube/Google's bot-detection checkpoint (a redirect to
-google.com/sorry/index, i.e. a CAPTCHA wall) before any page or caption
-content loads. This is IP-reputation-based, not client-specific — curl,
-requests, and headless-browser navigation all hit the same wall. Instead,
-transcript-less YouTube items are checked against a local cache
-(memory/transcripts/{video_id}.txt) and, if missing, queued to
-memory/transcript-queue.json for fetch_transcripts.py to drain on a
-residential IP (see .github/workflows/fetch-transcripts.yml, self-hosted).
+YouTube entries yield title + publish date from RSS; transcript text is
+fetched live inline via youtube-transcript-api (see fetch_transcript_live()
+below). Earlier versions of this script assumed the fetch was permanently
+blocked by a YouTube/Google bot-detection checkpoint from this environment's
+egress IP and only ever queued items for off-cloud fetch. Re-tested
+2026-07-24: that's not quite right — a handful of fetches succeed, then the
+IP gets burst-blocked for the rest of that run (not a permanent per-video or
+per-IP wall). So live fetch is attempted first with a consecutive-failure
+circuit breaker (MAX_CONSECUTIVE_TRANSCRIPT_FAILURES): once tripped, the
+rest of the run's items go straight to memory/transcript-queue.json instead
+of wasting requests against an already-blocked window. Each run also drains
+a few of the oldest already-queued items (MAX_BACKLOG_DRAIN_PER_RUN), so the
+backlog shrinks over successive scheduled runs on its own — no external
+workflow/runner needs to ever execute for this to work, though
+fetch_transcripts.py / .github/workflows/fetch-transcripts.yml remain
+available as an extra fallback drain path.
 Blog entries carry their RSS-provided content (full text or teaser,
-depending on the publisher) directly, which is not affected by this block.
+depending on the publisher) directly.
+
+This script also stamps each `check` run with a same-day VIX close (FRED's
+VIXCLS series) and a per-item keyword-based relevance tier, so the
+qualitative news read doesn't have to stand in for an actual volatility
+number, and so bulk single-stock/product noise (Motley Fool, ETF Trends
+niche-fund pieces, etc.) doesn't have to be manually re-triaged every run.
 """
 
 import argparse
@@ -43,6 +55,15 @@ logging.basicConfig(
 log = logging.getLogger("intel_monitor")
 
 # ---------------------------------------------------------------------------
+# Vendored sgmllib — `pip install sgmllib3k` (feedparser's HTML-fallback
+# dependency) fails to build in this environment (distutils/setuptools
+# incompatibility in its setup.py, unrelated to the module's actual pure-
+# Python content). Vendoring sidesteps needing that package to build at all.
+# See scripts/vendor/sgmllib.py for the full explanation.
+# ---------------------------------------------------------------------------
+sys.path.insert(0, str(Path(__file__).resolve().parent / "vendor"))
+
+# ---------------------------------------------------------------------------
 # Optional imports — graceful degradation if not installed yet
 # ---------------------------------------------------------------------------
 try:
@@ -56,6 +77,13 @@ try:
 except ImportError:
     log.error("feedparser not installed — run: pip install feedparser>=6.0")
     feedparser = None  # type: ignore
+
+try:
+    from youtube_transcript_api import YouTubeTranscriptApi
+    YT_TRANSCRIPT_AVAILABLE = True
+except ImportError:
+    YouTubeTranscriptApi = None  # type: ignore
+    YT_TRANSCRIPT_AVAILABLE = False
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -82,6 +110,81 @@ FALLBACK_DATE_FORMATS = (
     "%Y-%m-%dT%H:%M:%SZ",
 )
 
+# FRED's public CSV endpoint needs no API key. VIXCLS is the CBOE Volatility
+# Index daily close. Used to give the regime-consensus read in downstream
+# reports an actual number instead of relying purely on news-tone inference.
+VIX_CSV_URL = "https://fred.stlouisfed.org/graph/fredgraph.csv?id=VIXCLS"
+VIX_TIERS = (
+    (15.0, "LOW"),
+    (25.0, "MID"),
+    (35.0, "HIGH"),
+    (float("inf"), "EXTREME"),
+)
+
+# Keyword-based relevance scoring — not a replacement for reading the item,
+# just a triage aid so the same single-stock/product noise (Motley Fool
+# earnings previews, ETF Trends niche-fund launches, etc.) doesn't have to be
+# manually re-screened out of every report. Case-insensitive substring match
+# against title + content. Tune this list as false positives/negatives show up.
+RELEVANCE_KEYWORDS = (
+    "spy", "qqq", "iwm", "s&p 500", "s&p500", "nasdaq", "dow jones", "russell 2000",
+    "fed ", "federal reserve", "fomc", "rate hike", "rate cut", "interest rate",
+    "inflation", "cpi", "pce", "yield", "treasury", "dollar index",
+    "oil", "brent", "wti", "crude", "gold", "vix", "volatility",
+    "recession", "gdp", "tariff", "geopolitical", "war", "iran", "houthi",
+    "rotation", "equal weight", "concentration", "breadth", "ai bubble",
+    "ai spending", "credit spread", "jobs report", "unemployment", "payrolls",
+    "bceao", "uemoa", "brvm", "cfa franc", "franc cfa", "west africa",
+)
+
+
+def score_relevance(title: str, content: Optional[str], source_type: str) -> dict:
+    """Cheap keyword-hit count against RELEVANCE_KEYWORDS — a triage aid,
+    not a substitute for reading the item. Returns {score, tier}."""
+    haystack = f"{title} {content or ''}".lower()
+    hits = sum(1 for kw in RELEVANCE_KEYWORDS if kw in haystack)
+    if hits >= 2:
+        tier = "high"
+    elif hits == 1:
+        tier = "medium"
+    else:
+        tier = "low"
+    return {"score": hits, "tier": tier}
+
+
+def fetch_vix_snapshot() -> Optional[dict]:
+    """Fetch the latest VIX close (and prior close) from FRED's public CSV.
+    Returns None on any failure — this is a nice-to-have annotation, not a
+    hard dependency of the check run."""
+    if requests is None:
+        return None
+    try:
+        resp = requests.get(VIX_CSV_URL, timeout=FEED_TIMEOUT_SECONDS)
+        resp.raise_for_status()
+        rows = [
+            line.split(",") for line in resp.text.strip().splitlines()[1:]
+            if line and "," in line
+        ]
+        # VIXCLS has holes ('.') on non-trading days; walk back for real prints.
+        clean = [(d, v) for d, v in rows if v.strip() not in ("", ".")]
+        if not clean:
+            return None
+        latest_date, latest_val = clean[-1]
+        prior_val = float(clean[-2][1]) if len(clean) >= 2 else None
+        latest_val = float(latest_val)
+        tier = next(label for ceiling, label in VIX_TIERS if latest_val < ceiling)
+        return {
+            "date": latest_date,
+            "close": latest_val,
+            "prior_close": prior_val,
+            "change": round(latest_val - prior_val, 2) if prior_val is not None else None,
+            "tier": tier,
+            "source": "FRED VIXCLS",
+        }
+    except Exception as exc:
+        log.warning("VIX snapshot fetch failed: %s", exc)
+        return None
+
 # ---------------------------------------------------------------------------
 # Locate memory/intel-watchlist.md relative to this script
 # ---------------------------------------------------------------------------
@@ -93,9 +196,7 @@ TRANSCRIPTS_DIR = REPO_ROOT / "memory" / "transcripts"
 
 
 # ---------------------------------------------------------------------------
-# Transcript cache/queue helpers (YouTube only — off-cloud fetch via
-# fetch_transcripts.py, drained by the fetch-transcripts.yml self-hosted
-# GitHub Actions workflow since this environment's IP is blocked)
+# Transcript cache/live-fetch/queue helpers (YouTube only)
 # ---------------------------------------------------------------------------
 
 def load_cached_transcript(video_id: str) -> Optional[str]:
@@ -107,8 +208,97 @@ def load_cached_transcript(video_id: str) -> Optional[str]:
     return None
 
 
+# Empirically (2026-07-24), YouTube's IP-reputation block is not a hard
+# permanent wall from this environment — a handful of fetches succeed, then
+# subsequent requests in the same run start failing outright (a session/
+# burst-triggered block, not per-video). Once MAX_CONSECUTIVE_TRANSCRIPT_FAILURES
+# consecutive failures are seen, stop attempting live fetches for the rest of
+# the run (straight to queue) rather than burning time re-tripping an already-
+# tripped block. The next run gets a fresh attempt.
+MAX_CONSECUTIVE_TRANSCRIPT_FAILURES = 3
+# Each run also chips away at the pre-existing backlog (oldest first), so the
+# queue self-drains over successive scheduled runs without depending on any
+# external workflow/runner ever executing.
+MAX_BACKLOG_DRAIN_PER_RUN = 5
+
+
+def fetch_transcript_live(video_id: str, lang: str) -> Optional[str]:
+    """Attempt a live transcript fetch. Returns text (truncated to
+    CONTENT_MAX_CHARS) on success, None on any failure (private video, no
+    captions, blocked IP, etc.) — callers should fall back to queueing."""
+    if not YT_TRANSCRIPT_AVAILABLE:
+        return None
+
+    api = YouTubeTranscriptApi()
+    prio = [["fr"], ["en"], ["fr-FR"], ["en-US"]] if lang.upper() == "FR" \
+           else [["en"], ["fr"], ["en-US"], ["fr-FR"]]
+
+    for langs in prio:
+        try:
+            segs = api.fetch(video_id, languages=langs)
+            text = re.sub(r"\s+", " ", " ".join(s.text for s in segs)).strip()
+            if text:
+                return text[:CONTENT_MAX_CHARS]
+        except Exception:
+            continue
+
+    try:
+        for t in api.list(video_id):
+            try:
+                segs = t.fetch()
+                text = re.sub(r"\s+", " ", " ".join(s.text for s in segs)).strip()
+                if text:
+                    return text[:CONTENT_MAX_CHARS]
+            except Exception:
+                continue
+    except Exception as exc:
+        # youtube-transcript-api's exception text is a multi-paragraph
+        # troubleshooting essay — log only the exception class + first line.
+        first_line = str(exc).strip().splitlines()[0] if str(exc).strip() else ""
+        log.info("No transcript available for %s: %s: %s", video_id, type(exc).__name__, first_line)
+
+    return None
+
+
+def _queue_item(existing: list[dict], existing_ids: set, video_id: str, channel: str,
+                 title: str, lang: str, published: str) -> bool:
+    if video_id in existing_ids:
+        return False
+    existing.append({
+        "video_id": video_id,
+        "channel": channel,
+        "title": title,
+        "lang": lang,
+        "published": published,
+        "queued_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+    })
+    existing_ids.add(video_id)
+    return True
+
+
+def _save_queue(pending: list[dict]) -> None:
+    QUEUE_PATH.write_text(
+        json.dumps(
+            {"updated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+             "pending": pending},
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+
+
 def update_transcript_queue(youtube_items: list[dict]) -> None:
-    """Append any YouTube video_ids without a cached transcript to the queue."""
+    """For each new, uncached YouTube item: try a live transcript fetch and
+    write it straight to the cache (mutating the item dict in place so the
+    caller's `new_items` list picks up the content immediately). Stops
+    attempting live fetches after MAX_CONSECUTIVE_TRANSCRIPT_FAILURES in a
+    row (see comment above) — remaining items just get queued. Items where
+    the live fetch fails (or was skipped due to the breaker) get queued to
+    transcript-queue.json. Afterward, also drains up to
+    MAX_BACKLOG_DRAIN_PER_RUN oldest items already sitting in that queue,
+    so the backlog shrinks over successive runs even with zero external
+    infra (fetch_transcripts.py / the GitHub Actions job remain a fallback,
+    not a requirement)."""
     TRANSCRIPTS_DIR.mkdir(parents=True, exist_ok=True)
 
     existing: list[dict] = []
@@ -120,30 +310,73 @@ def update_transcript_queue(youtube_items: list[dict]) -> None:
 
     existing_ids = {item["video_id"] for item in existing}
 
+    fetched_live = 0
     added = 0
+    consecutive_failures = 0
+    breaker_tripped = False
+
     for item in youtube_items:
         vid = item["entry_id"]
-        if vid not in existing_ids and not (TRANSCRIPTS_DIR / f"{vid}.txt").exists():
-            existing.append({
-                "video_id": vid,
-                "channel": item["source"],
-                "title": item["title"],
-                "lang": item["language"],
-                "published": item["published"],
-                "queued_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-            })
-            existing_ids.add(vid)
+        out_path = TRANSCRIPTS_DIR / f"{vid}.txt"
+        if out_path.exists():
+            continue
+
+        text = None if breaker_tripped else fetch_transcript_live(vid, item["language"])
+        if text:
+            out_path.write_text(text, encoding="utf-8")
+            item["content_excerpt"] = text
+            item["content_available"] = True
+            fetched_live += 1
+            consecutive_failures = 0
+            log.info("  Live-fetched transcript: %s (%d chars)", vid, len(text))
+            continue
+
+        if not breaker_tripped:
+            consecutive_failures += 1
+            if consecutive_failures >= MAX_CONSECUTIVE_TRANSCRIPT_FAILURES:
+                breaker_tripped = True
+                log.warning(
+                    "  %d consecutive transcript-fetch failures — likely IP-blocked "
+                    "for this run, queueing the rest without further attempts",
+                    consecutive_failures,
+                )
+
+        if _queue_item(existing, existing_ids, vid, item["source"], item["title"],
+                        item["language"], item["published"]):
             added += 1
 
-    QUEUE_PATH.write_text(
-        json.dumps(
-            {"updated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-             "pending": existing},
-            indent=2,
-        ),
-        encoding="utf-8",
+    # Backlog drain: chip away at pre-existing queue entries, oldest first,
+    # skipped entirely if this run already tripped the breaker above.
+    drained = 0
+    if not breaker_tripped and existing:
+        by_queued_at = sorted(existing, key=lambda it: it.get("queued_at", ""))
+        for backlog_item in by_queued_at[:MAX_BACKLOG_DRAIN_PER_RUN]:
+            vid = backlog_item["video_id"]
+            out_path = TRANSCRIPTS_DIR / f"{vid}.txt"
+            if out_path.exists():
+                existing = [it for it in existing if it["video_id"] != vid]
+                existing_ids.discard(vid)
+                continue
+
+            text = fetch_transcript_live(vid, backlog_item.get("lang", "EN"))
+            if text:
+                out_path.write_text(text, encoding="utf-8")
+                existing = [it for it in existing if it["video_id"] != vid]
+                existing_ids.discard(vid)
+                drained += 1
+                consecutive_failures = 0
+                log.info("  Backlog-drained transcript: %s (%d chars)", vid, len(text))
+            else:
+                consecutive_failures += 1
+                if consecutive_failures >= MAX_CONSECUTIVE_TRANSCRIPT_FAILURES:
+                    log.warning("  Breaker tripped during backlog drain — stopping")
+                    break
+
+    _save_queue(existing)
+    log.info(
+        "Transcripts: live-fetched=%d (new), backlog-drained=%d, queued=%d (new fallback), total pending=%d",
+        fetched_live, drained, added, len(existing),
     )
-    log.info("Transcript queue: added %d item(s), total pending=%d", added, len(existing))
 
 
 # ---------------------------------------------------------------------------
@@ -377,8 +610,9 @@ def mode_check(since_override: Optional[str], bot_context: str) -> None:
             )
 
             # YouTube: RSS never carries transcript text. Check the local
-            # cache (written by fetch_transcripts.py on a residential IP)
-            # before falling back to title-only — see module docstring.
+            # cache first; update_transcript_queue() below will attempt a
+            # live fetch for anything still missing before falling back to
+            # queueing — see module docstring.
             if source_type == "youtube":
                 cached = load_cached_transcript(entry["entry_id"])
                 content_excerpt = cached
@@ -404,14 +638,25 @@ def mode_check(since_override: Optional[str], bot_context: str) -> None:
             no_new_items.append(source_name)
             log.info("Source '%s': no new items", source_name)
 
-    # Queue any transcript-less YouTube items for off-cloud fetching
+    # Live-fetch (with queue fallback) any transcript-less YouTube items.
+    # Mutates the dicts already referenced in new_items in place.
     update_transcript_queue(
         [it for it in new_items if it["type"] == "youtube" and not it["content_available"]]
     )
 
+    # Relevance tagging runs last so YouTube items score against their
+    # freshly live-fetched transcript, not just the title.
+    for it in new_items:
+        it["relevance"] = score_relevance(it["title"], it["content_excerpt"], it["type"])
+
+    vix = fetch_vix_snapshot()
+    if vix:
+        log.info("VIX snapshot: %s close=%.2f (%s) tier=%s", vix["date"], vix["close"], vix["source"], vix["tier"])
+
     output = {
         "check_date": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
         "bot_context": bot_context,
+        "vix_snapshot": vix,
         "new_items": new_items,
         "no_new_items": no_new_items,
     }
