@@ -72,3 +72,31 @@ TRADE or HOLD
 | WSJ Markets (~35 remaining items) | blog | M&A/deals, opinion columns, company-specific stories (UniCredit/Commerzbank, Circle bank charter, etc.) | — | — | Low |
 | Investing.com — Stock Market News (10 items) | blog (title-only) | Single-company headlines (Q32 Bio, Ford/Unifor, Meta data center, Fraport, etc.) | — | — | Low — title-only |
 | Seeking Alpha — Market Currents (6 remaining items) | blog (title-only) | Single-company news headlines (CoreCivic, Ocugen, Gamehaus, Cathie Wood trades, etc.) | — | — | Low — title-only |
+
+## 2026-07-24 — Market Intel (regime_trader)
+Full report: `reports/2026-07-24-market-intel.md`. 242 new items across 20 sources (24 YouTube, title-only; 218 blog). Net read: HIGH_VOL regime flagged 7/13 has deepened, not reverted — two independent, reinforcing shocks this cycle vs. one on 7/13.
+
+| Source | Type | Item | Regime Signal | Vol Bias | Relevance |
+|--------|------|------|----------------|----------|-----------|
+| WSJ Markets | blog | Oil (Brent/WTI) topped $100/barrel first time in 2 months, 12% weekly gain on Red Sea/Houthi shipping risk added to Iran-Hormuz conflict | Second Gulf escalation front; stocks slumped, yields hit highest of Trump's 2nd term | HIGH | High — direct SPY/QQQ/IWM driver |
+| WSJ Markets | blog | "Investors Zero In on Runaway Tech Spending" — ~$890B wiped from Magnificent Seven in one session after Alphabet/Tesla earnings rekindled AI-spending fears | Second, independent shock compounding oil shock same session | HIGH (QQQ-specific) | High |
+| CNBC — Finance | blog | "Odds of Federal Reserve rate hike surge as oil prices rip higher" — market now actively pricing a September hike | Firmer hawkish repricing vs. 7/13's "hike fully on the table" | HIGH | High — Fed/HMM relevant |
+| WSJ Markets | blog | 10-year Treasury yield hit highest since Jan 2025, climbing into next week's FOMC meeting | Real, near-dated scheduled catalyst (~1 week out) | HIGH | High — catalyst-filter relevant |
+| WSJ Markets | blog | Gold fell back below $4,100 "as Fed tightening prospects weigh on outlook" — same inflation-fear-over-safe-haven pattern as 7/13 | Confirms atypical pattern for 2nd consecutive cycle | HIGH | Med-High |
+| CNBC — Finance | blog | Jamie Dimon: markets underestimate risks, wouldn't buy stocks or Treasurys at current prices | Senior institutional caution voice | Supports HIGH | Med-High |
+| CNBC — Finance | blog | John Paulson: early stages of long-term gold bull market on central-bank buying | Long-horizon bullish gold counter-read to near-term price action | Context | Med |
+| CNBC — Economy | blog | Dallas Fed's Logan (hawkish: "good inflation news wasn't good enough") vs. NY Fed's Williams (dovish: "inflation has peaked") — Fed voices still split | Policy uncertainty itself a vol input, echoes 7/13 "family fight" | Mixed/HIGH | High |
+| CNBC — Economy | blog | Fed Chair Warsh repeated "family fight" (x13), "inflation is a choice" (x6) across 5 public appearances | Internal Fed division unresolved, inflation-focused reaction function | Supports HIGH | Med-High |
+| CNBC — Economy | blog | Import prices from China hit highest since 2008; June CPI 3.5% YoY (pre-oil-spike, now stale) | Tariff pass-through still building, corroborates 7/13 Liberty Street findings | Supports HIGH | High |
+| CNBC — Economy | blog | China Q2 growth slowest since 2022, below 4.5-5% target, fanning stimulus calls | Independent non-US/non-war global growth headwind | Supports HIGH | Med |
+| ETF Trends (VettaFi) | blog | "A Shift In Stock Market Leadership" + accelerating RSP (equal-weight) inflows | Rotation/broadening theme from 7/13 now has flow data behind it | Rotation signal | High — direct SPY/QQQ-adjacent |
+| WSJ Markets | blog | Insurers rotating into new risky structured debt as regulators close old loopholes; PE "zombie funds" at record high | Credit-market stress broadening beyond AI bonds (flagged 7/13) | Vol risk | Med-High |
+| George Gammon (title-only) | youtube | "$10 Trillion Derivatives Timebomb" warning, "AI Bubble Just Popped" | Directionally consistent w/ AI-spending-scare theme; unconfirmed | Low confidence | Low-Med |
+| IG France (title-only) | youtube | 7 new videos tracking inflation/Fed/USD-Iran-oil themes | Titles track same macro storyline as blog sources | Low confidence | Low |
+| Oseille TV (title-only) | youtube | "Ces pays d'Afrique vendent leur passeport" (7/14) | **Africa/UEMOA priority match** — content unknown pending transcript | n/a | Flagged — follow up |
+| Finary (title-only) | youtube | "Votre monnaie ne vaut rien" (currency devaluation), retirement-at-30 planning | Wealth-mgmt themes, title-only | n/a | Low |
+| Investing Simplified/Prof G (title-only) | youtube | "Buffett's Last Warning" vs. "BEST Buying Opportunity of 2026" — contradictory titles | Unresolved without transcript | Low confidence | Low |
+| ETF Trends/WSJ/CNBC-Finance (bulk, ~150 remaining items) | blog | Single-fund product coverage, deals/opinion/single-company stories | — | — | Low — outside aggregate signal |
+| Investing.com — Stock Market News, Seeking Alpha — Market Currents (17 items) | blog (title-only) | Single-company headlines | — | — | Low — title-only |
+
+**Data-quality flag**: transcript queue not drained since before 7/13 — now 24 items pending; self-hosted `fetch_transcripts.py` workflow appears inactive. Yahoo Finance (20 items) returned titles only this run vs. full body text on 7/13.
