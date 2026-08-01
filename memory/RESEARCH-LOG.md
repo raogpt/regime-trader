@@ -72,3 +72,41 @@ TRADE or HOLD
 | WSJ Markets (~35 remaining items) | blog | M&A/deals, opinion columns, company-specific stories (UniCredit/Commerzbank, Circle bank charter, etc.) | — | — | Low |
 | Investing.com — Stock Market News (10 items) | blog (title-only) | Single-company headlines (Q32 Bio, Ford/Unifor, Meta data center, Fraport, etc.) | — | — | Low — title-only |
 | Seeking Alpha — Market Currents (6 remaining items) | blog (title-only) | Single-company news headlines (CoreCivic, Ocugen, Gamehaus, Cathie Wood trades, etc.) | — | — | Low — title-only |
+
+## 2026-08-01 — Market Intel (regime_trader)
+Full report: reports/2026-08-01-market-intel.md · 19-day catch-up run (last checked 2026-07-13) · 268 new items across 17 sources (3 sources had no new items) · 34/34 YouTube items title-only, queued for off-cloud transcript fetch.
+
+| Source | Type | Item | Regime Signal | Vol Bias | Relevance |
+|--------|------|------|----------------|----------|-----------|
+| ETF Trends (VettaFi) | blog | FOMC holds 3.50-3.75% on 9-3 split vote; Warsh removes forward guidance ("not a communications change, it's a policy tool") | New Fed chair adds policy uncertainty, not resolution | HIGH | High |
+| WSJ Markets | blog | "Kevin Warsh's Honeymoon With the Bond Market Is Already Over" — investors want inflation-fight commitment after Wednesday's selloff | Credibility/communication shock, hawkish repricing | HIGH | High |
+| Motley Fool | blog | Warsh presser called "confusing," "contradictory"; 30-year yields up to 5.2% | Fed communication risk as independent vol input | HIGH | High |
+| The Big Picture (Ritholtz) | blog | Borrowing costs hit 19-year high, biggest one-day jump since "liberation day" tariffs (citing FT) | Confirms Fed-driven bond stress independently | HIGH | High |
+| ETF Trends (VettaFi) | blog | Treasury Yields Snapshot 7/31: 10y 4.75%, 2y 4.28% (up from 10y 4.56%/2y 4.21% on 7/10) | Rate-level confirmation of yield spike | HIGH | High |
+| ETF Trends (VettaFi) | blog | Two Measures of Inflation: core PCE 3.3%, still above 2% target | Inflation not cooling | HIGH | High |
+| WSJ Markets | blog | U.S. "hit back at Iran" for attack on bases in Jordan; oil gives back some gains after retaliation | Two-sided escalation, active conflict not one-off | HIGH | High — direct SPY/QQQ/IWM driver |
+| WSJ Markets | blog | "Oil Posts Big Monthly Gains on Resumption of Conflict" — renewed Iranian attacks on Hormuz shipping | Sustained oil/energy pressure | HIGH | High |
+| WSJ Markets | blog | Yen jumps to 2-month high on suspected BOJ intervention; Treasury warns banks it might intervene in dollar-yen (×4 related items) | New FX volatility channel opening | HIGH | High |
+| WSJ Markets | blog | "Iran War Pushes Companies to Raise Prices on Beer, Paint, Fries and More" (Sherwin-Williams, Samuel Adams brewer) | War-driven inflation visible in consumer staples | HIGH | High |
+| Yahoo Finance — Market News (S&P 500) | blog | El Niño compounding Iran-war Panama Canal disruption; capacity-reduction odds raised to 81% from 25% | Second, independent supply-chain/inflation vector | Supports HIGH | Med-High |
+| The Big Picture (Ritholtz) | blog | New Section 301 tariffs (10-12.5%) on multiple trading partners take effect as Section 122 10% tariff expires | Second, tariff-driven inflation input alongside war | HIGH | Med-High |
+| Motley Fool | blog | Nasdaq within 0.3pp of correction, down 9.7% from early-June highs; Fed held rates but future hikes could "add fuel to the fire" | Tech-specific volatility elevated | HIGH (QQQ-specific) | High |
+| Yahoo Finance — Market News (S&P 500) | blog | Amazon +15%+ on Q2 blowout, Microsoft strong — eased AI jitters; Apple fell >7% on AI-driven component shortages | Narrow, mega-cap-concentrated relief rally, not broad | Mixed | High — direct rotation/breadth signal |
+| The Big Picture (Ritholtz) | blog | "Nearly half of small-cap and midcap stocks are losing money" (citing MarketWatch) | IWM-specific fragility beneath index-level calm | Vol risk | High — direct IWM signal |
+| The Big Picture (Ritholtz) | blog | "Stocks Finally Have Some Competition" — return of real yields changes asset-allocation math (citing TrendLabs) | Rate-regime shift with equity-risk-premium implications | Context | High |
+| Motley Fool | blog | "If a Recession Is Coming, Here's How I'm Preparing My Portfolio" — unemployment/GDP/earnings still good, but inflation 3.5%, oil pressure, likely Fed hike flagged as headwinds | Recession "not imminent" but not dismissible | Mixed | Med-High |
+| ETF Trends (VettaFi) | blog | "A Broad Approach in a Narrow Market" — Q2 rallied repeatedly on on-again/off-again Iran ceasefire headlines | Confirms conflict as the swing factor for market direction | HIGH | High |
+| ETF Trends (VettaFi) | blog | QQQJ (mid-cap "next-gen" growth) and SPMO (momentum factor) pitched as investors look past mega-cap concentration | Rotation-adjacent positioning signal | Rotation signal | Med — product pitch, not flow data |
+| George Gammon | youtube (title-only) | "It's Official, The AI Bubble Just Popped"; "$10 Trillion Derivatives Timebomb"; economic-warning sign | Bearish tail-risk signal, unverified | Vol risk | Med — title-only, consistent w/ correction/bond-stress items |
+| Investing.com — Market Overview (5 titles) | blog (title-only) | "5 Signs Chairman Warsh's Honeymoon at the Fed Is Over"; "Long Bonds Are Weary of Warsh's Inflation Resolve"; "How Much Did AI Spending Contribute to Q2 GDP?" | Directly echoes Fed/inflation/GDP themes above | HIGH | Med-High — headline-only but strong corroboration |
+| WSJ Markets | blog | "Buyer Beware: Private Funds Come With Big Tax Bills" | Wealth-mgmt, tax risk | Context | High — wealth-mgmt relevant |
+| WSJ Markets | blog | "5 of the Top Financial Advisor Companies for Retirees" — fiduciary RIA rankings | Wealth-mgmt reference | Low | Med |
+| Motley Fool | blog | Social Security COLA under-tracks inflation — retiree purchasing power down ~13.7% since 2010 | Wealth-mgmt, structural | Low | Med |
+| Investing Simplified (Prof G) (3 titles) | youtube (title-only) | "SCHD vs. JEPI" dividend-income comparison; "Sequence of Returns Risk" retirement withdrawal piece | Wealth-mgmt, retirement-income theme | n/a | Low-Med — title-only |
+| Oseille TV | youtube (title-only) | "Ces pays d'Afrique vendent leur passeport (et c'est 100% légal)" — African countries selling passports/residency | **UEMOA/Africa-adjacent — PRIORITY**, title-only | n/a | Med — flagged for transcript follow-up |
+| Finary (2 titles) | youtube (title-only) | Currency/monetary-system explainer; crypto-transfer help guide | Wealth-mgmt adjacent | n/a | Low — title-only |
+| Motley Fool (~40 remaining items) | blog | Single-stock deep dives (Micron, Meta, Alphabet, Marvell, PayPal, Apple, Reddit, Roblox, Nvidia, Caterpillar, etc.) | — | — | Low — outside ETF-only mandate |
+| ETF Trends (VettaFi) (~35 remaining items) | blog | Niche ETF launches, Bitcoin ETF products, CLO/muni-bond explainers | — | — | Low-Med — product-level, not macro |
+| WSJ Markets (~45 remaining items) | blog | M&A/deals, opinion columns, single-company stories | — | — | Low |
+| Investing.com — Stock Market News (10) / Seeking Alpha — Market Currents (7) | blog (title-only) | Single-company headlines and dividend declarations | — | — | Low — title-only |
+| Federal Reserve — Press Releases (6 remaining) / Liberty Street Economics (4) / FRED Blog (5 remaining) | blog | Administrative releases; stablecoin/bank-holding-company research; historical/methodological data explainers | — | — | Low — not directly regime-relevant this batch |

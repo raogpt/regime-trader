@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-13T11:29:36Z",
+  "updated": "2026-08-01T09:05:21Z",
   "pending": [
     {
       "video_id": "X7ESsDQGffY",
@@ -8,6 +8,270 @@
       "lang": "FR",
       "published": "2026-07-13",
       "queued_at": "2026-07-13T11:29:36Z"
+    },
+    {
+      "video_id": "k_GZ0YH5HVA",
+      "channel": "Oseille TV",
+      "title": "Panama vs Paraguay : Quel pays choisir ?",
+      "lang": "FR",
+      "published": "2026-07-29",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "p2l9We9yf9M",
+      "channel": "Oseille TV",
+      "title": "Chat Control : l'UE a vot\u00e9 la surveillance de tous (pendant l'\u00e9t\u00e9)",
+      "lang": "FR",
+      "published": "2026-07-27",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "deC8YnDmez8",
+      "channel": "Oseille TV",
+      "title": "Loi UE : bient\u00f4t, tous vos messages priv\u00e9s seront scann\u00e9s",
+      "lang": "FR",
+      "published": "2026-07-24",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "zfKvDA7FmeY",
+      "channel": "Oseille TV",
+      "title": "L'Europe vient de voter la FIN de votre vie priv\u00e9e !",
+      "lang": "FR",
+      "published": "2026-07-22",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "Ot0UbY0-7GY",
+      "channel": "Oseille TV",
+      "title": "L'Europe coule comme le Titanic, et personne ne r\u00e9agit",
+      "lang": "FR",
+      "published": "2026-07-18",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "rE_4O7hAcAI",
+      "channel": "Oseille TV",
+      "title": "Le jeu est truqu\u00e9 : pourquoi 99% des gens \u00e9chouent",
+      "lang": "FR",
+      "published": "2026-07-15",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "-Q7SVGz-lVI",
+      "channel": "Oseille TV",
+      "title": "Ces pays d'Afrique vendent leur passeport (et c'est 100% l\u00e9gal)",
+      "lang": "FR",
+      "published": "2026-07-14",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "QNFLN6IvB88",
+      "channel": "Bravos Research",
+      "title": "An Opportunity Like This Won't Come Again.",
+      "lang": "EN",
+      "published": "2026-07-23",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "8sS9Xd4FPKA",
+      "channel": "Finary",
+      "title": "Le march\u00e9 dont personne ne parle",
+      "lang": "FR",
+      "published": "2026-07-29",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "JmZ1aOQPgBs",
+      "channel": "Finary",
+      "title": "Besoin d'aide pour transf\u00e9rer vos cryptos ? Le guide est ici : https://help.finary.com/fr/articles/1",
+      "lang": "FR",
+      "published": "2026-07-28",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "4QqHzWueBpE",
+      "channel": "Finary",
+      "title": "Cet achat est-il le PI\u00c8GE d'une g\u00e9n\u00e9ration ?",
+      "lang": "FR",
+      "published": "2026-07-26",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "ze3RUdUo5ns",
+      "channel": "Finary",
+      "title": "\u00c0 30 ans, il a trouv\u00e9 comment ne JAMAIS travailler apr\u00e8s 50 ans",
+      "lang": "FR",
+      "published": "2026-07-19",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "7nebEkIslYw",
+      "channel": "Finary",
+      "title": "La monnaie parfaite existe-t-elle ? Bitcoin, euro, dollar\u2026 La vid\u00e9o compl\u00e8te est sur la cha\u00eene.",
+      "lang": "FR",
+      "published": "2026-07-17",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "bwGFf2erUAg",
+      "channel": "Finary",
+      "title": "Votre monnaie ne vaut rien",
+      "lang": "FR",
+      "published": "2026-07-15",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "RNzbKCyuJMA",
+      "channel": "Investing Simplified (Prof G)",
+      "title": "How to not run out of money in retirement (Sequence of Returns Risk)",
+      "lang": "EN",
+      "published": "2026-07-30",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "ZwCyoqy3nCk",
+      "channel": "Investing Simplified (Prof G)",
+      "title": "\ud83d\udcc8Smart Money is Investing Different: The AI Execution Pivot",
+      "lang": "EN",
+      "published": "2026-07-28",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "NP1og_Jqefk",
+      "channel": "Investing Simplified (Prof G)",
+      "title": "Why I\u2019m Investing in Quantum Computing (\ud83d\ude802030 BOOM)",
+      "lang": "EN",
+      "published": "2026-07-27",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "vSCkjvE-VIo",
+      "channel": "Investing Simplified (Prof G)",
+      "title": "BREAKING Market Update: July Ends in CHAOS",
+      "lang": "EN",
+      "published": "2026-07-25",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "u30rdysuTxA",
+      "channel": "Investing Simplified (Prof G)",
+      "title": "\ud83d\udea8Buffett\u2019s Last Warning to All Investors",
+      "lang": "EN",
+      "published": "2026-07-23",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "L-mTrFOD57M",
+      "channel": "Investing Simplified (Prof G)",
+      "title": "To Live Off Dividends.. You Must Understand This (SCHD vs. JEPI)",
+      "lang": "EN",
+      "published": "2026-07-21",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "eRZ39NF8SRo",
+      "channel": "Investing Simplified (Prof G)",
+      "title": "If you missed SMH, this ETF could be MUCH BIGGER \ud83d\udc40\ud83d\udcc8",
+      "lang": "EN",
+      "published": "2026-07-20",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "4ItZFsE_-go",
+      "channel": "Investing Simplified (Prof G)",
+      "title": "History is About to be Made.. (Best Opportunity for Investors!)",
+      "lang": "EN",
+      "published": "2026-07-18",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "lXYHnlXZI5A",
+      "channel": "Investing Simplified (Prof G)",
+      "title": "You\u2019ll never retire if you don\u2019t change this..",
+      "lang": "EN",
+      "published": "2026-07-16",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "iAd_mcZcQyA",
+      "channel": "Investing Simplified (Prof G)",
+      "title": "This Market Dip Just Created the BEST Buying Opportunity of 2026 (Here's the Data)",
+      "lang": "EN",
+      "published": "2026-07-15",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "YbIKPH-rK8w",
+      "channel": "George Gammon",
+      "title": "WARNING: They Just Created A $10 Trillion Derivatives Timebomb",
+      "lang": "EN",
+      "published": "2026-07-23",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "YD5IrExMPVk",
+      "channel": "George Gammon",
+      "title": "WARNING: This Is An Economic Sign That Can't Be Ignored",
+      "lang": "EN",
+      "published": "2026-07-18",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "paLy21TVecw",
+      "channel": "George Gammon",
+      "title": "It's Official, The AI Bubble Just Popped (Here's Why)",
+      "lang": "EN",
+      "published": "2026-07-16",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "IQyrpFuBU9c",
+      "channel": "IG France (Alexandre Baradez)",
+      "title": "Acheter une Action : 7 Questions qui Changent Tout (Exemples R\u00e9els 2026)",
+      "lang": "FR",
+      "published": "2026-07-17",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "2DVani8SH1k",
+      "channel": "IG France (Alexandre Baradez)",
+      "title": "\ud83d\udcc8 MarketLive : Analysons les derni\u00e8res tendances graphiques des march\u00e9s | IG x ALexandre Baradez",
+      "lang": "FR",
+      "published": "2026-07-16",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "gQ-6qsK7mmA",
+      "channel": "IG France (Alexandre Baradez)",
+      "title": "\ud83d\udea8 Inflation US : Pourquoi les march\u00e9s ne r\u00e9agissent pas ? | MarketLive | IG x ALexandre Baradez",
+      "lang": "FR",
+      "published": "2026-07-15",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "c6obqgSsSLc",
+      "channel": "IG France (Alexandre Baradez)",
+      "title": "Mais pourquoi les march\u00e9s n'ont pas r\u00e9agi \u00e0 la baisse de l'inflation am\u00e9ricaine ?",
+      "lang": "FR",
+      "published": "2026-07-15",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "r3xuP0ezLBg",
+      "channel": "IG France (Alexandre Baradez)",
+      "title": "Le signal que les traders attendent sur l'EUR/USD \ud83d\udcb6",
+      "lang": "FR",
+      "published": "2026-07-15",
+      "queued_at": "2026-08-01T09:05:21Z"
+    },
+    {
+      "video_id": "yTmfA2q2Qw4",
+      "channel": "IG France (Alexandre Baradez)",
+      "title": "BCE et Fed : les march\u00e9s anticipent le pire (et \u00e7a se voit) #Short #AlexandreBaradez",
+      "lang": "FR",
+      "published": "2026-07-13",
+      "queued_at": "2026-08-01T09:05:21Z"
     }
   ]
 }
