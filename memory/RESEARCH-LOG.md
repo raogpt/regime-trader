@@ -72,3 +72,23 @@ TRADE or HOLD
 | WSJ Markets (~35 remaining items) | blog | M&A/deals, opinion columns, company-specific stories (UniCredit/Commerzbank, Circle bank charter, etc.) | — | — | Low |
 | Investing.com — Stock Market News (10 items) | blog (title-only) | Single-company headlines (Q32 Bio, Ford/Unifor, Meta data center, Fraport, etc.) | — | — | Low — title-only |
 | Seeking Alpha — Market Currents (6 remaining items) | blog (title-only) | Single-company news headlines (CoreCivic, Ocugen, Gamehaus, Cathie Wood trades, etc.) | — | — | Low — title-only |
+
+## 2026-08-15 — YouTube Intel
+
+Backlog catch-up (last check 2026-07-13, ~5wk gap). 256 new items across 16 sources; ETF Trends/CNBC-Economy/CNBC-Finance returned 0 items due to feeds now hard-403'ing (not genuine silence — see report Data-Quality Note). All 60 YouTube items title-only (0 cached transcripts; 61 now queued). Full report: `reports/2026-08-15-youtube-intel.md`.
+
+| Channel | Video/Item | Regime Signal | Relevance |
+|---------|-----------|----------------|-----------|
+| IG France (×5, title-only) | Leverage surge; JPMorgan CEO leverage warning; CDS spreads rising on Nvidia/Meta/Alphabet; VIX at key technical level; Iran war raising US borrowing costs | Credit/leverage stress building beneath record equity prices | High — corroborated by WSJ private-credit item below |
+| WSJ Markets | "Private Credit Is Under Growing Strain" — default rates at recent highs (content available) | Confirms leverage/credit-stress thread independently | High |
+| WSJ Markets | "Cool Inflation Data Propels Stocks to Fresh Records" vs. "Companies Have Rarely Had Such Great Expectations" (big shift in rate hike odds) vs. Opinion "Bond Investors Want the Fed to Raise Rates" — 3 pieces, contradictory framing within 24h | Fed rate path genuinely contested, not settled | High |
+| Investing.com — Market Overview (title-only) | "Expect a Fed Pivot After Friday's Job Market Gut Check"; "The Iran Squeeze: How Far Can Trump Push Without Breaking the Oil Market?" | Corroborates Fed-uncertainty + Iran/oil threads | Med |
+| Motley Fool | "S&P 500 Eases Off Its Record as the Consumer Finally Blinks" — Nasdaq fell ~2x as far as S&P/Dow same session (content available) | QQQ higher beta than SPY on down-days — direct rotation signal | High |
+| WSJ Markets + Investing.com + Seeking Alpha + IG France (4 sources) | Oil weekly gain, Hormuz standoff drags on, no Mideast peace progress | Iran conflict still live/unresolved after 5 weeks | High |
+| IG France (×2, title-only) | US+Japan coordinated yen intervention; Fed "watching" yen/dollar situation | New FX-stress thread this window | Med |
+| George Gammon (×3, title-only) | "AI Bubble Just Popped"; "$10 Trillion Derivatives Timebomb"; "BlackRock and Nvidia...Getting Dangerous" | AI-bubble bear narrative, thematically consistent with leverage/CDS signals | Low-Med (title-only) |
+| WSJ Markets | "Wealth Management Has a $3 Trillion Problem" — investors overweight cash vs. adviser bond pitches (content available) | Wealth-mgmt: structural cash-on-sidelines flow | High |
+| Oseille TV (×2, title-only) | African passport/citizenship-by-investment as relocation plan B; 116 countries now report accounts to tax authorities (CRS expansion) | Wealth-mgmt, UEMOA/Africa priority | Med (title-only, recurring theme) |
+| **Data quality** | ETF Trends + CNBC-Economy + CNBC-Finance feeds now return HTTP 403 (verified independently) — real coverage gap, not "no news" | — | Action needed |
+
+**Net regime read: MID_VOL with rising HIGH_VOL risk** — records on the surface, credit/leverage stress building underneath (see full report REGIME CONSENSUS section). Informational only; HMM's own confidence/stability gate governs actual trading decisions.
