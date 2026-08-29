@@ -72,3 +72,34 @@ TRADE or HOLD
 | WSJ Markets (~35 remaining items) | blog | M&A/deals, opinion columns, company-specific stories (UniCredit/Commerzbank, Circle bank charter, etc.) | — | — | Low |
 | Investing.com — Stock Market News (10 items) | blog (title-only) | Single-company headlines (Q32 Bio, Ford/Unifor, Meta data center, Fraport, etc.) | — | — | Low — title-only |
 | Seeking Alpha — Market Currents (6 remaining items) | blog (title-only) | Single-company news headlines (CoreCivic, Ocugen, Gamehaus, Cathie Wood trades, etc.) | — | — | Low — title-only |
+
+## 2026-08-29 — Market Intel (regime_trader)
+Gap since last run: 2026-07-13 → 2026-08-29 (6.5 weeks). 279 new items across 20 sources (73 YouTube, 206 blog). Full detail in reports/2026-08-29-market-intel.md; table below is high/med relevance items only — see report for the low-relevance bucket breakdown.
+
+| Source | Type | Item | Regime Signal | Vol Bias | Relevance |
+|--------|------|------|----------------|----------|-----------|
+| WSJ Markets (6 headlines, content available) | blog | Fed Chair Kevin Warsh's Jackson Hole speech (Aug 28) signals inflation fight "not done"; 2y yields up, stocks down, dollar up, gold down | Hawkish Fed regime confirmation | HIGH | High — direct rate-regime driver |
+| Investing.com — Market Overview (3 headlines, title-only) | blog | "Warsh Talks Tough on Inflation as US Dollar Rallies", "The Only Thing Markets Need to Hear From Warsh at Jackson Hole" | Corroborates WSJ hawkish read | HIGH | High — 5+ source consensus on one catalyst |
+| Yahoo Finance — Market News | blog | "Review & Preview: Warsh Gets Real on Inflation" | Corroborates hawkish turn | HIGH | Med-High |
+| Motley Fool | blog | "President Trump Claims 'Prices Are Dropping Fast,' but Trumpflation Data Tells a Different Story" | Political/data conflict on inflation narrative | HIGH | Med — context for Fed credibility |
+| WSJ Markets | blog | "Japan Spent Record $98.7B to Prop Up Yen in Joint Move With U.S." (Bessent-backed) | FX intervention scale confirms yen/dollar stress | Elevated | Med-High — cross-asset vol input |
+| Federal Reserve (official) | blog | FOMC statement (7/29) + July 28–29 minutes released 8/19 | Official record ahead of Warsh's hawkish Jackson Hole follow-up | Context | Med — primary source |
+| The Big Picture (Ritholtz) | blog | "What's Upsetting the Bond Market?" — yen interventions, Treasury buyback talk, sticky inflation, tariffs, $40T debt, bond vigilantes | Bond-market stress, multi-factor | HIGH | High — synthesizes multiple threads |
+| The Big Picture (Ritholtz) | blog | "Wanted: A More Humble Fed" — institutional behavioral-error critique of Fed/Treasury/Congress | Policy uncertainty | Med | Med |
+| Motley Fool | blog | "The S&P 500 Is Flashing a Warning Signal Not Seen in Decades" — valuation stretch despite record highs | Late-cycle/valuation risk flag | Vol risk | High — index-level, direct SPY relevance |
+| Motley Fool | blog | WSJ-sourced: "$3 Trillion in Off-Balance-Sheet AI Commitments" tanked Vertiv, GE Vernova | AI-capex credit/balance-sheet risk continuing from July | Vol risk (QQQ-specific) | High |
+| Motley Fool | blog | "Marvell Slides 10% on Softer Fiscal 2028 Guidance" despite EPS beat — guidance-driven, not headline miss | AI-semis vol, guidance sensitivity | Med-High (QQQ) | Med-High |
+| Seeking Alpha — Market Currents | blog (title-only) | "Gold plunges as Warsh's Jackson Hole inflation concerns spark rate hike bets" | Corroborates hawkish-Fed/gold-down pattern (same as July Iran shock) | HIGH | High |
+| Seeking Alpha / WSJ | blog | Venezuela oil-reserves deal (65B barrels, Trump) + "Persian Gulf exports recovered to two-thirds of pre-war levels" | Oil-supply de-escalation vs. July's Hormuz shock | Moderating from July HIGH | Med — partial unwind of prior oil-driven vol |
+| WSJ Markets | blog | "How Xi Jinping Turned Oil From a Weakness Into a Geopolitical Weapon" — China crude reserves as leverage | Structural geopolitical-oil risk | Context | Med |
+| Liberty Street Economics (NY Fed) | blog | "Has Broader Stock Market Participation Changed How Interest Rates Affect the Economy?" | Wealth-effect transmission channel, relevant to HMM rate-sensitivity features | Context | Med — methodology, not immediate signal |
+| Liberty Street Economics (NY Fed) | blog | "How Distressed Are Consumers?" — credit card delinquency measures reconciled, total debt -$13B Q2 | Consumer credit stabilizing, mild | LOW-MED | Med |
+| Liberty Street Economics (NY Fed) | blog | "AI's Impact on Labor and Hiring" (new Research Director series) | AI/labor macro theme, ongoing | Context | Low-Med |
+| Yahoo Finance | blog | "Bank of America takes heat for stark S&P 500 call" | Wall St forecast dispersion widening | Med | Med |
+| Bravos Research (8 items, YouTube title-only) | youtube | "China Just Triggered a Global Monetary Reset", "The First Domino of the Global Debt Crisis is Here", "Japan and the US Just Pulled the Trigger" | Crisis/reset narrative cluster, Aug 9–27 | Bearish tilt (unconfirmed, title-only) | Med — thematically aligned w/ Warsh/yen items above but not corroborated by content |
+| George Gammon (8 items, YouTube title-only) | youtube | "The Entire House of Cards Is About To Fall", "WARNING: This Is When The Dollar Will Lose Reserve Currency Status", "It's Official, The AI Bubble Just Popped" | Same bearish/crisis cluster as Bravos Research | Bearish tilt (unconfirmed) | Med — 2-channel title-only consensus on dollar/debt stress |
+| Investing Simplified (Prof G) (15 items, YouTube title-only) | youtube | "Extreme Fear: Complete Market Failure", "The next big market crash", "How to survive the next stock market correction" | Bearish/defensive positioning theme (wealth-mgmt framed) | Bearish tilt (unconfirmed) | Med — Wealth Mgmt |
+| Finary (15 items, YouTube title-only) | youtube | French wealth-mgmt/tax/expat content, no market-crash framing this cycle | — | — | Wealth Mgmt, low regime relevance |
+| Oseille TV (11 items, YouTube title-only) | youtube | Expat tax/passport content (Italy, Panama/Paraguay, Africa), EU "Chat Control" surveillance vote coverage | — | — | Wealth Mgmt / UEMOA-adjacent (expat tax), low regime relevance |
+| IG France (15 items, YouTube title-only) | youtube | Titles ref VIX technical level, JPMorgan CEO leverage warning, CDS pricing on Nvidia/Meta/Alphabet, Iran war US borrowing costs, yen/BoJ | Vol/leverage/credit-risk themed titles, unconfirmed | Med (unconfirmed) | Med — most regime-relevant YouTube titles this cycle, still title-only |
+| Motley Fool (~24 remaining), WSJ (~24 remaining), Federal Reserve enforcement actions (14), FRED Blog (6), Investing.com Stock Market News (9), Seeking Alpha (4) | blog | Single-stock deep dives, bank enforcement actions/charters, regional employment data, M&A/opinion columns | — | — | Low — outside ETF-only mandate or background-only |
