@@ -72,3 +72,27 @@ TRADE or HOLD
 | WSJ Markets (~35 remaining items) | blog | M&A/deals, opinion columns, company-specific stories (UniCredit/Commerzbank, Circle bank charter, etc.) | — | — | Low |
 | Investing.com — Stock Market News (10 items) | blog (title-only) | Single-company headlines (Q32 Bio, Ford/Unifor, Meta data center, Fraport, etc.) | — | — | Low — title-only |
 | Seeking Alpha — Market Currents (6 remaining items) | blog (title-only) | Single-company news headlines (CoreCivic, Ocugen, Gamehaus, Cathie Wood trades, etc.) | — | — | Low — title-only |
+
+## 2026-09-12 — Market Intel (regime_trader)
+Full report: `reports/2026-09-12-market-intel.md`. Covers a ~2-month gap since last check (2026-07-13); 291 new items, 96 YouTube (all title-only, transcripts blocked from cloud IP, 81 newly queued).
+
+| Source | Type | Item | Regime Signal | Vol Bias | Relevance |
+|--------|------|------|----------------|----------|-----------|
+| Investing.com — Market Overview (6 of 7 headlines) | blog (title-only) | "Hot CPI Report Puts a Fed Rate Hike Squarely Back on the Table," "Sure Fed Hike Ahead," "FOMC Preview: Fed Set To Hike 0.25%," "Fed Rate Hike Looks Locked In" | Hawkish Fed hike now near-consensus (vs. contested in July) | HIGH | High — direct HMM/rates input |
+| Yahoo Finance | blog | Hot August CPI: +0.4% m/m, 3.4% y/y | Triggers the hike-consensus wave above | HIGH | High |
+| WSJ Markets | blog | "The Fed Is Poised to Raise Interest Rates for the First Time in Years"; "Wall Street Cheers Clarity on Fed Outlook—Even if It Means Higher Rates" | Hawkish shift, but stocks rose on reduced uncertainty | HIGH (rate-level) / lower (policy-uncertainty) | High |
+| WSJ Markets (×2) | blog | "Government Bond Yields Finish Near Multiyear Highs"; "10-Year Yield on the Cusp of 5%" | 10y up from 4.56% (July) toward 5% | HIGH | High |
+| WSJ Markets | blog | Saudi shuts vital Hormuz-bypass pipeline; Houthis take oil chokepoint; oil to $102-107/bbl | Second live war-driven oil/yield spike | HIGH | High — direct SPY/QQQ/IWM driver |
+| Seeking Alpha — Market Currents | blog (title-only) | "Saudi shuts pipeline that was vital Hormuz bypass as new front opens in Middle East war" | Corroborates oil/war cluster | HIGH | Med — title-only |
+| IG France (Baradez) | youtube (title-only) | "Fed : un seul chiffre vendredi peut tout changer" (pre-CPI); "Pourquoi le pétrole à 94$ fait exploser les taux souverains" | Anticipated CPI catalyst; corroborates oil→yields link | HIGH | Med — title-only but validated by blog cluster |
+| Motley Fool | blog | Shiller CAPE ratio at 41.7 — second-highest ever after dot-com peak | Valuation-stretch warning | Correction risk | High |
+| Yahoo Finance | blog | Morgan Stanley's Mike Wilson warns of possible stock market correction | Named major-bank correction call | Correction risk | High |
+| Investing.com — Market Overview | blog (title-only) | "Market at a Critical Point: Nasdaq, Russell and VIX Signals" | Direct QQQ/IWM/vol framing | Unknown detail | Med — title-only, most on-mandate hit this cycle |
+| WSJ Markets | blog | Bank of Japan tightening bets spark yen recovery; WSJ Dollar Index whipsaws | Fed/BoJ policy divergence, cross-asset watch item | Mixed | Med-High |
+| The Big Picture (Ritholtz) | blog | "Corporate vs Treasury Debt Duration" — corporate America locked in low fixed rates 2008-2022, US govt did not | Sovereign debt more exposed to rate rise than corporate credit | Context | Med-High |
+| Liberty Street Economics (NY Fed) | blog | "Are Central Banks Moving Out of Dollar Assets?" — aggregate dollar reserve-share decline traced to a few large holders, not systemic exit | Nuance against dollar-crisis narrative | Context | Med |
+| George Gammon + Bravos Research (22 items) | youtube (title-only) | Recurring crisis-framed titles: "House of Cards About To Fall," "Global Monetary Reset," "$10T Derivatives Timebomb," "Dollar Will Lose Reserve Status" | Directionally consistent w/ debt/dollar-stress theme, not independent evidence | Low confidence | Low-Med |
+| Investing Simplified (Prof G) (YouTube) | youtube (title-only) | "Worried About a 'Lost Decade'?"; "Major OverPriced Market"; "next big market crash" | Consistent w/ CAPE/correction theme | Low confidence | Low-Med |
+| Finary, Oseille TV (28 items) | youtube (title-only) | Evergreen FR personal-finance/psychology content; one African-passport/residency title (not allocation-relevant) | — | — | Low — no UEMOA/Africa wealth-mgmt hit this cycle |
+| Federal Reserve (official, 20 items) | blog | Mostly routine bank enforcement/charter actions; July FOMC statement/minutes now superseded by Sept CPI repricing | — | — | Low (subset High: FOMC minutes) |
+| Motley Fool (46 remaining), Investing.com — Stock Market News (10), Seeking Alpha (6 remaining) | blog | Single-stock/insider-sale/M&A content (Qualcomm, Lululemon, GameStop, Etsy, etc.) | — | — | Low — outside ETF-only mandate |
