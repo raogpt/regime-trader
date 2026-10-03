@@ -72,3 +72,17 @@ TRADE or HOLD
 | WSJ Markets (~35 remaining items) | blog | M&A/deals, opinion columns, company-specific stories (UniCredit/Commerzbank, Circle bank charter, etc.) | — | — | Low |
 | Investing.com — Stock Market News (10 items) | blog (title-only) | Single-company headlines (Q32 Bio, Ford/Unifor, Meta data center, Fraport, etc.) | — | — | Low — title-only |
 | Seeking Alpha — Market Currents (6 remaining items) | blog (title-only) | Single-company news headlines (CoreCivic, Ocugen, Gamehaus, Cathie Wood trades, etc.) | — | — | Low — title-only |
+
+## 2026-10-03 — YouTube Intel
+Note: `youtube_monitor.py` absent; used `scripts/intel_monitor.py` (same CLI). No transcripts available (YouTube IP block; 89 items queued) — YouTube rows are TITLE-ONLY, low confidence. Regime signal below leans on same-run blog/macro sources.
+
+| Channel | Video | Regime Signal | Relevance |
+|---|---|---|---|
+| George Gammon | "Systemic Risk Is EXPLODING In Financial Markets...Here's Why" (10/01); "Something Is About To Break" (09/26) | Risk-off / vol-expansion framing (title-only) | Low conf — Med |
+| Bravos Research | "In 6 Months, It's All Over." (09/29); "This Gap is About To Break The Economy..." (09/25) | Bearish macro/debt narrative (title-only) | Low conf — Med |
+| Investing Simplified (Prof G) | "October Is Here.. What Usually Happens to Stocks" (09/29); "Everyone Is Watching the Wrong Stock Market Warning" (09/19) | Seasonality / warning-signal theme (title-only) | Low conf — Med |
+| IG France (Baradez) | "Fed demain : de 40% à 91% de probabilité de hausse" (09/15); daily MarketLive (10/02 latest) | Fed hike-odds spike mid-Sept; consistent with blog data below | Med |
+| Finary | "Faut-il TOUT miser sur le Bitcoin ?"; OpenAI/Novo Nordisk investigations | Thematic, no vol signal | Low |
+| Oseille TV | "Acheter un passeport Africain..." (08/12); expatriation/0% tax series | Wealth mgmt (Africa/tax) — PRIORITY topic, no content | Low conf — Wealth |
+| Real Vision Presents | Mining drilling results | None | Low |
+| Blog context (Investing.com/Yahoo, 10/02) | Sept NFP +29k, unemployment 4.2%; oil >$100; bond yields at 23-yr high; breadth cracking; 4 stocks ≈ half of S&P YTD gain | Cooler jobs eases Oct hike odds; rates/oil/breadth = elevated MID-HIGH vol risk | High |
