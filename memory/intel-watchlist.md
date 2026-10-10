@@ -2,19 +2,19 @@
 
 Sources monitored daily for market intelligence (regime signals + wealth mgmt).
 To add a source: ask Claude in a conversation session.
-Last updated: 2026-07-13
+Last updated: 2026-10-10
 
 ## Active Sources
 
 | ID | Source | Type | URL | Feed URL | Lang | Categories | Signal Score | Last Checked |
 |----|--------|------|-----|----------|------|------------|--------------|-------------|
-| 1 | Oseille TV | youtube | https://www.youtube.com/@oseilletv | https://www.youtube.com/feeds/videos.xml?channel_id=UC2hIOaqIHLi2qABoCRxjx_Q | FR | wealth-mgmt, entrepreneurship, expat | — | 2026-07-13 |
-| 2 | Bravos Research | youtube | https://www.youtube.com/channel/UCOHxDwCcOzBaLkeTazanwcw | https://www.youtube.com/feeds/videos.xml?channel_id=UCOHxDwCcOzBaLkeTazanwcw | EN | macro, market-signal, trade-ideas | — | 2026-07-13 |
-| 3 | Finary | youtube | https://www.youtube.com/@Finary | https://www.youtube.com/feeds/videos.xml?channel_id=UCRCCAnVyzDTcqNYh0pDcq7Q | FR | wealth-mgmt, portfolio, budgeting | — | 2026-07-13 |
-| 4 | Investing Simplified (Prof G) | youtube | https://www.youtube.com/channel/UCr4XXQznhlgfzo4mwOgkF8w | https://www.youtube.com/feeds/videos.xml?channel_id=UCr4XXQznhlgfzo4mwOgkF8w | EN | ETF, stocks, retirement, crypto | — | 2026-07-13 |
-| 5 | George Gammon | youtube | https://www.youtube.com/channel/UCpvyOqtEc86X8w8_Se0t4-w | https://www.youtube.com/feeds/videos.xml?channel_id=UCpvyOqtEc86X8w8_Se0t4-w | EN | macro, credit-cycles, monetary-policy, trade-ideas | ★★★ | 2026-07-13 |
-| 6 | IG France (Alexandre Baradez) | youtube | https://www.youtube.com/channel/UCQ0A2MqahcnKlToIJ_giSEg | https://www.youtube.com/feeds/videos.xml?channel_id=UCQ0A2MqahcnKlToIJ_giSEg | FR | macro, technical-analysis, market-daily | ★★★ | 2026-07-13 |
-| 7 | Real Vision Presents | youtube | https://www.youtube.com/channel/UCBH5VZE_Y4F3CMcPIzPEB5A | https://www.youtube.com/feeds/videos.xml?channel_id=UCBH5VZE_Y4F3CMcPIzPEB5A | EN | macro, institutional, liquidity-cycles, commodities | ★★★ | 2026-07-13 |
+| 1 | Oseille TV | youtube | https://www.youtube.com/@oseilletv | https://www.youtube.com/feeds/videos.xml?channel_id=UC2hIOaqIHLi2qABoCRxjx_Q | FR | wealth-mgmt, entrepreneurship, expat | — | 2026-10-10 |
+| 2 | Bravos Research | youtube | https://www.youtube.com/channel/UCOHxDwCcOzBaLkeTazanwcw | https://www.youtube.com/feeds/videos.xml?channel_id=UCOHxDwCcOzBaLkeTazanwcw | EN | macro, market-signal, trade-ideas | — | 2026-10-10 |
+| 3 | Finary | youtube | https://www.youtube.com/@Finary | https://www.youtube.com/feeds/videos.xml?channel_id=UCRCCAnVyzDTcqNYh0pDcq7Q | FR | wealth-mgmt, portfolio, budgeting | — | 2026-10-10 |
+| 4 | Investing Simplified (Prof G) | youtube | https://www.youtube.com/channel/UCr4XXQznhlgfzo4mwOgkF8w | https://www.youtube.com/feeds/videos.xml?channel_id=UCr4XXQznhlgfzo4mwOgkF8w | EN | ETF, stocks, retirement, crypto | — | 2026-10-10 |
+| 5 | George Gammon | youtube | https://www.youtube.com/channel/UCpvyOqtEc86X8w8_Se0t4-w | https://www.youtube.com/feeds/videos.xml?channel_id=UCpvyOqtEc86X8w8_Se0t4-w | EN | macro, credit-cycles, monetary-policy, trade-ideas | ★★★ | 2026-10-10 |
+| 6 | IG France (Alexandre Baradez) | youtube | https://www.youtube.com/channel/UCQ0A2MqahcnKlToIJ_giSEg | https://www.youtube.com/feeds/videos.xml?channel_id=UCQ0A2MqahcnKlToIJ_giSEg | FR | macro, technical-analysis, market-daily | ★★★ | 2026-10-10 |
+| 7 | Real Vision Presents | youtube | https://www.youtube.com/channel/UCBH5VZE_Y4F3CMcPIzPEB5A | https://www.youtube.com/feeds/videos.xml?channel_id=UCBH5VZE_Y4F3CMcPIzPEB5A | EN | macro, institutional, liquidity-cycles, commodities | ★★★ | 2026-10-10 |
 | 8 | Federal Reserve — Press Releases | blog | https://www.federalreserve.gov | https://www.federalreserve.gov/feeds/press_all.xml | EN | fed-policy, rates, official | ★★★ | 2026-07-13 |
 | 9 | Liberty Street Economics (NY Fed) | blog | https://libertystreeteconomics.newyorkfed.org | https://libertystreeteconomics.newyorkfed.org/feed/ | EN | macro, research, banking, liquidity | ★★★ | 2026-07-13 |
 | 10 | FRED Blog (St. Louis Fed) | blog | https://fredblog.stlouisfed.org | https://fredblog.stlouisfed.org/feed/ | EN | macro, data-explainer | ★★ | 2026-07-13 |

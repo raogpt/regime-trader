@@ -72,3 +72,22 @@ TRADE or HOLD
 | WSJ Markets (~35 remaining items) | blog | M&A/deals, opinion columns, company-specific stories (UniCredit/Commerzbank, Circle bank charter, etc.) | — | — | Low |
 | Investing.com — Stock Market News (10 items) | blog (title-only) | Single-company headlines (Q32 Bio, Ford/Unifor, Meta data center, Fraport, etc.) | — | — | Low — title-only |
 | Seeking Alpha — Market Currents (6 remaining items) | blog (title-only) | Single-company news headlines (CoreCivic, Ocugen, Gamehaus, Cathie Wood trades, etc.) | — | — | Low — title-only |
+
+## 2026-10-10 — YouTube Intel
+Scope: 77 YouTube titles published since 2026-07-13 across 6 channels (+2 Real Vision, irrelevant). **All title-only (`content_available: false`, no transcripts cached; egress IP blocked by YouTube) → every signal LOW confidence.** Blog items in the same feed (~228) NOT analyzed here — left to market-intel routine.
+
+| Channel | Video | Regime Signal | Relevance |
+|---------|-------|---------------|-----------|
+| George Gammon | "The Fed Just Made Their Biggest Mistake Since 2008" (10-07) | Fed-policy-error narrative; HIGH vol bias | Med — title-only |
+| George Gammon | "Systemic Risk Is EXPLODING..." (10-01), "Something Is About To Break" (09-26), "Global Debt Crisis Is Just A Side Show" (10-10) | Systemic-stress / credit-cycle warnings; HIGH tail risk | Med — recurring theme, clickbait-style |
+| George Gammon | "The Money Supply Is EXPLODING" (09-03), "Dollar Lose Reserve Status" (08-21) | Inflation/dollar-debasement framing | Low-Med |
+| Bravos Research | "Trump Just Announced The US Dollar's Reset" (10-09), "Monetary Reset Just Began" (10-03), "In 6 Months, It's All Over" (09-29) | Macro-reset / dollar-regime fear; HIGH vol bias | Med — title-only |
+| Bravos Research | "The Bubble's Final Phase Has Begun" (09-12) vs "Stocks Are About To Go Nuts" (08-13) | Late-cycle bubble framing; bullish-then-bearish flip = unreliable | Low |
+| Investing Simplified (Prof G) | "Everything Says Stocks Should CRASH.. So Why Aren't They?" (10-03) | Price resilient despite warnings → low realized vol / complacency | Med-High — only price-resilience signal |
+| Investing Simplified (Prof G) | "October Is Here.. What Usually Happens to Stocks" (09-29) | Seasonal vol (Oct) | Low-Med |
+| Investing Simplified (Prof G) | "Everyone Is Watching the Wrong Stock Market Warning" (09-19), "Stock Market is Set to Do the UNTHINKABLE" (09-26) | Contrarian/tail-risk | Low |
+| IG France (Baradez) | "Anthropic vise une valorisation à 2 000 Mds $ : future géant du Nasdaq ?" (09-22), "L'IA à 1 Billion $ arrive en bourse" (09-21), debate (09-23) | Mega AI IPO = QQQ/Nasdaq supply & sentiment catalyst; vol-event risk | Med |
+| IG France (Baradez) | 12x daily "MarketLive" (09-18 → 10-08) | Technical chart reads; content unknown | Low — title-only, no direction |
+| Oseille TV | "116 pays balancent vos comptes au fisc" (08-05), "Où s'expatrier... 0% d'impôts" (09-16), "Acheter un passeport Africain" (08-12) | None (wealth mgmt) | Wealth-mgmt PRIORITY (see report) |
+| Finary | "Faut-il TOUT miser sur le Bitcoin ?" (09-27), "Vous n'êtes pas prêt pour 2027" (09-23), OpenAI losses (09-16) | AI-bubble / crypto risk-appetite theme | Low |
+| Real Vision Presents | 2 mining-company videos | None | None — out of scope |
