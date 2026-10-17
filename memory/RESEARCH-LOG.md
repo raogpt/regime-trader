@@ -72,3 +72,17 @@ TRADE or HOLD
 | WSJ Markets (~35 remaining items) | blog | M&A/deals, opinion columns, company-specific stories (UniCredit/Commerzbank, Circle bank charter, etc.) | — | — | Low |
 | Investing.com — Stock Market News (10 items) | blog (title-only) | Single-company headlines (Q32 Bio, Ford/Unifor, Meta data center, Fraport, etc.) | — | — | Low — title-only |
 | Seeking Alpha — Market Currents (6 remaining items) | blog (title-only) | Single-company news headlines (CoreCivic, Ocugen, Gamehaus, Cathie Wood trades, etc.) | — | — | Low — title-only |
+
+## 2026-10-17 — YouTube Intel
+Note: `scripts/youtube_monitor.py` does not exist; used `scripts/intel_monitor.py` (same flags). 95 new YouTube items, **0 transcripts** (egress IP blocked by YouTube; queued for fetch_transcripts.py). YouTube signals below are TITLE-ONLY (low confidence). Blog items carry RSS content.
+
+| Channel | Video | Regime Signal | Relevance |
+|---------|-------|---------------|-----------|
+| George Gammon | "The Fed Just Made Their Biggest Mistake Since 2008" (10/7); "Systemic Risk Is EXPLODING" (10/1); "Something Is About To Break" (9/26) | Bearish/risk-off tone, title-only | Low conf — sensationalist framing |
+| Bravos Research | "The Entire Financial System Just Changed Forever..." (10/15); "Trump Just Announced The US Dollar's Reset..." (10/9) | Bearish macro/debt-crisis narrative, title-only | Low conf |
+| Investing Simplified | "The Stock Market Is Ignoring a HUGE Warning Sign" (10/10); "Everything Says Stocks Should CRASH.. So Why Aren't They?" (10/3); "This Market Dip is a GIFT" (10/13) | Mixed: complacency warning vs dip-buying | Low conf — implies low realized vol despite warnings |
+| IG France (Baradez) | MarketLive daily (10/13–10/15) | Unknown — title-only | Low |
+| Finary | "J'ai enquêté sur le MSCI World" (10/14), MSCI World explainer (10/16) | n/a | Wealth mgmt (global ETF education) |
+| Oseille TV | "Le paradis fiscal où vous n'êtes même pas obligé de vivre" (10/14); "Acheter un passeport Africain" (8/12) | n/a | Wealth mgmt / expat tax — PRIORITY topic (Africa) |
+| Real Vision Presents | Red Sea ep. 2–3 (10/8, 10/14) | Geopolitical/commodity context | Low |
+| Blogs (content-backed) | Investing.com: "The Case for Another Rate Hike Is Growing Stronger" (10/16), retail sales +0.8% with inflation clouding Fed outlook, USD slides as hike bets fade despite hot inflation; Seeking Alpha: Brent $110 (first since May), WTI >$100 (10/17); Ritholtz: "Top? Beware Your Confirmation Bias" (10/16); FOMC minutes Sep 15-16 released 10/7 | Oil shock + hot inflation + hawkish Fed risk = upward vol-regime pressure; equities calm (S&P -0.25% over 10/8–10/15) | **Med-High** — catalyst/macro filter relevant |
