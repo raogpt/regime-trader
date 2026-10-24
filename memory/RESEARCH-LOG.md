@@ -72,3 +72,21 @@ TRADE or HOLD
 | WSJ Markets (~35 remaining items) | blog | M&A/deals, opinion columns, company-specific stories (UniCredit/Commerzbank, Circle bank charter, etc.) | — | — | Low |
 | Investing.com — Stock Market News (10 items) | blog (title-only) | Single-company headlines (Q32 Bio, Ford/Unifor, Meta data center, Fraport, etc.) | — | — | Low — title-only |
 | Seeking Alpha — Market Currents (6 remaining items) | blog (title-only) | Single-company news headlines (CoreCivic, Ocugen, Gamehaus, Cathie Wood trades, etc.) | — | — | Low — title-only |
+
+## 2026-10-24 — YouTube Intel
+Note: pipeline now `scripts/intel_monitor.py` (youtube_monitor.py removed); first check since 2026-07-13 → 310 items. YouTube transcripts unavailable (egress CAPTCHA wall; 96 queued for off-cloud fetch) → YouTube rows are TITLE-ONLY, low confidence. Regime reads below lean on blog/news content.
+
+| Channel | Video | Regime Signal | Relevance |
+|---|---|---|---|
+| WSJ Markets + Yahoo (2 sources) | "Stock Selloff Continues as Oil Surges"; "Oil Prices Hit Five-Month High"; "Stocks Fall to End Volatile Week" (10/23) | Oil spike + Middle East escalation → inflation fear, volatile week; risk-off tilt | HIGH — vol regime shifting up |
+| Yahoo (IBD) | "S&P 500, Dow Drop As Elevated Oil Prices Stoke Inflation Fears Ahead Of Fed Meeting Next Week" | FOMC next week = catalyst within 2 days of weekend → HOLD filter applies Fri/Mon-Tue | HIGH — catalyst filter |
+| WSJ | "U.S. Tech Stocks Drop on AI Spending Concerns"; "Weak Points in AI Bonds"; "Meta's Hunt for AI Capital" | AI-capex credit worry → QQQ weaker vs SPY/IWM | HIGH — QQQ sizing |
+| WSJ / Yahoo | "Treasury Yields Rise… French Concerns"; "Blackstone Hit by Rising Rates"; Trump–Fed Chair Warsh friction | Higher yields, Fed-independence risk, European bond stress | MED-HIGH — rates/vol |
+| WSJ | "Healthcare Stocks Rallying, Flashing a Warning for the Rest of the Market" | Defensive rotation | MED — risk-off confirmation |
+| Federal Reserve | FOMC minutes (Sep 15-16) released 10/07; statement/SEP 9/16 (no body text) | Content not in feed; check manually | MED |
+| NY Fed Liberty Street | "Navigating Geoeconomic Risk in the U.S. Stock Market" (10/01) | Export-control/geo shocks hit many US stocks via common exposure — hard to diversify | LOW-MED context |
+| Bravos Research | "Something is Going Terribly Wrong at the Federal Reserve…" / "FINAL Domino in the US Debt Crisis" (title-only) | Bearish/alarmist; clickbait-grade | LOW |
+| Investing Simplified | "Next 2 Weeks Could Change Everything for Stocks"; "$7.9T in Cash"; "Market Ignoring HUGE Warning Sign" (title-only) | Event-risk/caution; high cash on sidelines | LOW |
+| George Gammon | "Stock Market Isn't Going To Crash…It's Going To RESET" (title-only) | Bearish macro-regime thesis | LOW |
+| IG France (Baradez) | MarketLive ×5 (10/13–10/23) (title-only) | Unknown | LOW |
+| Oseille TV / Finary | Succession-tax, expat/tax-haven shorts (title-only) | Wealth-mgmt, FR-centric | LOW (see report) |
