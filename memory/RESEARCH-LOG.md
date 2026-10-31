@@ -90,3 +90,24 @@ Note: pipeline now `scripts/intel_monitor.py` (youtube_monitor.py removed); firs
 | George Gammon | "Stock Market Isn't Going To Crash…It's Going To RESET" (title-only) | Bearish macro-regime thesis | LOW |
 | IG France (Baradez) | MarketLive ×5 (10/13–10/23) (title-only) | Unknown | LOW |
 | Oseille TV / Finary | Succession-tax, expat/tax-haven shorts (title-only) | Wealth-mgmt, FR-centric | LOW (see report) |
+
+## 2026-10-31 — YouTube Intel
+Note: `scripts/intel_monitor.py` used (youtube_monitor.py doesn't exist). 178 new items / 15 sources. YouTube transcripts still blocked (CAPTCHA wall; queue now 108) → YouTube rows TITLE-ONLY, low confidence. Regime reads rest on blog/news content. Watchlist file is `memory/intel-watchlist.md` (no youtube-watchlist.md).
+
+| Channel | Video | Regime Signal | Relevance |
+|---|---|---|---|
+| WSJ / Yahoo / Investing.com | "Cracks in AI Trade Power Sharp Tech Selloff"; Nasdaq worst month in 1yr+; S&P/Nasdaq 3rd straight weekly loss (10/30–31) | AI-capex cash-burn fear (Amazon miss, S&P cuts Meta outlook to negative) → tech risk-off | HIGH — QQQ weak, vol up |
+| Ritholtz (Big Picture) | "7 Surprising Market Data Points" — INTC -29.4% (worst since 1974), IWM +15.2% YTD vs SPX +10.7%, RSP beating SPX >300bp, median stock lagging | Breadth rotation out of mega-cap tech into small/equal-weight | HIGH — IWM/SPY > QQQ |
+| WSJ | "If History Repeats, Small Caps Will Win in a Landslide" (headline) | Small-cap seasonal/rotation thesis | MED |
+| WSJ | "Global Bond Yields Fall Sharply in October Amid Flight to Safety" | Flight-to-quality, risk-off | HIGH |
+| WSJ / Seeking Alpha | Oil up on Iran/Hormuz mines, Gold & silver at 1-yr lows (higher-rate fear); Iran talks | Energy/inflation shock persists; hawkish-rates risk | HIGH |
+| Investing.com | "Rise in Inflation Expectations Is Becoming Harder to Ignore"; Fitch cuts France outlook to negative | Inflation + sovereign-debt stress | MED-HIGH |
+| WSJ | Binance $6.3B hack, crypto/prediction-market suspensions | Idiosyncratic risk-off, liquidity scare | MED |
+| Investing.com / WSJ | US midterms (Tue 11/3) | Event risk inside 2-day HOLD window Mon–Tue | HIGH — catalyst filter |
+| Federal Reserve | FOMC statement 10/28 (no body text in feed) | Content unavailable — read manually | MED |
+| Bravos Research | "Biggest Stock Market Rug Pull in History Is Coming" ×2 (title-only) | Bearish/alarmist | LOW |
+| George Gammon | "Stock Market Isn't Going To Crash…It's Going To RESET" (title-only) | Bearish slow-regime thesis | LOW |
+| Investing Simplified | "S&P 500 Is Hiding a Very Different Stock Market" (title-only) | Matches Ritholtz breadth narrative | LOW-MED |
+| IG France | MarketLive (10/26, title-only) | Unknown | LOW |
+| Finary / Oseille TV | Wealth shorts: "500 €/mois", "famille la plus riche d'Afrique", "garder 10M" (title-only) | Wealth-mgmt | LOW |
+| WSJ / Yahoo / Motley Fool / Seeking Alpha (~100 items) | Single-stock earnings/deal/dividend items | — | Low — outside ETF-only mandate |

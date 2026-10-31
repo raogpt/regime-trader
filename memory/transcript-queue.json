@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T09:05:53Z",
+  "updated": "2026-10-31T09:10:18Z",
   "pending": [
     {
       "video_id": "X7ESsDQGffY",
@@ -776,6 +776,94 @@
       "lang": "EN",
       "published": "2026-09-17",
       "queued_at": "2026-10-24T09:05:53Z"
+    },
+    {
+      "video_id": "uiIKODF8Ls4",
+      "channel": "Oseille TV",
+      "title": "De z\u00e9ro \u00e0 une marque Amazon en quelques heures avec l\u2019IA",
+      "lang": "FR",
+      "published": "2026-10-27",
+      "queued_at": "2026-10-31T09:10:18Z"
+    },
+    {
+      "video_id": "7gaVcMRczFQ",
+      "channel": "Bravos Research",
+      "title": "The Biggest Stock Market Rug Pull in History Is Coming.",
+      "lang": "EN",
+      "published": "2026-10-28",
+      "queued_at": "2026-10-31T09:10:18Z"
+    },
+    {
+      "video_id": "o8-sjRWIiWs",
+      "channel": "Bravos Research",
+      "title": "The Biggest Rug Pull in History is Happening Right Now\u2026",
+      "lang": "EN",
+      "published": "2026-10-24",
+      "queued_at": "2026-10-31T09:10:18Z"
+    },
+    {
+      "video_id": "9DJ8NWufADY",
+      "channel": "Finary",
+      "title": "Avoir 10 millions, c\u2019est une chose. Les garder toute sa vie, c\u2019en est une autre. Vid\u00e9o compl\u00e8te disp",
+      "lang": "FR",
+      "published": "2026-10-30",
+      "queued_at": "2026-10-31T09:10:18Z"
+    },
+    {
+      "video_id": "uE6tQwpflmw",
+      "channel": "Finary",
+      "title": "Le secret de l'argent infini",
+      "lang": "FR",
+      "published": "2026-10-30",
+      "queued_at": "2026-10-31T09:10:18Z"
+    },
+    {
+      "video_id": "-cshQ_hU0v8",
+      "channel": "Finary",
+      "title": "La vie folle de la famille la plus riche d'Afrique",
+      "lang": "FR",
+      "published": "2026-10-28",
+      "queued_at": "2026-10-31T09:10:18Z"
+    },
+    {
+      "video_id": "TPrVIYrVPCw",
+      "channel": "Finary",
+      "title": "Le projet le plus ambitieux de ma vie",
+      "lang": "FR",
+      "published": "2026-10-26",
+      "queued_at": "2026-10-31T09:10:18Z"
+    },
+    {
+      "video_id": "mQDSMWurSCU",
+      "channel": "Finary",
+      "title": "Ce qui arrive vraiment si tu \u00e9pargnes 500 \u20ac par mois",
+      "lang": "FR",
+      "published": "2026-10-25",
+      "queued_at": "2026-10-31T09:10:18Z"
+    },
+    {
+      "video_id": "3yIP13-NlwM",
+      "channel": "Investing Simplified (Prof G)",
+      "title": "The S&P 500 Is Hiding a Very Different Stock Market",
+      "lang": "EN",
+      "published": "2026-10-27",
+      "queued_at": "2026-10-31T09:10:18Z"
+    },
+    {
+      "video_id": "PYxG2JO2d_0",
+      "channel": "Investing Simplified (Prof G)",
+      "title": "STOP Funding Your 401k?! (The Truth to Build Real Wealth)",
+      "lang": "EN",
+      "published": "2026-10-24",
+      "queued_at": "2026-10-31T09:10:18Z"
+    },
+    {
+      "video_id": "j_xHQdtdpj4",
+      "channel": "IG France (Alexandre Baradez)",
+      "title": "\ud83d\udcc8 MarketLive : Analysons les derni\u00e8res tendances graphiques des march\u00e9s | IG x Alexandre Baradez",
+      "lang": "FR",
+      "published": "2026-10-26",
+      "queued_at": "2026-10-31T09:10:18Z"
     }
   ]
 }

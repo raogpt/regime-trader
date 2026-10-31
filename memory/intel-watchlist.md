@@ -2,32 +2,32 @@
 
 Sources monitored daily for market intelligence (regime signals + wealth mgmt).
 To add a source: ask Claude in a conversation session.
-Last updated: 2026-10-24
+Last updated: 2026-10-31
 
 ## Active Sources
 
 | ID | Source | Type | URL | Feed URL | Lang | Categories | Signal Score | Last Checked |
 |----|--------|------|-----|----------|------|------------|--------------|-------------|
-| 1 | Oseille TV | youtube | https://www.youtube.com/@oseilletv | https://www.youtube.com/feeds/videos.xml?channel_id=UC2hIOaqIHLi2qABoCRxjx_Q | FR | wealth-mgmt, entrepreneurship, expat | — | 2026-10-24 |
-| 2 | Bravos Research | youtube | https://www.youtube.com/channel/UCOHxDwCcOzBaLkeTazanwcw | https://www.youtube.com/feeds/videos.xml?channel_id=UCOHxDwCcOzBaLkeTazanwcw | EN | macro, market-signal, trade-ideas | — | 2026-10-24 |
-| 3 | Finary | youtube | https://www.youtube.com/@Finary | https://www.youtube.com/feeds/videos.xml?channel_id=UCRCCAnVyzDTcqNYh0pDcq7Q | FR | wealth-mgmt, portfolio, budgeting | — | 2026-10-24 |
-| 4 | Investing Simplified (Prof G) | youtube | https://www.youtube.com/channel/UCr4XXQznhlgfzo4mwOgkF8w | https://www.youtube.com/feeds/videos.xml?channel_id=UCr4XXQznhlgfzo4mwOgkF8w | EN | ETF, stocks, retirement, crypto | — | 2026-10-24 |
-| 5 | George Gammon | youtube | https://www.youtube.com/channel/UCpvyOqtEc86X8w8_Se0t4-w | https://www.youtube.com/feeds/videos.xml?channel_id=UCpvyOqtEc86X8w8_Se0t4-w | EN | macro, credit-cycles, monetary-policy, trade-ideas | ★★★ | 2026-10-24 |
-| 6 | IG France (Alexandre Baradez) | youtube | https://www.youtube.com/channel/UCQ0A2MqahcnKlToIJ_giSEg | https://www.youtube.com/feeds/videos.xml?channel_id=UCQ0A2MqahcnKlToIJ_giSEg | FR | macro, technical-analysis, market-daily | ★★★ | 2026-10-24 |
-| 7 | Real Vision Presents | youtube | https://www.youtube.com/channel/UCBH5VZE_Y4F3CMcPIzPEB5A | https://www.youtube.com/feeds/videos.xml?channel_id=UCBH5VZE_Y4F3CMcPIzPEB5A | EN | macro, institutional, liquidity-cycles, commodities | ★★★ | 2026-10-24 |
-| 8 | Federal Reserve — Press Releases | blog | https://www.federalreserve.gov | https://www.federalreserve.gov/feeds/press_all.xml | EN | fed-policy, rates, official | ★★★ | 2026-10-24 |
-| 9 | Liberty Street Economics (NY Fed) | blog | https://libertystreeteconomics.newyorkfed.org | https://libertystreeteconomics.newyorkfed.org/feed/ | EN | macro, research, banking, liquidity | ★★★ | 2026-10-24 |
-| 10 | FRED Blog (St. Louis Fed) | blog | https://fredblog.stlouisfed.org | https://fredblog.stlouisfed.org/feed/ | EN | macro, data-explainer | ★★ | 2026-10-24 |
-| 11 | The Big Picture (Ritholtz) | blog | https://ritholtz.com | https://ritholtz.com/feed/ | EN | macro, market-commentary, sentiment | ★★ | 2026-10-24 |
-| 12 | WSJ Markets | blog | https://www.wsj.com/market-data | https://feeds.content.dowjones.io/public/rss/RSSMarketsMain | EN | market-news, breaking | ★★ | 2026-10-24 |
-| 13 | ETF Trends (VettaFi) | blog | https://www.etftrends.com | https://www.etftrends.com/feed/ | EN | ETF, rotation, SPY, QQQ, IWM | ★★★ | 2026-10-24 |
-| 14 | CNBC — Economy | blog | https://www.cnbc.com/economy/ | https://www.cnbc.com/id/20910258/device/rss/rss.html | EN | macro, fed-policy, labor-data, inflation | ★★★ | 2026-10-24 |
-| 15 | Investing.com — Market Overview | blog | https://www.investing.com | https://www.investing.com/rss/market_overview.rss | EN | macro, analysis, fed-policy, geopolitics | ★★★ | 2026-10-24 |
-| 16 | CNBC — Finance | blog | https://www.cnbc.com/finance/ | https://www.cnbc.com/id/10000664/device/rss/rss.html | EN | market-news, fed-policy, deals | ★★ | 2026-10-24 |
-| 17 | Investing.com — Stock Market News | blog | https://www.investing.com | https://www.investing.com/rss/news_25.rss | EN | market-news, sector, geopolitics | ★★ | 2026-10-24 |
-| 18 | Yahoo Finance — Market News (S&P 500) | blog | https://finance.yahoo.com | https://feeds.finance.yahoo.com/rss/2.0/headline?s=%5EGSPC&region=US&lang=en-US | EN | market-news, index-level | ★★ | 2026-10-24 |
-| 19 | Motley Fool | blog | https://www.fool.com | https://www.fool.com/feeds/index.aspx | EN | stock-picks, wealth-mgmt, sentiment | ★ | 2026-10-24 |
-| 20 | Seeking Alpha — Market Currents | blog | https://seekingalpha.com | https://seekingalpha.com/market_currents.xml | EN | market-news, earnings-calendar, movers | ★ | 2026-10-24 |
+| 1 | Oseille TV | youtube | https://www.youtube.com/@oseilletv | https://www.youtube.com/feeds/videos.xml?channel_id=UC2hIOaqIHLi2qABoCRxjx_Q | FR | wealth-mgmt, entrepreneurship, expat | — | 2026-10-31 |
+| 2 | Bravos Research | youtube | https://www.youtube.com/channel/UCOHxDwCcOzBaLkeTazanwcw | https://www.youtube.com/feeds/videos.xml?channel_id=UCOHxDwCcOzBaLkeTazanwcw | EN | macro, market-signal, trade-ideas | — | 2026-10-31 |
+| 3 | Finary | youtube | https://www.youtube.com/@Finary | https://www.youtube.com/feeds/videos.xml?channel_id=UCRCCAnVyzDTcqNYh0pDcq7Q | FR | wealth-mgmt, portfolio, budgeting | — | 2026-10-31 |
+| 4 | Investing Simplified (Prof G) | youtube | https://www.youtube.com/channel/UCr4XXQznhlgfzo4mwOgkF8w | https://www.youtube.com/feeds/videos.xml?channel_id=UCr4XXQznhlgfzo4mwOgkF8w | EN | ETF, stocks, retirement, crypto | — | 2026-10-31 |
+| 5 | George Gammon | youtube | https://www.youtube.com/channel/UCpvyOqtEc86X8w8_Se0t4-w | https://www.youtube.com/feeds/videos.xml?channel_id=UCpvyOqtEc86X8w8_Se0t4-w | EN | macro, credit-cycles, monetary-policy, trade-ideas | ★★★ | 2026-10-31 |
+| 6 | IG France (Alexandre Baradez) | youtube | https://www.youtube.com/channel/UCQ0A2MqahcnKlToIJ_giSEg | https://www.youtube.com/feeds/videos.xml?channel_id=UCQ0A2MqahcnKlToIJ_giSEg | FR | macro, technical-analysis, market-daily | ★★★ | 2026-10-31 |
+| 7 | Real Vision Presents | youtube | https://www.youtube.com/channel/UCBH5VZE_Y4F3CMcPIzPEB5A | https://www.youtube.com/feeds/videos.xml?channel_id=UCBH5VZE_Y4F3CMcPIzPEB5A | EN | macro, institutional, liquidity-cycles, commodities | ★★★ | 2026-10-31 |
+| 8 | Federal Reserve — Press Releases | blog | https://www.federalreserve.gov | https://www.federalreserve.gov/feeds/press_all.xml | EN | fed-policy, rates, official | ★★★ | 2026-10-31 |
+| 9 | Liberty Street Economics (NY Fed) | blog | https://libertystreeteconomics.newyorkfed.org | https://libertystreeteconomics.newyorkfed.org/feed/ | EN | macro, research, banking, liquidity | ★★★ | 2026-10-31 |
+| 10 | FRED Blog (St. Louis Fed) | blog | https://fredblog.stlouisfed.org | https://fredblog.stlouisfed.org/feed/ | EN | macro, data-explainer | ★★ | 2026-10-31 |
+| 11 | The Big Picture (Ritholtz) | blog | https://ritholtz.com | https://ritholtz.com/feed/ | EN | macro, market-commentary, sentiment | ★★ | 2026-10-31 |
+| 12 | WSJ Markets | blog | https://www.wsj.com/market-data | https://feeds.content.dowjones.io/public/rss/RSSMarketsMain | EN | market-news, breaking | ★★ | 2026-10-31 |
+| 13 | ETF Trends (VettaFi) | blog | https://www.etftrends.com | https://www.etftrends.com/feed/ | EN | ETF, rotation, SPY, QQQ, IWM | ★★★ | 2026-10-31 |
+| 14 | CNBC — Economy | blog | https://www.cnbc.com/economy/ | https://www.cnbc.com/id/20910258/device/rss/rss.html | EN | macro, fed-policy, labor-data, inflation | ★★★ | 2026-10-31 |
+| 15 | Investing.com — Market Overview | blog | https://www.investing.com | https://www.investing.com/rss/market_overview.rss | EN | macro, analysis, fed-policy, geopolitics | ★★★ | 2026-10-31 |
+| 16 | CNBC — Finance | blog | https://www.cnbc.com/finance/ | https://www.cnbc.com/id/10000664/device/rss/rss.html | EN | market-news, fed-policy, deals | ★★ | 2026-10-31 |
+| 17 | Investing.com — Stock Market News | blog | https://www.investing.com | https://www.investing.com/rss/news_25.rss | EN | market-news, sector, geopolitics | ★★ | 2026-10-31 |
+| 18 | Yahoo Finance — Market News (S&P 500) | blog | https://finance.yahoo.com | https://feeds.finance.yahoo.com/rss/2.0/headline?s=%5EGSPC&region=US&lang=en-US | EN | market-news, index-level | ★★ | 2026-10-31 |
+| 19 | Motley Fool | blog | https://www.fool.com | https://www.fool.com/feeds/index.aspx | EN | stock-picks, wealth-mgmt, sentiment | ★ | 2026-10-31 |
+| 20 | Seeking Alpha — Market Currents | blog | https://seekingalpha.com | https://seekingalpha.com/market_currents.xml | EN | market-news, earnings-calendar, movers | ★ | 2026-10-31 |
 
 ## Type Legend
 - `youtube` — RSS gives title + publish date. Live transcript fetch from this
