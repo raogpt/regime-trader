@@ -90,3 +90,17 @@ Note: pipeline now `scripts/intel_monitor.py` (youtube_monitor.py removed); firs
 | George Gammon | "Stock Market Isn't Going To Crash…It's Going To RESET" (title-only) | Bearish macro-regime thesis | LOW |
 | IG France (Baradez) | MarketLive ×5 (10/13–10/23) (title-only) | Unknown | LOW |
 | Oseille TV / Finary | Succession-tax, expat/tax-haven shorts (title-only) | Wealth-mgmt, FR-centric | LOW (see report) |
+
+## 2026-11-07 — YouTube Intel
+Note: `scripts/intel_monitor.py` used (youtube_monitor.py absent). 198 new items since 10/24. YouTube transcripts still unavailable (CAPTCHA wall; 25 more queued, 122 pending) → YouTube rows TITLE-ONLY, low confidence. Regime read leans on WSJ/Yahoo/Ritholtz/Investing.com.
+
+| Channel | Video | Regime Signal | Relevance |
+|---|---|---|---|
+| WSJ / Yahoo / Investing.com | "The Wild Week That Brought AI Investors to the Brink"; "Worst Week Since April 2025"; "Nasdaq … fourth straight weekly decline"; S&P fell >4% in a day (week of 11/2) | Sharp AI-led selloff after Dem midterm sweep (data-center/AI-regulation fears); systematic de-risking amplified losses → vol spike, HIGH regime | HIGH — vol regime up; QQQ most exposed |
+| WSJ / Seeking Alpha | "Stocks Mixed After Jobs Data, Muted AI Rebound"; "Brent … biggest weekly drop since pandemic"; "As tech swoon roils market, US inflation data on tap" | Strong jobs, oil war-premium unwinding; CPI/inflation data next → catalyst within 2 days possible → HOLD filter check | HIGH — catalyst filter |
+| WSJ | "Argument for Buying Treasury Bonds Still Strong"; "BOE Expected to Raise Rate" | Flight-to-bonds/yield support; global tightening | MED |
+| Fed | FOMC statement (10/28), no body text | Content not in feed | MED |
+| Bravos / Gammon | "UNTHINKABLE is About to Happen to Stocks"; "Black Swan That Will Trigger The Crash" (title-only) | Bearish/alarmist | LOW |
+| Investing Simplified | "Dips like this don't come often (DOUBLE DOWN)"; "S&P 500 Is Hiding a Very Different Stock Market" (title-only) | Contrarian dip-buy; narrow breadth | LOW |
+| Finary / Oseille TV | Lagarde leaving ECB early; 500€/mo savings; Africa's richest family (title-only) | EUR policy/wealth-mgmt | LOW |
+| IG France, Real Vision | MarketLive ×4; "When AI Controls the Money" (title-only) | Unknown | LOW |
