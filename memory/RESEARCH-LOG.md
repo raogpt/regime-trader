@@ -90,3 +90,24 @@ Note: pipeline now `scripts/intel_monitor.py` (youtube_monitor.py removed); firs
 | George Gammon | "Stock Market Isn't Going To Crash…It's Going To RESET" (title-only) | Bearish macro-regime thesis | LOW |
 | IG France (Baradez) | MarketLive ×5 (10/13–10/23) (title-only) | Unknown | LOW |
 | Oseille TV / Finary | Succession-tax, expat/tax-haven shorts (title-only) | Wealth-mgmt, FR-centric | LOW (see report) |
+
+## 2026-11-14 — YouTube Intel
+Note: `intel_monitor.py` used (youtube_monitor.py gone). 230 new items since 10/24. YouTube transcripts still IP-blocked (145 queued off-cloud) → YouTube rows TITLE-ONLY, low confidence. Feeds down today: FRED Blog, ETF Trends, CNBC ×2. No trade action; HMM gate unchanged.
+
+| Channel | Video | Regime Signal | Relevance |
+|---|---|---|---|
+| The Big Picture (Ritholtz) | "Quant Quake II? Thoughts on the Selloff" (11/09) | 11/05: S&P −4.4%, SOX −12%, VIX 16→28+ (+69.7%), Nasdaq ~12% off high; argues midterms not the cause | HIGH — HIGH-vol regime shock |
+| WSJ + Yahoo | "Nvidia Tumbles as CEO Jensen Huang Departs"; "Tech Stocks Fall as Next Week Brings Big Tests"; AMD −8.75% (11/12–13) | AI single-name shock hitting semis/tech indexes; whipsaw after 11/11 rebound | HIGH — QQQ > SPY risk |
+| WSJ / Yahoo | Nvidia earnings, Walmart/Target earnings, Anthropic IPO (Thu 11/19) next week | Catalyst cluster → 2-day HOLD filter likely binds | HIGH — catalyst filter |
+| WSJ | "US FX: Dollar Strengthens" (rate-hike expectations); "Inflation Fight May Be About to Turn Painful"; "Next Wave of Food Inflation" | Hawkish repricing; yields + dollar up | HIGH — rates/vol, IWM sensitivity |
+| WSJ | Bitcoin < $70k "risk-off mood"; gold/silver weekly losses; yen intervention warning | Cross-asset risk-off | MED-HIGH |
+| Yahoo | "S&P 500, Dow, Nasdaq End Lower… But Record Best Week Since August"; "Market Rally Shaky" | Rebound week but unstable → expect non-stable regime bars | MED-HIGH |
+| WSJ / NY Fed | "Oil Futures End Week Lower" (2nd weekly decline); "U.S. Oil Sector's Role in Restraining Prices" | Oil shock fading; soft PPI | MED — vol-dampening offset |
+| WSJ | "Don't Trust the Market's Knee-Jerk Reaction to the Midterms"; Warren to head Senate Banking | Political regime change (Dem landslide 11/03) | MED |
+| Federal Reserve | FOMC statement 10/28 (no body text); 2027 FOMC schedule revised (11/12) | Content not in feed; check manually | MED |
+| NY Fed Liberty Street | "Banking System Vulnerability: 2026 Update" (11/12) | Conclusions not in excerpt | LOW-MED context |
+| Bravos Research | "Biggest Rug Pull in History" ×2; "The UNTHINKABLE…"; "Opportunity… (Emergency Update)" (title-only) | Bearish pre-selloff, dip-buy after | LOW |
+| Investing Simplified | "S&P 500 Is Hiding a Very Different Stock Market"; "DOUBLE DOWN"; "BUYING HEAVY TODAY" (title-only) | Narrow breadth; retail dip-buying | LOW |
+| George Gammon | "Black Swan That Will Trigger The Crash"; "Fed's New Plan (Interest Rate Reset)" (title-only) | Bearish / rates uncertainty | LOW |
+| IG France (Baradez) | MarketLive ×4 (title-only) | Unknown | LOW |
+| Finary / Oseille TV | Mega-IPO "piège"; AI-bubble shorts; FR tax/offshore banking; richest family in Africa (title-only) | Wealth-mgmt (see report); no actionable UEMOA content | LOW |
