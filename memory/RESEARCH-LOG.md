@@ -111,3 +111,21 @@ Note: `intel_monitor.py` used (youtube_monitor.py gone). 230 new items since 10/
 | George Gammon | "Black Swan That Will Trigger The Crash"; "Fed's New Plan (Interest Rate Reset)" (title-only) | Bearish / rates uncertainty | LOW |
 | IG France (Baradez) | MarketLive ×4 (title-only) | Unknown | LOW |
 | Finary / Oseille TV | Mega-IPO "piège"; AI-bubble shorts; FR tax/offshore banking; richest family in Africa (title-only) | Wealth-mgmt (see report); no actionable UEMOA content | LOW |
+
+## 2026-11-21 — YouTube Intel
+Note: `intel_monitor.py` used (youtube_monitor.py gone). 194 new items since 11/14. YouTube transcripts still blocked (168 queued off-cloud) → YouTube rows TITLE-ONLY, low confidence. Feeds down: FRED Blog, ETF Trends, CNBC ×2. No positions; no trade action; HMM gate unchanged.
+
+| Channel | Video | Regime Signal | Relevance |
+|---|---|---|---|
+| Motley Fool + Yahoo + WSJ | "S&P 500 Just Entered Correction Territory"; "Worst Week Since Covid"; "Stocks Plunge as AI Trade Unwinds" (11/20–21) | S&P −8.6% wk, −3.7% Fri to 6,910 (correction, 7-day losing streak); Dow in correction; Nasdaq −5.3% Fri, negative YTD; fear gauge soaring | HIGH — HIGH-vol bearish regime |
+| WSJ / Motley Fool | "SEC Is Probing Nvidia"; CA AG subpoena; NVDA −14% Fri, −23% wk; AVGO −12% | AI single-name shock → semis/mega-cap; ~$4T AI wipeout | HIGH — QQQ > SPY risk |
+| WSJ / Yahoo | Anthropic IPO 11/19: +17% day 1, −8.5% day 2, near IPO price | Mega-IPO failed to stop the selloff; retail allocations underwater | HIGH — sentiment/capitulation |
+| WSJ | FOMC minutes (11/18) "mounting inflation concerns"; dollar 52-wk high; gold ~15-mo low on hike expectations | Hawkish Fed, no put priced; 10Y 4.91% (eased Fri) | HIGH — rates/vol, IWM headwind |
+| WSJ / Investing.com | Oil down 3rd straight week; "Cheaper Gasoline Is Coming" | Oil not a vol driver; energy/utilities only gainers | MED — offset |
+| The Big Picture (Ritholtz) | "Intraday Reversal (and downside follow thru)" (11/20); "Looking Beyond Big Tech's Turmoil" (11/15) | Gap-up-then-close-on-lows reversal on 11/19 → downside follow-through; tech vol ≠ broad weakness | MED-HIGH — technical |
+| Yahoo / Motley Fool | Goldman: S&P +26% in 12 months | Contrarian bull | MED |
+| WSJ / Ritholtz | Visa/MC/JPM data leak; AI-assisted cyberattacks; outages | New tail risk; hit financials 11/19 | LOW-MED |
+| Bravos Research | "Don't Fall For It…" (11/15) (title-only) | Anti-bounce, bearish; matched the week | LOW |
+| George Gammon | "Stock Market May Not Survive What Just Happened"; "Fed's New Plan" (title-only) | Bearish / rates | LOW |
+| Investing Simplified | "What a mess"; "6 Top Growth Stocks 2027"; "5 ETFs 2027" (title-only) | Retail dip-buying (wrong-footed) | LOW |
+| Finary / Oseille TV | AI scandal, Claude vs ChatGPT; Panama/Thailand/US-account/PEA shorts (title-only) | Wealth-mgmt (see report); no UEMOA content | LOW |
