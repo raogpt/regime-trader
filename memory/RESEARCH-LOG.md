@@ -111,3 +111,22 @@ Note: `intel_monitor.py` used (youtube_monitor.py gone). 230 new items since 10/
 | George Gammon | "Black Swan That Will Trigger The Crash"; "Fed's New Plan (Interest Rate Reset)" (title-only) | Bearish / rates uncertainty | LOW |
 | IG France (Baradez) | MarketLive ×4 (title-only) | Unknown | LOW |
 | Finary / Oseille TV | Mega-IPO "piège"; AI-bubble shorts; FR tax/offshore banking; richest family in Africa (title-only) | Wealth-mgmt (see report); no actionable UEMOA content | LOW |
+
+## 2026-11-28 — YouTube Intel
+Note: `intel_monitor.py` used. 210 new items since 11/14. YouTube transcripts still IP-blocked (180 queued off-cloud) → YouTube rows TITLE-ONLY, low confidence. Feeds down: FRED Blog, ETF Trends, CNBC ×2. No trade action; HMM gate unchanged. Catalyst: OPEC+ meeting 11/29–30 → 2-day HOLD window covers Mon 11/30.
+
+| Channel | Video | Regime Signal | Relevance |
+|---|---|---|---|
+| WSJ | "Wall Street Can't Find Its Footing in the Chaos of the New AI Trade" (Nasdaq −4.5% intraday 11/25); "Has the AI Bubble Already Burst?" | HIGH-vol persisted through 11/25 | HIGH — vol regime |
+| WSJ / Ritholtz | Huang ousted then reinstated (govt input); CA AG subpoena; probes, Capitol Hill | Single-name governance shock in top index weight | HIGH — QQQ/SPY headline risk |
+| Yahoo / WSJ / Motley Fool | Best week >1yr (S&P, Nasdaq); Dow best since 10/2022; 11/27 SPX +1.60%, NDX +2.61% | Sharp risk-on rebound; QQQ beta > SPY | HIGH — likely regime transition, unstable bars |
+| Investing.com / Ritholtz | "Thin Liquidity Raises False Breakout Risks"; "Nvidia Squeeze, Vol Spike and Short Losses" | Rebound partly short covering on holiday liquidity | MED-HIGH — don't trust stability yet |
+| Investing.com / Yahoo | GDP 4.3% → aggressive Fed risk; long-end yields 5.29%; ECB signals hikes; Fed AI-financing worry | Hawkish rates | HIGH — IWM most sensitive |
+| WSJ / Motley Fool | Bitcoin < $60k; gold/silver surge 11/27; OPEC+ meeting weekend | Crypto risk-off; metals rebound; oil catalyst | MED |
+| WSJ | Situational Awareness −65% Q3; Citi $35B RWA error; tech outages; card-data leak | Pockets of financial stress | MED |
+| Motley Fool / Yahoo | Anthropic/SpaceX broke IPO price then rebounded; Anthropic unlock Dec 15 | Supply/sentiment catalyst | MED — catalyst calendar |
+| Federal Reserve | FOMC minutes Oct 27–28 (11/18, no body text) | Content not in feed; read manually | MED |
+| Bravos Research | "Once in a Lifetime Market Reset"; "Bubble's Final Phase Has Begun" (title-only) | Bearish / blow-off | LOW |
+| George Gammon | "Market May Not Survive What Just Happened"; "Worse Than A Crash" (title-only) | Bearish systemic | LOW |
+| Investing Simplified | "MAJOR Stock Sell-Off Begins.. (My Buy Plan)"; "Only 5 ETFs you NEED 2027" (title-only) | Selloff + dip-buy | LOW |
+| Finary / Oseille TV | Low-yield savings; ETF explainer; Huang return; Panama/Japan tax residency; foreign-account declaration (title-only) | Wealth mgmt; no UEMOA content | LOW |
